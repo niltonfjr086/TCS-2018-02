@@ -4,8 +4,11 @@
   <artifactId>tcs-2018-02</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  <name>tcs-2018-02</name>
+  
   <build>
     <sourceDirectory>src</sourceDirectory>
+    <finalName>tcs-2018-02</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
@@ -20,8 +23,10 @@
         <version>3.0.0</version>
         <configuration>
           <warSourceDirectory>WebContent</warSourceDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
         </configuration>
       </plugin>
     </plugins>
   </build>
+  
 </project>
