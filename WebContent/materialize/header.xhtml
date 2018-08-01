@@ -8,30 +8,35 @@
 
 <body>
 	<ui:composition>
+		<h:form>
+		
+			<div class="navbar-fixed">
+				<nav class="teal darken-3" role="navigation">
+				<div class="nav-wrapper container">
 
-		<nav class="teal darken-3 navbar-fixed" role="navigation">
-		<div class="nav-wrapper container">
 
+					<a id="logo-container" href="index.xhtml" class="brand-logo">SEU VALOR</a>
 
-			<a id="logo-container" href="#" class="brand-logo">SEU VALOR</a>
+					<ul class="right hide-on-med-and-down">
+						<li><a href="index.xhtml">Home</a></li>
+						<li><h:commandLink action="login_page.xhtml" value="Login"
+								rendered="#{true}" /></li>
+					</ul>
 
-			<ul class="right hide-on-med-and-down">
+					<a href="#" data-target="nav-mobile" class="sidenav-trigger"> <i class="material-icons">menu</i></a>
+					
+				</div>
+				</nav>
+			</div>
+			
+			<ul id="nav-mobile" class="sidenav">
+
 				<li><a href="index.xhtml">Home</a></li>
-				<li><a href="login_page.xhtml">Login</a></li>
+				<li><h:commandLink action="login_page.xhtml" value="Login" rendered="#{true}" /></li>
+
 			</ul>
-
-			<a href="#" data-target="nav-mobile" class="sidenav-trigger"> <i
-				class="material-icons">menu</i>
-			</a>
-		</div>
-		</nav>
-		<ul id="nav-mobile" class="sidenav">
-
-			<li><a href="index.xhtml">Home</a></li>
-			<li><a href="login_page.xhtml">Login</a></li>
-
-		</ul>
-
+			
+		</h:form>
 	</ui:composition>
 
 </body>

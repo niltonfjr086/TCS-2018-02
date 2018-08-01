@@ -11,10 +11,11 @@
 //		
 //}); // end of document ready
 
-(function($){
-  $(function(){
+(($)=>{
+  $(()=>{
 
     $('.sidenav').sidenav();
+    $('ul.tabs').tabs(); // {swipeable : true}
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
