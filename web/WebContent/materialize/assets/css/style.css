@@ -17,7 +17,11 @@
 }
 .custom-background {
 /*     background-image: url(https://sustainability.uic.edu/files/2013/11/recycle-number-symbols.png); */
-    background-color: #f9fbe7;
+    background-color: #f7f7f9;
+}
+
+.custom-primary-color {
+    background-color: #707079;
 }
 
 .full-width {
