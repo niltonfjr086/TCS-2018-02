@@ -1,0 +1,39 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.opacity-m{
+	opacity: 0.5;
+}
+.custom-background {
+/*     background-image: url(https://sustainability.uic.edu/files/2013/11/recycle-number-symbols.png); */
+    background-color: #f7f7f9;
+}
+
+.custom-primary-color {
+    background-color: #707079;
+}
+
+.full-width {
+	width:95%;
+}
+
+.justificado {
+	text-align: justify;
+}
+
+
+#email {
+	text-transform: lowercase;
+}
+
