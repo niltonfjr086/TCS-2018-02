@@ -20,8 +20,8 @@ INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` VALUES('Celular Corporativo', '(##
 -- INSERTS tb_tipo_usuario
 -- -----------------------------------------------------
 INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` VALUES('Admin');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` VALUES('Ofertante');
 INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` VALUES('Demandante');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` VALUES('Ofertante');
 
 -- -----------------------------------------------------
 -- INSERTS tb_status_pedido
@@ -61,12 +61,12 @@ INSERT INTO `tcs_seu_valor`.`tb_ramo` VALUES('Eletrônico');
 -- -----------------------------------------------------
 
 -- Educação
-INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Inglês', 1);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Espanhol', 1);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Aula de Inglês', 1);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Aula de Espanhol', 1);
 
 -- Alimento
-INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('', 2);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('', 2);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Japonês', 2);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Tailandês', 2);
 
 -- Esporte
 INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('Futebol', 3);
@@ -107,3 +107,14 @@ INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('', 11);
 -- Eletrônico
 INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('', 12);
 INSERT INTO `tcs_seu_valor`.`tb_nicho` VALUES('', 12);
+
+
+-- -----------------------------------------------------
+-- INSERTS tb_unidade_medida
+-- -----------------------------------------------------
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Hora');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Dia');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Metro');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Quilograma');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Litro');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` VALUES('Outro');

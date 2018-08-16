@@ -118,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `demandante` BIGINT NOT NULL, FOREIGN KEY (`demandante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
     `ofertante` BIGINT, FOREIGN KEY (`ofertante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
-    `status` BIGINT DEFAULT 1, FOREIGN KEY (`status`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
-    `dt_abertura` DATE NOT NULL,
-    `dt_fechamento` DATE
+    `status_pedido` BIGINT DEFAULT 1, FOREIGN KEY (`status`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
+    `dt_abertura` DATETIME DEFAULT NOW(),
+    `dt_fechamento` DATETIME
 
     ) ENGINE = InnoDB;
 
@@ -154,7 +154,17 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_nicho` (
     `ramo` BIGINT NOT NULL, FOREIGN KEY (`ramo`) REFERENCES `tcs_seu_valor`.`tb_ramo` (`id`)
 
     ) ENGINE = InnoDB;
+    
+-- -----------------------------------------------------
+-- Table `tcs_seu_valor`.`tb_unidade_medida`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_unidade_medida` (
 
+	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+    `nome` VARCHAR(30) NOT NULL
+
+    ) ENGINE = InnoDB;
+    
 -- -----------------------------------------------------
 -- Table `tcs_seu_valor`.`tb_item`
 -- -----------------------------------------------------
@@ -164,6 +174,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_item` (
     `tipo` BIGINT NOT NULL, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_oferta` (`id`),
     `nicho` BIGINT NOT NULL, FOREIGN KEY (`nicho`) REFERENCES `tcs_seu_valor`.`tb_nicho` (`id`),
     `nome` VARCHAR(30) NOT NULL,
+    `unidade_medida` BIGINT NOT NULL, FOREIGN KEY (`unidade_medida`) REFERENCES `tcs_seu_valor`.`tb_unidade_medida` (`id`),
     `valor` INT NOT NULL
 
     ) ENGINE = InnoDB;
