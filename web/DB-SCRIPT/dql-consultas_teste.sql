@@ -1,17 +1,18 @@
 -- CONSULTAS BÁSICAS INICIAIS DE TESTE
+USE tcs_seu_valor;
 
-SELECT * FROM tb_tipo_pessoa;
-
-
-SELECT * FROM tb_pessoa WHERE tipo=1;
-SELECT COUNT(*) FROM tb_pessoa WHERE tipo=2;
+SELECT * FROM tcs_seu_valor.tb_tipo_pessoa;
 
 
-SELECT * FROM tb_endereco;
+SELECT * FROM tcs_seu_valor.tb_pessoa WHERE tipo=1;
+SELECT COUNT(*) FROM tcs_seu_valor.tb_pessoa WHERE tipo=2;
 
 
-SELECT tb_tipo_pessoa.chave, tb_pessoa.documento, tb_pessoa.nome -- *
-FROM tb_pessoa INNER JOIN tb_tipo_pessoa
-ON tb_pessoa.tipo = tb_tipo_pessoa.id
--- WHERE tb_pessoa.tipo = 1
-ORDER BY tb_tipo_pessoa.id;
+SELECT * FROM tcs_seu_valor.tb_endereco;
+
+
+SELECT tcs_seu_valor.tb_tipo_pessoa.chave, tcs_seu_valor.tb_pessoa.documento, tcs_seu_valor.tb_pessoa.nome -- *
+FROM tcs_seu_valor.tb_pessoa INNER JOIN tcs_seu_valor.tb_tipo_pessoa
+ON tcs_seu_valor.tb_pessoa.tipo = tcs_seu_valor.tb_tipo_pessoa.id
+-- WHERE tcs_seu_valor.tb_pessoa.tipo = 1
+ORDER BY tcs_seu_valor.tb_tipo_pessoa.id;
