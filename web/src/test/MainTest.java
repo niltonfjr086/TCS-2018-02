@@ -30,37 +30,39 @@ public class MainTest {
 
 		PessoaFisica pf = new PessoaFisica();
 		PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();
-//		 pf.setDocumento("000.000.000-00");
-//		 pf.setNome("João Silva");
-//		 pfDAO.insert(pf);
-		
+		 pf.setDocumento("000.000.000-00");
+		 pf.setNome("João Silva");
+		 pfDAO.insert(pf);
+
 		System.out.println(pfDAO.findById(1L).getConfiguracao());
 
 		Endereco e = new Endereco();
 		EnderecoDAO eDAO = new EnderecoDAO();
-//		 e.setPais("Brasil");
-//		 e.setCep("88088-888");
-//		 e.setEstado("Santa Catarina");
-//		 e.setMunicipio("Florianópolis");
-//		 e.setLogradouro("Av. Mauro Ramos");
-//		 e.setNumero(2020);
-//		 e = eDAO.insert(e);
-//		 pf = pfDAO.findById(1L);
-//		 pf.setEndereco(e);
-//		 pfDAO.save(pf);
+		 e.setPais("Brasil");
+		 e.setCep("88088-888");
+		 e.setEstado("Santa Catarina");
+		 e.setMunicipio("Florianópolis");
+		 e.setLogradouro("Av. Mauro Ramos");
+		 e.setNumero(2020);
+		 e = eDAO.insert(e);
+		 pf = pfDAO.findById(1L);
+		 pf.setEndereco(e);
+		 pfDAO.save(pf);
 
 		PessoaJuridica pj = new PessoaJuridica();
 		PessoaJuridicaDAO pjDAO = new PessoaJuridicaDAO();
-//		 pj.setDocumento("00.000.000/0000-00");
-//		 pj.setNome("AllSmartTech Soluções IOT e Mobile Ltda.");
-		// pjDAO.insert(pj);
-		
-		// pf = new PessoaFisica();
-		// pf.setDocumento("111.111.111-11");
-		// pf.setNome("Marcos Fereira");
-		// pfDAO.insert(pf);
+		pj.setDocumento("00.000.000/0000-00");
+		pj.setNome("AllSmartTech Soluções IOT e Mobile Ltda.");
+		pjDAO.insert(pj);
 
-//		System.out.println(pjDAO.findById(2L));
+		System.out.println(pjDAO.findById(2L));
+
+		
+		pf = new PessoaFisica();
+		pf.setDocumento("111.111.111-11");
+		pf.setNome("Marcos Fereira");
+		pfDAO.insert(pf);
+
 	}
 
 }
