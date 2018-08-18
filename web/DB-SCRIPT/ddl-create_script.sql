@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pessoa` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `nome` VARCHAR(100) NOT NULL,
-    `identidade` VARCHAR(30) NOT NULL,
+    `documento` VARCHAR(18) UNIQUE NOT NULL,
     `tipo` BIGINT, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_pessoa` (`id`),
     `endereco` BIGINT, FOREIGN KEY (`endereco`) REFERENCES `tcs_seu_valor`.`tb_endereco` (`id`)
 
@@ -117,8 +117,10 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `demandante` BIGINT NOT NULL, FOREIGN KEY (`demandante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
+    `nota_para_demandante` INT,
     `ofertante` BIGINT, FOREIGN KEY (`ofertante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
-    `status_pedido` BIGINT DEFAULT 1, FOREIGN KEY (`status`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
+    `nota_para_ofertante` INT,
+    `status_pedido` BIGINT DEFAULT 1, FOREIGN KEY (`status_pedido`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
     `dt_abertura` DATETIME DEFAULT NOW(),
     `dt_fechamento` DATETIME
 
