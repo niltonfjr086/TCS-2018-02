@@ -4,12 +4,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 
 import model.dao.EnderecoDAO;
 import model.dao.PessoaFisicaDAO;
 import model.dao.PessoaJuridicaDAO;
 import model.dao.TipoPessoaDAO;
 import model.entity.Endereco;
+import model.entity.Pessoa;
 import model.entity.PessoaFisica;
 import model.entity.PessoaJuridica;
 import model.entity.TipoPessoa;
@@ -61,7 +64,15 @@ public class MainTest {
 		pf = new PessoaFisica();
 		pf.setDocumento("111.111.111-11");
 		pf.setNome("Marcos Fereira");
-		pfDAO.insert(pf);
+		pf = pfDAO.insert(pf);
+		
+		List<Pessoa> lista = new LinkedList<>();
+		lista.addAll(pfDAO.findAll());
+		lista.addAll(pjDAO.findAll());
+		
+		System.out.println(lista);
+		
+		pfDAO.delete(pf.getId());
 
 	}
 

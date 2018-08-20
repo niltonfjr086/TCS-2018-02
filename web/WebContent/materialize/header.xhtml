@@ -9,34 +9,38 @@
 <body>
 	<ui:composition>
 		<h:form>
-		
+
 			<div class="navbar-fixed">
 				<nav class="custom-primary-color" role="navigation">
 				<div class="nav-wrapper container">
 
 
-					<a id="logo-container" href="index.xhtml" class="brand-logo">SEU VALOR</a>
+					<a id="logo-container" href="index.xhtml" class="brand-logo">
+						SV </a>
 
 					<ul class="right hide-on-med-and-down">
-						<li><a href="index.xhtml">Home</a></li>
-						<li><h:commandLink action="login_page.xhtml" value="Login"
+						<li><a href="index.xhtml" class="blue-text text-lighten-5">Home</a></li>
+						<li><h:commandLink action="login_page.xhtml" value="Login" class="blue-text text-lighten-5"
 								rendered="#{true}" /></li>
 					</ul>
 
-					<a href="#" data-target="nav-mobile" class="sidenav-trigger"> <i class="material-icons">menu</i></a>
-					
+					<a href="#" data-target="nav-mobile" class="sidenav-trigger"> <i
+						class="material-icons">menu</i></a>
+
 				</div>
 				</nav>
 			</div>
-			
-			<ul id="nav-mobile" class="sidenav">
 
-				<li><a href="index.xhtml">Home</a></li>
-				<li><h:commandLink action="login_page.xhtml" value="Login" rendered="#{true}" /></li>
+			<ul id="nav-mobile" class="sidenav custom-primary-color">
+
+				<li><a href="index.xhtml" class="blue-text text-lighten-5">Home</a></li>
+				<li><h:commandLink action="login_page.xhtml" value="Login" class="blue-text text-lighten-5"
+						rendered="#{true}" /></li>
 
 			</ul>
-			
+
 		</h:form>
+
 	</ui:composition>
 
 </body>

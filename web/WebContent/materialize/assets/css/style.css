@@ -1,31 +1,36 @@
 /* Custom Stylesheet */
 /**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
+ * Use this file to override files so you can update
+ * the core files in the future
  *
- * Made By MaterializeCSS.com
+ * Made By Us
  */
-
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-	font-size: inherit;
-}
-.opacity-m{
+.opacity-m {
 	opacity: 0.5;
 }
+
 .custom-background {
-/*     background-image: url(https://sustainability.uic.edu/files/2013/11/recycle-number-symbols.png); */
-    background-color: #f7f7f9;
+	/*     background-image: url(https:.png); */
+	background-color: #e3f2fd;
 }
 
 .custom-primary-color {
-    background-color: #707079;
+	background-color: #1a237e;
+	opacity: 0.9;
+}
+
+.box-color{
+	background-color: #e3f2fd;
+	color: #1a237e;
+}
+
+.i-box-color{
+	background-color: #1a237e;
+	color: #e3f2fd;
 }
 
 .full-width {
-	width:95%;
+	width: 100%;
 }
 
 .justificado {
@@ -33,7 +38,62 @@
 }
 
 
-#email {
-	text-transform: lowercase;
+/* Parallax Template Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+  color: #e3f2fd;
+  
 }
 
+p {
+  line-height: 2rem;
+}
+
+.sidenav-trigger {
+  color: #e3f2fd;
+	opacity: 0.95;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+footer.page-footer {
+  margin: 0;
+}

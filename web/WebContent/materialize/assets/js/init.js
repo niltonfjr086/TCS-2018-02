@@ -16,6 +16,7 @@
 
     $('.sidenav').sidenav();
     $('ul.tabs').tabs(); // {swipeable : true}
+    $('.parallax').parallax();
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
@@ -35,6 +36,7 @@ Esses caracteres não devem ser usados como elemento, e devem ser "escapados":
 >, use &gt;
  
  */
+
 
 // http://maozinhadaweb.blogspot.com.br/2014/01/mascara-generica-para-campos-numericos.html
 function mascaraGenerica(evt, campo, padrao) {  
