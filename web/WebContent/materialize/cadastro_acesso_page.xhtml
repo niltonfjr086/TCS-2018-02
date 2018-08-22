@@ -17,8 +17,8 @@
 				<div class="row">
 					<div class="input-field col s12 m12 l12">
 						<i class="material-icons prefix">account_circle</i>
-						<h:inputText id="nome" name="nome" type="text"
-							class="validate" required="required" maxlength="30">
+						<h:inputText id="nome" name="nome" type="text" class="validate"
+							required="required" maxlength="30">
 
 							<f:ajax event="change" />
 						</h:inputText>
@@ -36,6 +36,27 @@
 							<f:ajax event="change" />
 						</h:inputText>
 						<h:outputLabel for="documento" value="CPF/CNPJ" />
+
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="input-field col s12 m12 l12">
+
+						<label for="tipo-pessoa" class="col s12 m12 l12">Tipo de
+							Pessoa</label>
+						<h:selectOneMenu id="tipo-pessoa"
+							value="#{cadastroAcessoController.usuario.pessoa.tipoPessoa}"
+							converter="tipoPessoaConverter" required="true"
+							class="browser-default col s12 m12 l12 background z-depth-1"
+							disabled="#{cadastroAcessoController.logado}"
+							valueChangeListener="#{cadastroAcessoController.defineDoc}">
+
+							<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+							<f:ajax event="change" render="doc doc_label" />
+						</h:selectOneMenu>
 
 					</div>
 				</div>

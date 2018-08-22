@@ -12,7 +12,10 @@
 
 			<h:form id="formulario_login" method="post" action="#"
 				class="row center" style="max-width:500px;">
-<br/><br/><br/><br/>
+				<br />
+				<br />
+				<br />
+				<br />
 				<div class="row">
 					<div class="input-field col s12 m12 l12">
 						<i class="material-icons prefix">account_circle</i>
@@ -43,11 +46,11 @@
 
 				<div class="row">
 					<h:commandButton type="submit" value="Entrar"
-						class="btn box-color waves-effect" />
+						class="btn box-color waves-effect"
+						actionListener="#{loginController.validar()}" />
 				</div>
 				<div class="row">
-					<a class="waves-effect box-color"
-						href="formulario_cadastro_page.xhtml">Cadastrar</a>
+					<a class="waves-effect box-color" href="cadastro_acesso_page.xhtml">Cadastrar</a>
 				</div>
 
 			</h:form>

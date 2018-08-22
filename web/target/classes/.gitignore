@@ -1,3 +1,5 @@
 /model/
 /test/
 /hibernate.cfg.xml
+/converter/
+/controller/
