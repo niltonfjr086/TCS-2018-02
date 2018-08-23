@@ -96,7 +96,11 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_usuario` (
     `tipo` BIGINT NOT NULL, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_usuario` (`id`),
     `login` VARCHAR(100) NOT NULL,
     `senha` VARCHAR(30) NOT NULL,
-    `pessoa` BIGINT NOT NULL, FOREIGN KEY (`pessoa`) REFERENCES `tcs_seu_valor`.`tb_pessoa` (`id`)
+    `pessoa` BIGINT NOT NULL, FOREIGN KEY (`pessoa`) REFERENCES `tcs_seu_valor`.`tb_pessoa` (`id`),
+    `media_demandada` DOUBLE,
+    `quantidade_demandada` INT,
+    `media_ofertada` DOUBLE,
+    `quantidade_ofertada` INT
     
     ) ENGINE = InnoDB;
     
@@ -118,8 +122,10 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `demandante` BIGINT NOT NULL, FOREIGN KEY (`demandante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
     `nota_para_demandante` INT,
+    `comentario_para_demandante` VARCHAR(100),
     `ofertante` BIGINT, FOREIGN KEY (`ofertante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
     `nota_para_ofertante` INT,
+    `comentario_para_ofertante` VARCHAR(100),
     `status_pedido` BIGINT DEFAULT 1, FOREIGN KEY (`status_pedido`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
     `dt_abertura` DATETIME DEFAULT NOW(),
     `dt_fechamento` DATETIME

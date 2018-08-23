@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+
+<!-- <!DOCTYPE hibernate-configuration PUBLIC -->
+<!-- "-//Hibernate/Hibernate Configuration DTD 3.0//EN" -->
+<!-- "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> -->
+
+<hibernate-configuration>
+	<session-factory>
+
+		<!-- DATABASES: tcs_seu_valor | mysql -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/tcs_seu_valor</property>
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+
+		<property name="hibernate.connection.username">root</property>
+		<property name="connection.password">mysql</property>
+
+		<property name="hibernate.show_sql">true</property>
+
+		<!-- create | update | validate | create-drop -->
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+
+		<mapping class="model.entity.Pessoa" />
+		<mapping class="model.entity.TipoPessoa" />
+		<mapping class="model.entity.PessoaFisica" />
+		<mapping class="model.entity.PessoaJuridica" />
+		<mapping class="model.entity.Endereco" />
+
+		<!-- <mapping class="model.entity.Perfil" /> -->
+		<!-- <mapping class="model.entity.Usuario" /> -->
+		<!-- <mapping class="model.entity.ItemProduto" /> -->
+		<!-- <mapping class="model.entity.Produto" /> -->
+
+
+	</session-factory>
+</hibernate-configuration>
