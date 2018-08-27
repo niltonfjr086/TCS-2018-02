@@ -1,15 +1,10 @@
 package model.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -34,11 +29,12 @@ public class TipoPessoa extends BaseEntity {
 	@Column(nullable = false)
 	private Integer limite;
 
-	@Column(nullable = false)
-	@OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH }, mappedBy = "tipoPessoa", fetch = FetchType.EAGER)
-	private List<Pessoa> pessoas;
+	// @Column(nullable = false)
+	// @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+	// CascadeType.REFRESH, CascadeType.DETACH }, mappedBy = "tipoPessoa", fetch =
+	// FetchType.EAGER)
+	// private List<Pessoa> pessoas;
 
-	
 	public TipoPessoa() {
 		super();
 	}
@@ -81,14 +77,6 @@ public class TipoPessoa extends BaseEntity {
 
 	public void setLimite(Integer limite) {
 		this.limite = limite;
-	}
-
-	public List<Pessoa> getPessoas() {
-		return pessoas;
-	}
-
-	public void setPessoas(List<Pessoa> pessoas) {
-		this.pessoas = pessoas;
 	}
 
 }

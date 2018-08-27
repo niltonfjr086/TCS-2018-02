@@ -43,6 +43,11 @@ public abstract class Pessoa extends BaseEntity {
 	@JoinColumn(name = "endereco")
 	private Endereco endereco;
 
+	// @Column(nullable = false)
+	// @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+	// CascadeType.REFRESH,
+	// CascadeType.DETACH }, mappedBy = "tipoUsuario", fetch = FetchType.EAGER)
+	// private List<Usuario> usuarios;
 
 	public Pessoa() {
 		super();
@@ -79,7 +84,7 @@ public abstract class Pessoa extends BaseEntity {
 	protected void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
-	
+
 	public TipoPessoa getConfiguracao() {
 		return tipoPessoa;
 	}

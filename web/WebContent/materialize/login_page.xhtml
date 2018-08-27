@@ -12,12 +12,9 @@
 
 			<h:form id="formulario_login" method="post" action="#"
 				class="row center" style="max-width:500px;">
-				<br />
-				<br />
-				<br />
-				<br />
-				<div class="row">
-					<div class="input-field col s12 m12 l12">
+
+				<div class="row top-padding">
+					<div class="input-field col s12 m12 l12 top-padding">
 						<i class="material-icons prefix">account_circle</i>
 						<h:inputText id="apelido" name="apelido" type="text"
 							class="validate" required="required" maxlength="30">
@@ -45,36 +42,43 @@
 
 
 				<div class="row">
-					<h:commandButton type="button" value="Entrar"
-						class="btn box-color waves-effect" data-target="modal1"
-						actionListener="#{loginController.validar()}" />
-				</div>
-				<div class="row">
-					<h:commandLink value="Entrar..."
-						class="btn box-color waves-effect" data-target="modal1"
+					<h:commandButton type="submit" value="Entrar"
+						class="btn box-color waves-effect"
 						actionListener="#{loginController.validar()}" />
 				</div>
 				<div class="row">
 					<a class="waves-effect box-color" href="cadastro_acesso_page.xhtml">Cadastrar</a>
 				</div>
 
-
+				
+				
+				
+				<div class="row">
+					<h:commandButton type="button"
+						onclick="abreModal('confirmar_exclusao');"
+						data-target="confirmar_exclusao" value="Excluir" />
+				</div>
+				<!-- Modal -->
+				<div id="confirmar_exclusao" class="modal">
+						<div class="modal-content">
+							<h4>Deseja excluir?</h4>
+							<p>Ao confirmar você estará apagando os dados do banco de
+								dados</p>
+						</div>
+						<div class="modal-footer">
+							<h:commandButton type="submit"
+								class="modal-close waves-effect waves-green btn-flat"
+								actionListener="#{loginController.apagar()}" value="Sim" />
+							<a href="" class="modal-close waves-effect waves-green btn-flat">Não</a>
+						</div>
+				</div>
 				<!-- Modal Trigger -->
 				<!-- 				<button data-target="modal1" class="btn modal-trigger">Modal</button> -->
-				<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+				<!-- 				<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a> -->
 
-				<!-- Modal Structure -->
-				<div id="modal1" class="modal">
-					<div class="modal-content">
-						<h4>Confirme seus dados</h4>
-						<p>Você digitou algo errado que não está certo</p>
-					</div>
-					<div class="modal-footer">
-						<a href="#" class="modal-close waves-effect waves-green btn-flat">OK</a>
-					</div>
-				</div>
+
+
 			</h:form>
-
 
 
 		</ui:define>

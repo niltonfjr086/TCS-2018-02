@@ -16,3 +16,6 @@ FROM tcs_seu_valor.tb_pessoa INNER JOIN tcs_seu_valor.tb_tipo_pessoa
 ON tcs_seu_valor.tb_pessoa.tipo = tcs_seu_valor.tb_tipo_pessoa.id
 -- WHERE tcs_seu_valor.tb_pessoa.tipo = 1
 ORDER BY tcs_seu_valor.tb_tipo_pessoa.id;
+
+
+SELECT * FROM tcs_seu_valor.tb_tipo_usuario;
