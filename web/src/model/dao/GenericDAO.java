@@ -17,7 +17,7 @@ import org.hibernate.metadata.ClassMetadata;
 
 import model.filter.FilterBuilder;
 
-import static model.FactoryDAO.sessionInstance;
+import static model.FactoryDAO.openInstance;
 
 public class GenericDAO<T, PK> {
 
@@ -43,13 +43,13 @@ public class GenericDAO<T, PK> {
 
 	public T insert(T entity) {
 		try {
-			sessionInstance().beginTransaction();
-			sessionInstance().persist(entity);
-			sessionInstance().refresh(entity);
-			sessionInstance().getTransaction().commit();
+			openInstance().beginTransaction();
+			openInstance().persist(entity);
+			openInstance().refresh(entity);
+			openInstance().getTransaction().commit();
 
 		} catch (Exception e) {
-			sessionInstance().getTransaction().rollback();
+			openInstance().getTransaction().rollback();
 			throw e;
 		} finally {
 			// closeInstance();
@@ -59,12 +59,12 @@ public class GenericDAO<T, PK> {
 
 	public T save(T entity) {
 		try {
-			sessionInstance().beginTransaction();
-			sessionInstance().merge(entity);
-			sessionInstance().getTransaction().commit();
+			openInstance().beginTransaction();
+			openInstance().merge(entity);
+			openInstance().getTransaction().commit();
 
 		} catch (Exception e) {
-			sessionInstance().getTransaction().rollback();
+			openInstance().getTransaction().rollback();
 			throw e;
 		} finally {
 			// closeInstance();
@@ -74,16 +74,16 @@ public class GenericDAO<T, PK> {
 
 	public void delete(PK pk) {
 		try {
-			sessionInstance().beginTransaction();
+			openInstance().beginTransaction();
 
 			T entity = findById(pk);
 
-			sessionInstance().remove(entity);
-			sessionInstance().getTransaction().commit();
+			openInstance().remove(entity);
+			openInstance().getTransaction().commit();
 			// return true;
 
 		} catch (Exception e) {
-			sessionInstance().getTransaction().rollback();
+			openInstance().getTransaction().rollback();
 			throw e;
 
 		} finally {
@@ -93,7 +93,7 @@ public class GenericDAO<T, PK> {
 	}
 
 	public Object executeQuery(String query, Object... params) {
-		Query createQuery = sessionInstance().createQuery(query);
+		Query createQuery = openInstance().createQuery(query);
 
 		for (int i = 0; i < params.length; i++) {
 			createQuery.setParameter(i, params[i]);
@@ -105,7 +105,7 @@ public class GenericDAO<T, PK> {
 	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 
-		List<T> retorno = sessionInstance().createQuery(("FROM " + this.manipulada.getName())).getResultList();
+		List<T> retorno = openInstance().createQuery(("FROM " + this.manipulada.getName())).getResultList();
 		// closeInstance();
 
 		return retorno;
@@ -259,7 +259,7 @@ public class GenericDAO<T, PK> {
 		T retorno;
 
 		try {
-			retorno = (T) sessionInstance().find(this.manipulada, pk);
+			retorno = (T) openInstance().find(this.manipulada, pk);
 		} catch (Exception e) {
 			throw e;
 		} finally {

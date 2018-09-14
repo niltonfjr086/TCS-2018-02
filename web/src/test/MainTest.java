@@ -1,79 +1,63 @@
 package test;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.LinkedList;
-import java.util.List;
+import org.junit.BeforeClass;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.After;
+import org.junit.Test;
 
-import model.dao.EnderecoDAO;
-import model.dao.PessoaFisicaDAO;
-import model.dao.PessoaJuridicaDAO;
-import model.dao.TipoPessoaDAO;
-import model.entity.Endereco;
-import model.entity.Pessoa;
-import model.entity.PessoaFisica;
-import model.entity.PessoaJuridica;
-import model.entity.TipoPessoa;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
+/**
+ * 
+ * @author main - Classe exemplo inicial para os casos de teste
+ *
+ */
 public class MainTest {
 
-	public static void main(String[] args) {
+	@BeforeClass
+	public static void beforeAllTests() {
+		System.out.println("BEFORE ALL");
+	}
 
-		String dtFromDB = "01/06/2018 21:35:43";
-		StringBuilder date = new StringBuilder(dtFromDB);
+	@AfterClass
+	public static void afterAllTests() {
+		System.out.println("AFTER ALL");
+	}
 
-		String[] dateArray = dtFromDB.split(" ");
-		// dateArray[0] = new StringBuilder((String)
-		// dateArray[0]).reverse().toString().split("/");
+	@Before
+	public void beforeEachTest() {
+		System.out.println("BEFORE STARTED");
+	}
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Calendar calendar = new GregorianCalendar(2013, 1, 28, 13, 24, 56);
+	@After
+	public void afterEachTest() {
+		System.out.println("AFTER STARTED");
+	}
 
-		PessoaFisica pf = new PessoaFisica();
-		PessoaFisicaDAO pfDAO = new PessoaFisicaDAO();
-		 pf.setDocumento("000.000.000-00");
-		 pf.setNome("João Silva");
-		 pfDAO.insert(pf);
+	@Test
+	public void test() {
 
-		System.out.println(pfDAO.findById(1L).getConfiguracao());
+		System.out.println("STARTED 1");
 
-		Endereco e = new Endereco();
-		EnderecoDAO eDAO = new EnderecoDAO();
-		 e.setPais("Brasil");
-		 e.setCep("88088-888");
-		 e.setEstado("Santa Catarina");
-		 e.setMunicipio("Florianópolis");
-		 e.setLogradouro("Av. Mauro Ramos");
-		 e.setNumero(2020);
-		 e = eDAO.insert(e);
-		 pf = pfDAO.findById(1L);
-		 pf.setEndereco(e);
-		 pfDAO.save(pf);
+		int i = 1;
+		assertEquals(1, i);
+		assertNotEquals(0, i);
 
-		PessoaJuridica pj = new PessoaJuridica();
-		PessoaJuridicaDAO pjDAO = new PessoaJuridicaDAO();
-		pj.setDocumento("00.000.000/0000-00");
-		pj.setNome("AllSmartTech Soluções IOT e Mobile Ltda.");
-		pjDAO.insert(pj);
+		String objeto = "";
+		assertNotNull("Objeto não nulo", objeto);
 
-		System.out.println(pjDAO.findById(2L));
+		String objeto2 = null;
+		assertNull("Objeto2 nulo", objeto2);
 
-		
-		pf = new PessoaFisica();
-		pf.setDocumento("111.111.111-11");
-		pf.setNome("Marcos Fereira");
-		pf = pfDAO.insert(pf);
-		
-		List<Pessoa> lista = new LinkedList<>();
-		lista.addAll(pfDAO.findAll());
-		lista.addAll(pjDAO.findAll());
-		
-		System.out.println(lista);
-		
-		pfDAO.delete(pf.getId());
+	}
 
+	@Test
+	public void test2() {
+		System.out.println("STARTED 2");
 	}
 
 }

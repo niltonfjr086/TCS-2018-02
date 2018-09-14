@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_endereco` (
     ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `tcs_seu_valor`.`tb_pessoa`
+-- Table `tcs_seu_valor`.`tb_tipo_pessoa`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_tipo_pessoa` (
 
@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
     ) ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `tcs_seu_valor`.`tb_tipo`
+-- Table `tcs_seu_valor`.`tb_tipo_oferta`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_tipo_oferta` (
 
