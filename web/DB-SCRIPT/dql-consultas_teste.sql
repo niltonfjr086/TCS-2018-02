@@ -19,3 +19,5 @@ ORDER BY tcs_seu_valor.tb_tipo_pessoa.id;
 
 
 SELECT * FROM tcs_seu_valor.tb_tipo_usuario;
+
+SELECT * FROM tcs_seu_valor.tb_ramo;

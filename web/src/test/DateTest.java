@@ -9,7 +9,7 @@ import org.junit.Test;
 public class DateTest {
 
 	@Test
-	private void dateFormatTest() {
+	public void dateFormatTest() {
 
 		String dtFromDB = "01/06/2018 21:35:43";
 
@@ -20,6 +20,8 @@ public class DateTest {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		Calendar calendar = new GregorianCalendar(2013, 1, 28, 13, 24, 56);
+		
+		
 
 	}
 
