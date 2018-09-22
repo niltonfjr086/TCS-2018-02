@@ -4,7 +4,7 @@ USE tcs_seu_valor;
 SELECT * FROM tcs_seu_valor.tb_tipo_pessoa;
 
 
-SELECT * FROM tcs_seu_valor.tb_pessoa WHERE tipo=1;
+SELECT * FROM tcs_seu_valor.tb_pessoa WHERE tipo=2;
 SELECT COUNT(*) FROM tcs_seu_valor.tb_pessoa WHERE tipo=2;
 
 

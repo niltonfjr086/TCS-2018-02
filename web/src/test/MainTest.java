@@ -1,10 +1,12 @@
 package test;
 
 import org.junit.BeforeClass;
+import org.junit.FixMethodOrder;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -16,6 +18,7 @@ import static org.junit.Assert.assertNull;
  * @author main - Classe exemplo inicial para os casos de teste
  *
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MainTest {
 
 	@BeforeClass
@@ -39,7 +42,7 @@ public class MainTest {
 	}
 
 	@Test
-	public void test() {
+	public void test1() {
 
 		System.out.println("STARTED 1");
 
