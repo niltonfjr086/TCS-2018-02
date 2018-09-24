@@ -32,8 +32,7 @@ public class Usuario extends BaseEntity {
 	@Column(name = "senha", nullable = false, length = 30)
 	private String senha;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pessoa", nullable = false)
 	private Pessoa pessoa;
 	
@@ -43,7 +42,7 @@ public class Usuario extends BaseEntity {
 	@Column(name = "quantidade_demandada")
 	private Integer quantidadeDemandada;
 	
-	@Column(name = "quantidade_ofertada")
+	@Column(name = "media_ofertada")
 	private Double medidaOfertada;
 	
 	@Column(name = "quantidade_ofertada")

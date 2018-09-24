@@ -4,7 +4,7 @@ USE tcs_seu_valor;
 SELECT * FROM tcs_seu_valor.tb_tipo_pessoa;
 
 
-SELECT * FROM tcs_seu_valor.tb_pessoa WHERE tipo=2;
+SELECT * FROM tcs_seu_valor.tb_pessoa WHERE tipo=1;
 SELECT COUNT(*) FROM tcs_seu_valor.tb_pessoa WHERE tipo=2;
 
 
@@ -21,3 +21,9 @@ ORDER BY tcs_seu_valor.tb_tipo_pessoa.id;
 SELECT * FROM tcs_seu_valor.tb_tipo_usuario;
 
 SELECT * FROM tcs_seu_valor.tb_ramo;
+
+SELECT * FROM tcs_seu_valor.tb_pessoa;
+-- DELETE FROM tcs_seu_valor.tb_pessoa;
+
+SELECT * FROM tcs_seu_valor.tb_usuario;
+-- DELETE FROM tcs_seu_valor.tb_usuario; DELETE FROM tcs_seu_valor.tb_pessoa;

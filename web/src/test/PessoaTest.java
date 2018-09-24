@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNull;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +16,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
-import model.FactoryDAO;
 import model.dao.PessoaDAO;
 import model.dao.PessoaFisicaDAO;
 import model.dao.PessoaJuridicaDAO;
@@ -37,31 +37,39 @@ public class PessoaTest {
 
 	private PessoaFisica pf;
 	private PessoaJuridica pj;
+	
+
+	public static Long getPfVigente() {
+		return pfVigente;
+	}
+
+	public static Long getPjVigente() {
+		return pjVigente;
+	}
 
 	@BeforeClass
-	public static void prepareTests() {
+	public static void preparePessoaTests() {
+
 		pfDAO = new PessoaFisicaDAO();
 		pfVigente = 0L;
 
 		pjDAO = new PessoaJuridicaDAO();
 		pjVigente = 0L;
 
-		idsManipuladas = new LinkedList<>();
+		PessoaTest.idsManipuladas = new LinkedList<>();
 
-		FactoryDAO.openInstance();
 	}
 
 	@AfterClass
-	public static void closeTests() {
+	public static void closePessoaTests() {
+
 		pfDAO = null;
 		pfVigente = null;
 
 		pfDAO = null;
 		pjVigente = null;
 
-		idsManipuladas = null;
-
-		FactoryDAO.closeInstance();
+		PessoaTest.idsManipuladas = null;
 	}
 
 	@Before
@@ -85,7 +93,7 @@ public class PessoaTest {
 		this.pf = pfDAO.insert(pf);
 		assertNotNull(pf.getId());
 
-		idsManipuladas.add(this.pf.getId());
+		PessoaTest.idsManipuladas.add(this.pf.getId());
 
 		// Para testar o update
 		pfVigente = this.pf.getId();
@@ -101,7 +109,7 @@ public class PessoaTest {
 		this.pj = pjDAO.insert(pj);
 		assertNotNull(pj.getId());
 
-		idsManipuladas.add(this.pj.getId());
+		PessoaTest.idsManipuladas.add(this.pj.getId());
 
 		// Para testar o update
 		pjVigente = this.pj.getId();
@@ -117,7 +125,7 @@ public class PessoaTest {
 		this.pf = pfDAO.insert(pf);
 		assertNotNull(pf.getId());
 
-		idsManipuladas.add(this.pf.getId());
+		PessoaTest.idsManipuladas.add(this.pf.getId());
 	}
 
 	@Test
@@ -127,7 +135,6 @@ public class PessoaTest {
 		this.pf = pfDAO.findById(pfVigente);
 		assertNotNull(pf.getId());
 
-		System.out.println("TESTE ID PJ..: " + pjVigente);
 		this.pj = pjDAO.findById(pjVigente);
 		assertNotNull(pj.getId());
 
@@ -197,9 +204,31 @@ public class PessoaTest {
 
 		PessoaDAO pDAO = new PessoaDAO();
 
-		idsManipuladas.forEach(item -> pDAO.delete(item));
+		IntStream indexIterator = IntStream.range(0, (PessoaTest.idsManipuladas.size()));
 
-		assertEquals(0, idsManipuladas.size());
+		indexIterator.forEach(index -> {
+
+
+			
+			Long itemId = PessoaTest.idsManipuladas.get(index);
+			Pessoa item = pDAO.findById(itemId);
+
+			if (item != null) {
+				pDAO.delete(itemId);
+
+				System.out.println("INDEX / SIZE");
+				if(index == PessoaTest.idsManipuladas.size() - 1) {
+					System.out.println("B.I.N.G.O. !!!");
+				}
+				System.out.println(""+index+""+(PessoaTest.idsManipuladas.size()-1));
+				if (index == PessoaTest.idsManipuladas.size() - 1) {
+					PessoaTest.idsManipuladas.clear();
+				}
+			}
+
+		});
+
+		assertEquals(0, PessoaTest.idsManipuladas.size());
 
 	}
 
@@ -207,28 +236,15 @@ public class PessoaTest {
 	//
 	// List<Pessoa> lista = new LinkedList<>();
 	//
-	// List<PessoaFisica> listaPF = null;
-	// try {
+	// List<PessoaFisica> listaPF = pfDAO.findAll();
 	//
-	// listaPF = pfDAO.findAll();
-	// if (listaPF != null && listaPF.size() > 0) {
+	// if (listaPF != null && listaPF.size() > 0)
 	// lista.addAll(listaPF);
-	// }
 	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
+	// List<PessoaJuridica> listaPJ = pjDAO.findAll();
 	//
-	// List<PessoaJuridica> listaPJ = null;
-	// try {
-	// listaPJ = pjDAO.findAll();
-	// if (listaPJ != null && listaPJ.size() > 0) {
+	// if (listaPJ != null && listaPJ.size() > 0)
 	// lista.addAll(listaPJ);
-	// }
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }
 	//
 	// return lista;
 	// }
