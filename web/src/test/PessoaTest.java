@@ -37,7 +37,6 @@ public class PessoaTest {
 
 	private PessoaFisica pf;
 	private PessoaJuridica pj;
-	
 
 	public static Long getPfVigente() {
 		return pfVigente;
@@ -208,19 +207,12 @@ public class PessoaTest {
 
 		indexIterator.forEach(index -> {
 
-
-			
 			Long itemId = PessoaTest.idsManipuladas.get(index);
 			Pessoa item = pDAO.findById(itemId);
 
 			if (item != null) {
 				pDAO.delete(itemId);
 
-				System.out.println("INDEX / SIZE");
-				if(index == PessoaTest.idsManipuladas.size() - 1) {
-					System.out.println("B.I.N.G.O. !!!");
-				}
-				System.out.println(""+index+""+(PessoaTest.idsManipuladas.size()-1));
 				if (index == PessoaTest.idsManipuladas.size() - 1) {
 					PessoaTest.idsManipuladas.clear();
 				}
@@ -229,24 +221,24 @@ public class PessoaTest {
 		});
 
 		assertEquals(0, PessoaTest.idsManipuladas.size());
-
+		assertEquals(0, getListaInteira().size());
 	}
 
-	// private List<Pessoa> getListaInteira() {
-	//
-	// List<Pessoa> lista = new LinkedList<>();
-	//
-	// List<PessoaFisica> listaPF = pfDAO.findAll();
-	//
-	// if (listaPF != null && listaPF.size() > 0)
-	// lista.addAll(listaPF);
-	//
-	// List<PessoaJuridica> listaPJ = pjDAO.findAll();
-	//
-	// if (listaPJ != null && listaPJ.size() > 0)
-	// lista.addAll(listaPJ);
-	//
-	// return lista;
-	// }
+	private List<Pessoa> getListaInteira() {
+
+		List<Pessoa> lista = new LinkedList<>();
+
+		List<PessoaFisica> listaPF = pfDAO.findAll();
+
+		if (listaPF != null && listaPF.size() > 0)
+			lista.addAll(listaPF);
+
+		List<PessoaJuridica> listaPJ = pjDAO.findAll();
+
+		if (listaPJ != null && listaPJ.size() > 0)
+			lista.addAll(listaPJ);
+
+		return lista;
+	}
 
 }

@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -23,25 +24,29 @@ import model.entity.Usuario;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CadastroAcessoTest {
-	private PessoaTest pessoaTest = new PessoaTest();
+	private static PessoaTest pessoaTest;
 
-	private PessoaDAO pDAO = new PessoaDAO();
-
+	private static PessoaDAO pDAO;
 	private static TipoUsuarioDAO tpUsuarioDAO;
 	private static UsuarioDAO uDAO;
 	private static Long uVigente;
 
 	private static List<Long> idsManipuladas;
 
+	private static Integer totalCad;
+
 	private Usuario usuario;
 
 	@BeforeClass
 	public static void prepareTests() {
+		pessoaTest = new PessoaTest();
 		PessoaTest.preparePessoaTests();
 
+		pDAO = new PessoaDAO();
 		uDAO = new UsuarioDAO();
 		tpUsuarioDAO = new TipoUsuarioDAO();
 		uVigente = 0L;
+		totalCad = 0;
 		CadastroAcessoTest.idsManipuladas = new LinkedList<>();
 	}
 
@@ -49,9 +54,11 @@ public class CadastroAcessoTest {
 	public static void closeTests() {
 		PessoaTest.closePessoaTests();
 
+		pDAO = null;
 		uDAO = null;
 		tpUsuarioDAO = null;
 		uVigente = null;
+		totalCad = null;
 		CadastroAcessoTest.idsManipuladas = null;
 	}
 
@@ -100,6 +107,33 @@ public class CadastroAcessoTest {
 
 	@Test
 	public void test003() {
+
+		Pessoa p = pDAO.findById(PessoaTest.getPjVigente());
+		this.usuario.setPessoa(p);
+		this.usuario.setTipo(tpUsuarioDAO.findById(3L));
+
+		this.usuario.setLogin("allstech");
+		this.usuario.setSenha("1234");
+
+		this.usuario = uDAO.insert(this.usuario);
+
+		// uVigente = this.usuario.getId();
+		CadastroAcessoTest.idsManipuladas.add(this.usuario.getId());
+
+		assertNotNull(uDAO.findById(this.usuario.getId()) != null);
+
+		CadastroAcessoTest.idsManipuladas.forEach(item -> {
+			Usuario u = uDAO.findById(item);
+			if (u != null) {
+				totalCad++;
+			}
+		});
+
+		assertTrue(totalCad == 2);
+	}
+
+	@Test
+	public void test004() {
 		this.usuario = uDAO.findById(uVigente);
 
 		this.usuario.setLogin("joao33");
@@ -113,19 +147,20 @@ public class CadastroAcessoTest {
 	}
 
 	@Test
-	public void test004() {
+	public void test005() {
 
 		CadastroAcessoTest.idsManipuladas.forEach(item -> {
-			if (uDAO.findById(uVigente) != null)
+			if (uDAO.findById(item) != null)
 				uDAO.delete(item);
 		});
 		CadastroAcessoTest.idsManipuladas.clear();
 
 		assertNull(uDAO.findById(uVigente));
+		assertEquals(0, uDAO.findAll().size());
 	}
 
 	@Test
-	public void test005() {
+	public void test006() {
 		pessoaTest.test008();
 	}
 

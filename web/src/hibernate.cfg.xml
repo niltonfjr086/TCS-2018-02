@@ -34,12 +34,13 @@
 		<mapping class="model.entity.PessoaFisica" />
 		<mapping class="model.entity.PessoaJuridica" />
 		<mapping class="model.entity.Endereco" />
-		
 		<mapping class="model.entity.Usuario" />
 		<mapping class="model.entity.TipoUsuario" />
 
+		<mapping class="model.entity.Pedido" />
+		<mapping class="model.entity.StatusPedido" />
 
-		<!-- <mapping class="model.entity.Perfil" /> -->
+
 		<!-- <mapping class="model.entity.ItemProduto" /> -->
 		<!-- <mapping class="model.entity.Produto" /> -->
 

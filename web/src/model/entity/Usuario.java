@@ -16,35 +16,36 @@ import javax.persistence.Table;
 public class Usuario extends BaseEntity {
 
 	private static final long serialVersionUID = 1160425699312099326L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipo", nullable = false)
 	private TipoUsuario tipoUsuario;
-	
+
 	@Column(name = "login", nullable = false, length = 100)
 	private String login;
-	
+
 	@Column(name = "senha", nullable = false, length = 30)
 	private String senha;
 
-	@ManyToOne(cascade = { }, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "pessoa", nullable = false)
 	private Pessoa pessoa;
-	
+
 	@Column(name = "media_demandada")
 	private Double mediaDemandada;
-	
+
 	@Column(name = "quantidade_demandada")
 	private Integer quantidadeDemandada;
-	
+
 	@Column(name = "media_ofertada")
 	private Double medidaOfertada;
-	
+
 	@Column(name = "quantidade_ofertada")
 	private Integer quantidadeOfertada;
 
