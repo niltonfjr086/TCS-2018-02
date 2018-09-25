@@ -37,13 +37,21 @@
 		<mapping class="model.entity.Usuario" />
 		<mapping class="model.entity.TipoUsuario" />
 
-		<mapping class="model.entity.Pedido" />
+		<!-- EM TESTE -->
+		
 		<mapping class="model.entity.StatusPedido" />
+		<mapping class="model.entity.Pedido" />
+		<mapping class="model.entity.TipoOferta" />
+		<mapping class="model.entity.Ramo" />
+		<mapping class="model.entity.Nicho" />
+		<mapping class="model.entity.UnidadeMedida" />
+		<mapping class="model.entity.Item" />
+		
+		<!-- <mapping class="model.entity.ItemPedido" /> tb_item_pedido -->
+		<!-- <mapping class="model.entity.Competencia" /> tb_competencia -->
+		<!-- <mapping class="model.entity.Acompanhamento" /> tb_acompanhamento -->
 
-
-		<!-- <mapping class="model.entity.ItemProduto" /> -->
-		<!-- <mapping class="model.entity.Produto" /> -->
-
+		<!-- EM TESTE -->
 
 	</session-factory>
 </hibernate-configuration>

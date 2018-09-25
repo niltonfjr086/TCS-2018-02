@@ -31,13 +31,16 @@ public class Endereco extends BaseEntity {
 	@Column(nullable = false)
 	private String municipio;
 
+	@Column
 	private String bairro;
 
+	@Column
 	private String logradouro;
 
 	@Column(nullable = false)
 	private Integer numero;
-
+	
+	@Column
 	private String complemento;
 
 	@OneToOne(mappedBy = "endereco")

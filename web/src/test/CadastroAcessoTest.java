@@ -36,6 +36,11 @@ public class CadastroAcessoTest {
 	private static Integer totalCad;
 
 	private Usuario usuario;
+	
+	
+	public static Long getuVigente() {
+		return uVigente;
+	}
 
 	@BeforeClass
 	public static void prepareTests() {
@@ -90,7 +95,7 @@ public class CadastroAcessoTest {
 
 		Pessoa p = pDAO.findById(PessoaTest.getPfVigente());
 		this.usuario.setPessoa(p);
-		this.usuario.setTipo(tpUsuarioDAO.findById(1L));
+		this.usuario.setTipo(tpUsuarioDAO.findById(2L));
 
 		this.usuario.setLogin("joao02");
 		this.usuario.setSenha("1234");
@@ -130,8 +135,11 @@ public class CadastroAcessoTest {
 		});
 
 		assertTrue(totalCad == 2);
+		
+		
 	}
 
+	
 	@Test
 	public void test004() {
 		this.usuario = uDAO.findById(uVigente);

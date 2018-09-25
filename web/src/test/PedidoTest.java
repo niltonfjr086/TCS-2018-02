@@ -12,12 +12,16 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import model.dao.PedidoDAO;
+import model.dao.StatusPedidoDAO;
+import model.dao.UsuarioDAO;
 import model.entity.Pedido;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class PedidoTest {
 	private static CadastroAcessoTest cadastroAcessoTest;
 
+	private static StatusPedidoDAO statusPedidoDAO;
+	private static UsuarioDAO usuarioDAO;
 	private static PedidoDAO pedidoDAO;
 	private static Long pedidoVigente;
 
@@ -30,6 +34,8 @@ public class PedidoTest {
 		cadastroAcessoTest = new CadastroAcessoTest();
 		CadastroAcessoTest.prepareTests();
 
+		statusPedidoDAO = new StatusPedidoDAO();
+		usuarioDAO = new UsuarioDAO();
 		pedidoDAO = new PedidoDAO();
 		pedidoVigente = 0L;
 		PedidoTest.idsManipuladas = new LinkedList<>();
@@ -40,6 +46,8 @@ public class PedidoTest {
 		CadastroAcessoTest.closeTests();
 		cadastroAcessoTest = null;
 
+		statusPedidoDAO = null;
+		usuarioDAO = null;
 		pedidoDAO = null;
 		pedidoVigente = null;
 		PedidoTest.idsManipuladas = null;
@@ -57,6 +65,7 @@ public class PedidoTest {
 
 	@Test
 	public void test001() {
+		System.out.println(statusPedidoDAO.findAll());
 
 		cadastroAcessoTest.prepareNextTest();
 		cadastroAcessoTest.test001();
@@ -71,6 +80,14 @@ public class PedidoTest {
 
 	@Test
 	public void test002() {
+		
+		// Long id = CadastroAcessoTest.getuVigente();
+		// this.pedido.setDemandante(usuarioDAO.findById(id));
+		// this.pedido = pedidoDAO.insert(this.pedido);
+
+		// this.pedido.setStatusPedido(statusPedido);
+		
+		
 
 	}
 
