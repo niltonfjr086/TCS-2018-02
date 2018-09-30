@@ -24,6 +24,24 @@ public class Pedido extends BaseEntity {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "status_pedido", nullable = false)
+	private StatusPedido statusPedido;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "unidade_medida", nullable = false)
+	private UnidadeMedida unidadeMedida;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
+	@JoinColumn(name = "orcamento", nullable = false)
+	private Orcamento orcamento;
+
+	@Column(name = "descricao", length = 10000)
+	private String descricao;
+
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "demandante", nullable = false)
 	private Usuario demandante;
 
@@ -44,20 +62,11 @@ public class Pedido extends BaseEntity {
 	@Column(name = "comentario_para_ofertante", length = 100)
 	private String comentarioParaOfertante;
 
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinColumn(name = "status_pedido", nullable = false)
-	private StatusPedido statusPedido;
-
 	@Column(name = "dt_abertura")
 	private Calendar dtAbertura;
 
 	@Column(name = "dt_fechamento")
 	private Calendar dtFechamento;
-
-	public Pedido() {
-		super();
-	}
 
 	public Long getId() {
 		return id;
@@ -65,6 +74,38 @@ public class Pedido extends BaseEntity {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public StatusPedido getStatusPedido() {
+		return statusPedido;
+	}
+
+	public void setStatusPedido(StatusPedido statusPedido) {
+		this.statusPedido = statusPedido;
+	}
+
+	public UnidadeMedida getUnidadeMedida() {
+		return unidadeMedida;
+	}
+
+	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
+		this.unidadeMedida = unidadeMedida;
+	}
+
+	public Orcamento getOrcamento() {
+		return orcamento;
+	}
+
+	public void setOrcamento(Orcamento orcamento) {
+		this.orcamento = orcamento;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
 	}
 
 	public Usuario getDemandante() {
@@ -115,14 +156,6 @@ public class Pedido extends BaseEntity {
 		this.comentarioParaOfertante = comentarioParaOfertante;
 	}
 
-	public StatusPedido getStatusPedido() {
-		return statusPedido;
-	}
-
-	public void setStatusPedido(StatusPedido statusPedido) {
-		this.statusPedido = statusPedido;
-	}
-
 	public Calendar getDtAbertura() {
 		return dtAbertura;
 	}
@@ -137,10 +170,6 @@ public class Pedido extends BaseEntity {
 
 	public void setDtFechamento(Calendar dtFechamento) {
 		this.dtFechamento = dtFechamento;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 }

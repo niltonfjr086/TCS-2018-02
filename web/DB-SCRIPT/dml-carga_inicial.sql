@@ -26,17 +26,25 @@ INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` (`nome`) VALUES('Ofertante');
 -- -----------------------------------------------------
 -- INSERTS tb_status_pedido
 -- -----------------------------------------------------
-INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Orçando');
-INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Definindo');
+-- COR AMARELA
+INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Aguardando');
+-- COR VERDE
+INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Negociando');
+-- COR VERMELHO
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Cancelado');
+
+-- COR 
+-- STATUS ONDE OS OUTROS SÃO CANCELADOS
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Executando');
-INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Finalizado');
+
+-- COR AZUL
+INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Concluído');
 
 -- -----------------------------------------------------
 -- INSERTS tb_tipo_oferta
 -- -----------------------------------------------------
-INSERT INTO `tcs_seu_valor`.`tb_tipo_oferta` (`nome`) VALUES('Produto');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_oferta` (`nome`) VALUES('Serviço');
+-- INSERT INTO `tcs_seu_valor`.`tb_tipo_oferta` (`nome`) VALUES('Produto');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_oferta` (`nome`) VALUES('Somente Serviço');
 INSERT INTO `tcs_seu_valor`.`tb_tipo_oferta` (`nome`) VALUES('Completo');
 
 -- -----------------------------------------------------

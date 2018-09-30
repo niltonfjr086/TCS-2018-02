@@ -21,6 +21,11 @@ ORDER BY tcs_seu_valor.tb_tipo_pessoa.id;
 SELECT * FROM tcs_seu_valor.tb_tipo_usuario;
 
 SELECT * FROM tcs_seu_valor.tb_ramo;
+SELECT * FROM tcs_seu_valor.tb_nicho;
+
+SELECT * FROM tcs_seu_valor.tb_orcamento;
+SELECT * FROM tcs_seu_valor.tb_pedido;
+SELECT * FROM tcs_seu_valor.tb_acompanhamento;
 
 SELECT * FROM tcs_seu_valor.tb_pessoa;
 -- DELETE FROM tcs_seu_valor.tb_pessoa;

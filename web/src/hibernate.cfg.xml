@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-<!-- <!DOCTYPE hibernate-configuration PUBLIC -->
-<!-- "-//Hibernate/Hibernate Configuration DTD 3.0//EN" -->
-<!-- "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd"> -->
-
 <hibernate-configuration>
 	<session-factory>
 
@@ -18,7 +14,7 @@
 
 		<property name="hibernate.show_sql">true</property>
 
-		<!-- create | update | validate | create-drop -->
+		<!-- create || *update || validate || create-drop -->
 		<property name="hibernate.hbm2ddl.auto">update</property>
 
 
@@ -29,28 +25,23 @@
 		<property name="c3p0.idle_test_period">3000</property>
 
 
-		<mapping class="model.entity.Pessoa" />
 		<mapping class="model.entity.TipoPessoa" />
+		<mapping class="model.entity.Pessoa" />
 		<mapping class="model.entity.PessoaFisica" />
 		<mapping class="model.entity.PessoaJuridica" />
 		<mapping class="model.entity.Endereco" />
-		<mapping class="model.entity.Usuario" />
 		<mapping class="model.entity.TipoUsuario" />
+		<mapping class="model.entity.Usuario" />
 
 		<!-- EM TESTE -->
-		
-		<mapping class="model.entity.StatusPedido" />
-		<mapping class="model.entity.Pedido" />
-		<mapping class="model.entity.TipoOferta" />
 		<mapping class="model.entity.Ramo" />
 		<mapping class="model.entity.Nicho" />
+		<mapping class="model.entity.TipoOferta" />
+		<mapping class="model.entity.Orcamento" /> 
+		<mapping class="model.entity.StatusPedido" />
 		<mapping class="model.entity.UnidadeMedida" />
-		<mapping class="model.entity.Item" />
-		
-		<!-- <mapping class="model.entity.ItemPedido" /> tb_item_pedido -->
-		<!-- <mapping class="model.entity.Competencia" /> tb_competencia -->
-		<!-- <mapping class="model.entity.Acompanhamento" /> tb_acompanhamento -->
-
+		<mapping class="model.entity.Pedido" />
+		<mapping class="model.entity.Acompanhamento" />
 		<!-- EM TESTE -->
 
 	</session-factory>

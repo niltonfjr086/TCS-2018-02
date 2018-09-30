@@ -1,7 +1,6 @@
 package model.entity;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -12,34 +11,23 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_item")
-public class Item extends BaseEntity {
-	private static final long serialVersionUID = -6417897809585366176L;
+@Table(name = "tb_orcamento")
+public class Orcamento extends BaseEntity {
+	private static final long serialVersionUID = -7983659881294016124L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.LAZY)
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "tipo", nullable = false)
 	private TipoOferta tipoOferta;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.LAZY)
+			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "nicho", nullable = false)
 	private Nicho nicho;
-
-	@Column(nullable = false, length = 30)
-	private String nome;
-
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
-			CascadeType.DETACH }, fetch = FetchType.LAZY)
-	@JoinColumn(name = "unidade_medida", nullable = false)
-	private UnidadeMedida unidadeMedida;
-
-	@Column(nullable = false)
-	private Double valor;
 
 	public Long getId() {
 		return id;
@@ -63,30 +51,6 @@ public class Item extends BaseEntity {
 
 	public void setNicho(Nicho nicho) {
 		this.nicho = nicho;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public UnidadeMedida getUnidadeMedida() {
-		return unidadeMedida;
-	}
-
-	public void setUnidadeMedida(UnidadeMedida unidadeMedida) {
-		this.unidadeMedida = unidadeMedida;
-	}
-
-	public Double getValor() {
-		return valor;
-	}
-
-	public void setValor(Double valor) {
-		this.valor = valor;
 	}
 
 }

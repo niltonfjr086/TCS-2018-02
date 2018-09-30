@@ -25,6 +25,9 @@ public class GenericDAO<T, PK> {
 
 	protected FilterBuilder<T> filter;
 
+	/**
+	 * 
+	 */
 	public GenericDAO() {
 		super();
 		this.manipulada = (Class<?>) ((ParameterizedType) this.getClass().getGenericSuperclass())
