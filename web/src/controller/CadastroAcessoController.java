@@ -21,7 +21,7 @@ import model.entity.Usuario;
 public class CadastroAcessoController implements Serializable {
 
 	private static final long serialVersionUID = 2425783147349721021L;
-
+	private LoginController loginController;
 
 	private TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
 	private List<TipoPessoa> tiposPessoa = new LinkedList<>();
@@ -37,6 +37,7 @@ public class CadastroAcessoController implements Serializable {
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 		verificarLogin(loginController);
+		this.loginController = loginController;
 
 	}
 
