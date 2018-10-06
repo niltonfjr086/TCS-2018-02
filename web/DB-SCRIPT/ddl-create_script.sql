@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_tipo_usuario` (
 CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_usuario` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `tipo` BIGINT NOT NULL, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_usuario` (`id`),
+    `tipo` BIGINT NOT NULL DEFAULT 2, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_usuario` (`id`),
     `login` VARCHAR(100) NOT NULL,
     `senha` VARCHAR(30) NOT NULL,
     `pessoa` BIGINT NOT NULL, FOREIGN KEY (`pessoa`) REFERENCES `tcs_seu_valor`.`tb_pessoa` (`id`),

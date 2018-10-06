@@ -9,12 +9,12 @@ VALUES('JURÍDICA', 'CNPJ', '##.###.###/####-##', 18);
 -- -----------------------------------------------------
 -- INSERTS tb_tipo_contato
 -- -----------------------------------------------------
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`) VALUES('Email Pessoal');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`) VALUES('Email Corporativo');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Telefone Pessoal', '(##)#########');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Telefone Corporativo', '(##)#########');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Celular Pessoal', '(##)#########');
-INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Celular Corporativo', '(##)#########');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`) VALUES('Email');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`) VALUES('Email Compartilhado');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Telefone Fixo', '(##)#########');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Tele. Fixo Compartilhado', '(##)#########');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Telefone Móvel', '(##)#########');
+INSERT INTO `tcs_seu_valor`.`tb_tipo_contato` (`nome`, `mascara`) VALUES('Tele. Móvel Compartilhado', '(##)#########');
 
 -- -----------------------------------------------------
 -- INSERTS tb_tipo_usuario

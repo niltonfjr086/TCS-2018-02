@@ -1,5 +1,8 @@
 package model.entity;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,6 +16,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -43,11 +47,8 @@ public abstract class Pessoa extends BaseEntity {
 	@JoinColumn(name = "endereco")
 	private Endereco endereco;
 
-	// @Column(nullable = false)
-	// @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-	// CascadeType.REFRESH,
-	// CascadeType.DETACH }, mappedBy = "tipoUsuario", fetch = FetchType.EAGER)
-	// private List<Usuario> usuarios;
+	@OneToMany(cascade = { CascadeType.ALL }, mappedBy = "pessoa", fetch = FetchType.EAGER)
+	private List<Contato> contatos = new LinkedList<>();
 
 	public Pessoa() {
 		super();
@@ -95,6 +96,14 @@ public abstract class Pessoa extends BaseEntity {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public List<Contato> getContatos() {
+		return contatos;
+	}
+
+	public void setContatos(List<Contato> contatos) {
+		this.contatos = contatos;
 	}
 
 }

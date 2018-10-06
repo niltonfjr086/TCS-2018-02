@@ -16,9 +16,12 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import model.dao.ContatoDAO;
 import model.dao.PessoaDAO;
 import model.dao.PessoaFisicaDAO;
 import model.dao.PessoaJuridicaDAO;
+import model.dao.TipoContatoDAO;
+import model.entity.Contato;
 import model.entity.Endereco;
 import model.entity.Pessoa;
 import model.entity.PessoaFisica;
@@ -105,14 +108,59 @@ public class PessoaTest {
 
 		this.pj.setDocumento("00.000.000/0000-00");
 		this.pj.setNome("AllSmartTech Soluções IOT e Mobile Ltda.");
+
+		TipoContatoDAO tipoContatoDAO = new TipoContatoDAO();
+		this.pj.setContatos(new LinkedList<>());
+
+		Contato email = new Contato();
+		email.setTipoContato(tipoContatoDAO.findById(1L));
+		email.setInformacao("main@allsmart.com");
+		email.setPessoa(this.pj);
+		this.pj.getContatos().add(email);
+
+		Contato telefoneFixo = new Contato();
+		telefoneFixo.setTipoContato(tipoContatoDAO.findById(3L));
+		telefoneFixo.setInformacao("048 3344-5567");
+		telefoneFixo.setPessoa(this.pj);
+		this.pj.getContatos().add(telefoneFixo);
+
+		Contato movelCompartilhado = new Contato();
+		movelCompartilhado.setTipoContato(tipoContatoDAO.findById(6L));
+		movelCompartilhado.setInformacao("048 9 9988-5567");
+		movelCompartilhado.setPessoa(this.pj);
+		this.pj.getContatos().add(movelCompartilhado);
+
 		this.pj = pjDAO.insert(pj);
 		assertNotNull(pj.getId());
+
+		assertEquals(3, pj.getContatos().size());
+		assertEquals(true, this.todosComId(this.pj.getContatos()));
+
+		ContatoDAO contatoDAO = new ContatoDAO();
+		Long idContatoTemp = this.pj.getContatos().get(1).getId();
+		this.pj.getContatos().remove(telefoneFixo);
+
+		contatoDAO.delete(idContatoTemp);
+		this.pj = pjDAO.save(pj);
+
+		assertNull(contatoDAO.findById(idContatoTemp));
 
 		PessoaTest.idsManipuladas.add(this.pj.getId());
 
 		// Para testar o update
 		pjVigente = this.pj.getId();
 
+		PessoaJuridica temp = pjDAO.findById(PessoaTest.getPjVigente());
+		assertEquals(temp.getContatos().size(), 2);
+
+	}
+
+	private Boolean todosComId(List<Contato> contatos) {
+		for (Contato contato : contatos) {
+			if (contato.getId() == null)
+				return false;
+		}
+		return true;
 	}
 
 	@Test
@@ -155,8 +203,8 @@ public class PessoaTest {
 
 		this.pf = pfDAO.findById(pfVigente);
 		this.pf.setEndereco(e);
-		System.out.println("SAVE UPDATE..: " + this.pf.getEndereco());
 		this.pf = pfDAO.save(pf);
+		// System.out.println("SAVE UPDATE..: " + this.pf.getEndereco());
 		assertNotNull(pf.getEndereco().getId());
 
 	}

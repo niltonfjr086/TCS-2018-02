@@ -106,6 +106,47 @@ public class GenericDAO<T, PK> {
 	}
 
 	@SuppressWarnings("unchecked")
+	public List<T> executeQuery(Map<String, String> params) {
+
+		StringBuilder sql = null;
+		// Table table = this.manipulada.getAnnotation(Table.class);
+
+		// if(table != null && table.name() != null && !table.name().trim().equals(""))
+		// {
+		// sql = new StringBuilder("SELECT * FROM " + table.name() + " t");
+		// // ALTERAÇÃO DE t para * na linha acima
+		// } else {
+		sql = new StringBuilder(" FROM " + this.manipulada.getSimpleName() + " ");
+		// }
+
+		boolean frst = true;
+		for (Map.Entry<String, String> entry : params.entrySet()) {
+
+			if (!frst) {
+				sql.append("AND ");
+			} else {
+				sql.append("WHERE ");
+				frst = false;
+			}
+
+			if (entry.getValue().getClass().getSimpleName().contains("Date")) {
+				// EX.: initDataNascimento
+				if (entry.getKey().contains("init")) {
+					sql.append(entry.getKey() + " >= " + "'" + entry.getValue() + "'");
+					entry.getKey().substring(4);
+				} else {
+					sql.append(entry.getKey() + " <= " + "'" + entry.getValue() + "'");
+				}
+			} else {
+				sql.append(entry.getKey() + " LIKE " + "'" + entry.getValue() + "'");
+			}
+		}
+
+		// Query q = sessionInstance().createQuery(sql.toString());
+		return openInstance().createQuery(sql.toString()).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
 	public List<T> findAll() {
 
 		List<T> retorno = openInstance().createQuery(("FROM " + this.manipulada.getName())).getResultList();

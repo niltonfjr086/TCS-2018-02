@@ -34,6 +34,9 @@
 		<mapping class="model.entity.Usuario" />
 
 		<!-- EM TESTE -->
+		<mapping class="model.entity.TipoContato" />
+		<mapping class="model.entity.Contato" />
+		
 		<mapping class="model.entity.Ramo" />
 		<mapping class="model.entity.Nicho" />
 		<mapping class="model.entity.TipoOferta" />

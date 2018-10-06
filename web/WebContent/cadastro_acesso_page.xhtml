@@ -3,8 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:body>
 	<ui:composition template="layout.xhtml">
@@ -58,18 +57,44 @@
 
 
 
+				<div class="row" style="max-width: 540px;">
 
+					<div class="col s12 m12 l12 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputText id="login" name="login" type="text" class="validate"
+							required="required" maxlength="30">
 
-				<div class="col s12 m12 l12 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputText id="nome2" name="nome2" type="text" class="validate"
-						required="required" maxlength="30">
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="login" value="Login" />
 
-						<f:ajax event="change" />
-					</h:inputText>
-					<h:outputLabel for="nome2" value="Nome2" />
+					</div>
+
+					<div class="col s12 m6 l6 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputSecret id="senha" name="senha" type="text"
+							class="validate" required="required" maxlength="30">
+
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="senha" value="Senha" />
+
+					</div>
+
+					<div class="col s12 m6 l6 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputSecret id="conf-senha" name="conf-senha" type="text"
+							class="validate" required="required" maxlength="30">
+
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="conf-senha" value="Confirme a Senha" />
+
+					</div>
 
 				</div>
+
+
 
 
 				<div class="col s12 m12 l12 center">

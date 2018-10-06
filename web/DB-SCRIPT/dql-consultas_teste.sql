@@ -30,5 +30,7 @@ SELECT * FROM tcs_seu_valor.tb_acompanhamento;
 SELECT * FROM tcs_seu_valor.tb_pessoa;
 -- DELETE FROM tcs_seu_valor.tb_pessoa;
 
+SELECT * FROM tcs_seu_valor.tb_contato;
+
 SELECT * FROM tcs_seu_valor.tb_usuario;
 -- DELETE FROM tcs_seu_valor.tb_pedido; DELETE FROM tcs_seu_valor.tb_pedido; DELETE FROM tcs_seu_valor.tb_usuario; DELETE FROM tcs_seu_valor.tb_pessoa;
