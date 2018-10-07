@@ -41,6 +41,8 @@ public class CadastroAcessoController implements Serializable {
 
 	private TipoContato tipoContatoSelecionado;
 	private TipoPessoa tipoPessoaSelecionada;
+	
+	private List<String> listaTmp = new LinkedList<>();
 
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
@@ -51,6 +53,9 @@ public class CadastroAcessoController implements Serializable {
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 
 		verificarLogin(loginController);
+		
+		this.listaTmp.add("Primeira");
+		this.listaTmp.add("Segunda");
 	}
 
 	private void verificarLogin(LoginController loginController) {
@@ -104,6 +109,10 @@ public class CadastroAcessoController implements Serializable {
 		//
 		// this.usuario.setPessoa(new PessoaJuridica());
 		// }
+	}
+
+	public void adicionaContato() {
+		System.out.println("adicionaContato()");
 	}
 
 	// GETTERS E SETTER PARA A VIEW

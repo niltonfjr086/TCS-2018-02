@@ -96,7 +96,7 @@
 
 				<div class="row" style="max-width: 540px;">
 
-					<div class="col s12 m12 l12">
+					<div class="col s12 m12 l4">
 						<label for="tipo-contato" class="col">Tipo de Contato</label>
 						<h:selectOneMenu id="tipo-contato"
 							value="#{cadastroAcessoController.tipoContatoSelecionado}"
@@ -111,16 +111,36 @@
 
 					</div>
 
-					<div class="col s12 m12 l12 input-field">
+					<div class="col s12 m12 l6 input-field">
 						<i class="material-icons prefix">account_circle</i>
-						<h:inputText id="info-contato" name="info-contato" type="text" class="validate"
-							required="required" maxlength="30">
+						<h:inputText id="info-contato" name="info-contato" type="text"
+							class="validate" required="required" maxlength="30">
 
 							<f:ajax event="change" />
 						</h:inputText>
 						<h:outputLabel for="info-contato" value="Contato" />
 
 					</div>
+
+					<div class="col s12 m12 l2 input-field">
+
+						<button type="submit" class="btn box-color waves-effect"
+							style="display: flex; align-self: center;"
+							onclick="#{cadastroAcessoController.adicionaContato()}">
+							<i class='material-icons'>add</i>
+						</button>
+
+					</div>
+				</div>
+				<div class="row" style="max-width: 540px;">
+					<fieldset>
+						<legend> Contatos </legend>
+						<ui:repeat var="item" class="col s12 m12 l2"
+							value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+							varStatus="status">
+							<div>#{status.index}</div>
+						</ui:repeat>
+					</fieldset>
 				</div>
 
 				<div class="col s12 m12 l12 center">
@@ -129,7 +149,6 @@
 					<a href="login_page.xhtml" class="btn yellow darken-2 waves-effect">Voltar
 						ao Login</a>
 				</div>
-
 			</h:form>
 
 
