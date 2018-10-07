@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
+import org.primefaces.PrimeFaces;
+
 import model.dao.UsuarioDAO;
 import model.entity.Usuario;
 
@@ -25,9 +27,12 @@ public class LoginController implements Serializable {
 		System.out.println(this.usuario.getSenha());
 
 		Usuario tmp = this.usuarioDAO.validarLogin(this.usuario);
-		this.usuario = tmp != null ? tmp : this.usuario;
+		this.usuario = tmp != null ? tmp : new Usuario();
 
+		// RequestContext.getCurrentInstance().execute("abreModal('login_submetido');");
+		// "abreModal('login_submetido');"
 		// return "login_submetido";
+//		PrimeFaces.current().executeScript("abreModal('login_submetido');");
 	}
 
 	public void apagar() {
