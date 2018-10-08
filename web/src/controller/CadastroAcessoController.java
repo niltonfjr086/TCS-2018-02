@@ -43,6 +43,15 @@ public class CadastroAcessoController implements Serializable {
 	private TipoPessoa tipoPessoaSelecionada;
 	
 	private List<String> listaTmp = new LinkedList<>();
+	
+
+	public List<String> getListaTmp() {
+		return listaTmp;
+	}
+
+	public void setListaTmp(List<String> listaTmp) {
+		this.listaTmp = listaTmp;
+	}
 
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
@@ -54,8 +63,8 @@ public class CadastroAcessoController implements Serializable {
 
 		verificarLogin(loginController);
 		
-		this.listaTmp.add("Primeira");
-		this.listaTmp.add("Segunda");
+		this.listaTmp.add("Primeiro");
+		this.listaTmp.add("Segundo");
 	}
 
 	private void verificarLogin(LoginController loginController) {

@@ -136,9 +136,9 @@
 					<fieldset>
 						<legend> Contatos </legend>
 						<ui:repeat var="item" class="col s12 m12 l2"
-							value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+							value="#{cadastroAcessoController.listaTmp}"
 							varStatus="status">
-							<div>#{status.index}</div>
+							<div>#{status.index} | #{item}</div>
 						</ui:repeat>
 					</fieldset>
 				</div>
