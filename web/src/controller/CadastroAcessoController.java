@@ -16,6 +16,7 @@ import org.primefaces.context.RequestContext;
 
 import model.dao.TipoContatoDAO;
 import model.dao.TipoPessoaDAO;
+import model.entity.Contato;
 import model.entity.PessoaFisica;
 import model.entity.PessoaJuridica;
 import model.entity.TipoContato;
@@ -39,11 +40,11 @@ public class CadastroAcessoController implements Serializable {
 	private Boolean logado;
 	private Usuario usuario;
 
+	private String infoContato;
 	private TipoContato tipoContatoSelecionado;
 	private TipoPessoa tipoPessoaSelecionada;
-	
+
 	private List<String> listaTmp = new LinkedList<>();
-	
 
 	public List<String> getListaTmp() {
 		return listaTmp;
@@ -59,10 +60,13 @@ public class CadastroAcessoController implements Serializable {
 		this.loginController = loginController;
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
+		this.tipoContatoSelecionado = this.tiposContato.get(0);
+
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
+		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
 
 		verificarLogin(loginController);
-		
+
 		this.listaTmp.add("Primeiro");
 		this.listaTmp.add("Segundo");
 	}
@@ -122,6 +126,13 @@ public class CadastroAcessoController implements Serializable {
 
 	public void adicionaContato() {
 		System.out.println("adicionaContato()");
+		Contato contato = new Contato();
+
+		contato.setInformacao(this.infoContato);
+		contato.setTipoContato(this.tipoContatoSelecionado);
+		
+		this.usuario.getPessoa().getContatos().add(contato);
+
 	}
 
 	// GETTERS E SETTER PARA A VIEW
@@ -156,6 +167,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getInfoContato() {
+		return infoContato;
+	}
+
+	public void setInfoContato(String infoContato) {
+		this.infoContato = infoContato;
 	}
 
 	public TipoContato getTipoContatoSelecionado() {

@@ -114,7 +114,8 @@
 					<div class="col s12 m12 l6 input-field">
 						<i class="material-icons prefix">account_circle</i>
 						<h:inputText id="info-contato" name="info-contato" type="text"
-							class="validate" required="required" maxlength="30">
+							class="validate" required="required" maxlength="30"
+							value="#{cadastroAcessoController.infoContato}">
 
 							<f:ajax event="change" />
 						</h:inputText>
@@ -136,8 +137,17 @@
 					<fieldset>
 						<legend> Contatos </legend>
 						<ui:repeat var="item" class="col s12 m12 l2"
-							value="#{cadastroAcessoController.listaTmp}"
+							value="#{cadastroAcessoController.usuario.pessoa.contatos}"
 							varStatus="status">
+							<div>#{status.index} | #{item}</div>
+						</ui:repeat>
+					</fieldset>
+				</div>
+				<div class="row" style="max-width: 540px;">
+					<fieldset>
+						<legend> Contatos </legend>
+						<ui:repeat var="item" class="col s12 m12 l2"
+							value="#{cadastroAcessoController.listaTmp}" varStatus="status">
 							<div>#{status.index} | #{item}</div>
 						</ui:repeat>
 					</fieldset>
