@@ -8,10 +8,17 @@
 
 <h:body>
 
-	<ui:composition template="layout.xhtml">
+	<c:interface>
+		<c:attribute name="for" />
+	</c:interface>
 
-	</ui:composition>
-
+	<c:implementation>
+		<h:outputScript name="scrollbarStateSaver.js" library="js" />
+		<script type="text/javascript">
+			saveScrollbarPos("#{cc.attrs.for}");
+		</script>
+	</c:implementation>
+	
 </h:body>
 
 </html>

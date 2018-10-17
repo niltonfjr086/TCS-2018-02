@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.enterprise.context.SessionScoped;
 import javax.enterprise.context.control.RequestContextController;
 import javax.faces.context.FacesContext;
 //import javax.enterprise.context.RequestScoped;
@@ -26,6 +27,7 @@ import model.entity.Usuario;
 @Named
 @ViewScoped
 // @RequestScoped
+// @SessionScoped
 public class CadastroAcessoController implements Serializable {
 
 	private static final long serialVersionUID = 2425783147349721021L;
@@ -44,16 +46,6 @@ public class CadastroAcessoController implements Serializable {
 	private TipoContato tipoContatoSelecionado;
 	private TipoPessoa tipoPessoaSelecionada;
 
-	private List<String> listaTmp = new LinkedList<>();
-
-	public List<String> getListaTmp() {
-		return listaTmp;
-	}
-
-	public void setListaTmp(List<String> listaTmp) {
-		this.listaTmp = listaTmp;
-	}
-
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
 		super();
@@ -61,14 +53,13 @@ public class CadastroAcessoController implements Serializable {
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
 		this.tipoContatoSelecionado = this.tiposContato.get(0);
+		this.infoContato = "";
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
 
 		verificarLogin(loginController);
 
-		this.listaTmp.add("Primeiro");
-		this.listaTmp.add("Segundo");
 	}
 
 	private void verificarLogin(LoginController loginController) {
@@ -130,9 +121,17 @@ public class CadastroAcessoController implements Serializable {
 
 		contato.setInformacao(this.infoContato);
 		contato.setTipoContato(this.tipoContatoSelecionado);
-		
-		this.usuario.getPessoa().getContatos().add(contato);
 
+		this.usuario.getPessoa().getContatos().add(contato);
+		
+		this.infoContato = "";
+
+//		return "printTest()";
+
+	}
+
+	public void digitando() {
+		System.out.println(this.infoContato);
 	}
 
 	// GETTERS E SETTER PARA A VIEW
