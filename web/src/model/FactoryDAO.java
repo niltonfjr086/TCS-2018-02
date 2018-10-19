@@ -1,13 +1,16 @@
 package model;
 
+import javax.ejb.Startup;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+@Startup
 public final class FactoryDAO {
 
 	private FactoryDAO() {
-
+		openInstance();
 	}
 
 	private static Configuration cfg;
