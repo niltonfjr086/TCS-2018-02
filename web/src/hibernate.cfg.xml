@@ -6,7 +6,7 @@
 
 		<!-- DATABASES: tcs_seu_valor | mysql -->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost/tcs_seu_valor?autoReconnect=true&amp;useSSL=false</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost/tcs_seu_valor?serverTimezone=GMT-03:00&amp;autoReconnect=true&amp;useSSL=false</property>
 		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
 
 		<property name="hibernate.connection.username">root</property>
