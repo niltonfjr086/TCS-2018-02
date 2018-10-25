@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:c="http://xmlns.jcp.org/jsf/composite"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -15,10 +14,10 @@
 	<title>SEU VALOR</title>
 
 	<!-- Compiled and minified CSS -->
-		<link type="text/css" rel="stylesheet" media="screen,projection"
-			href="assets/css/materialize.min.css" />
-<!-- 	<link type="text/css" rel="stylesheet" media="screen,projection" -->
-<!-- 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" /> -->
+	<link type="text/css" rel="stylesheet" media="screen,projection"
+		href="assets/css/materialize.min.css" />
+	<!-- 	<link type="text/css" rel="stylesheet" media="screen,projection" -->
+	<!-- 		href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css" /> -->
 
 	<!-- Material Icons  -->
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -31,27 +30,26 @@
 
 <h:body class="custom-background">
 
-	<div id="page">
+		<div id="page">
 
-		<div id="header">
-			<ui:insert name="header">
-				<ui:include src="header.xhtml" />
-			</ui:insert>
+			<div id="header">
+				<ui:insert name="header">
+					<ui:include src="header.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="content">
+				<ui:insert name="content">
+					<ui:include src="landing_page.xhtml" />
+				</ui:insert>
+			</div>
+
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="footer.xhtml" />
+				</ui:insert>
+			</div>
+
 		</div>
-		<div id="content">
-			<ui:insert name="content">
-				<ui:include src="landing_page.xhtml" />
-			</ui:insert>
-		</div>
-
-		<div id="footer">
-			<ui:insert name="footer">
-				<ui:include src="footer.xhtml" />
-			</ui:insert>
-		</div>
-
-	</div>
-
 
 	<!--Import jQuery before materialize.js-->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js">
@@ -59,12 +57,12 @@
 	</script>
 	<!-- Compiled and minified JavaScript -->
 	<script src="assets/js/materialize.min.js">
-
- 	</script>
-<!-- 	<script -->
-<!-- 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"> -->
 		
-<!-- 	</script> -->
+	</script>
+	<!-- 	<script -->
+	<!-- 		src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"> -->
+
+	<!-- 	</script> -->
 
 
 	<!-- Scripts Locais -->

@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,12 +13,16 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+//import org.json.JSONException;
+//import org.json.JSONObject;
 import org.primefaces.PrimeFaces;
 import org.primefaces.context.RequestContext;
 
+//import component.JsonReader;
 import model.dao.TipoContatoDAO;
 import model.dao.TipoPessoaDAO;
 import model.entity.Contato;
+import model.entity.Endereco;
 import model.entity.PessoaFisica;
 import model.entity.PessoaJuridica;
 import model.entity.TipoContato;
@@ -59,6 +64,8 @@ public class CadastroAcessoController implements Serializable {
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
 
 		verificarLogin(loginController);
+		
+		
 
 	}
 
@@ -82,6 +89,7 @@ public class CadastroAcessoController implements Serializable {
 
 				this.usuario = new Usuario();
 				this.usuario.setPessoa(new PessoaFisica());
+				this.usuario.getPessoa().setEndereco(new Endereco());
 				// this.usuario.setPessoa(new PessoaJuridica());
 
 			}
@@ -123,15 +131,39 @@ public class CadastroAcessoController implements Serializable {
 		contato.setTipoContato(this.tipoContatoSelecionado);
 
 		this.usuario.getPessoa().getContatos().add(contato);
-		
+
 		this.infoContato = "";
 
-//		return "printTest()";
+		// return "printTest()";
 
 	}
 
 	public void digitando() {
 		System.out.println(this.infoContato);
+	}
+
+	public void carregaEndereco() {
+
+		System.out.println("carregaEndereco()");
+		// JSONObject json;
+		// try {
+		// JSONObject json =
+		// JsonReader.readJsonFromUrl("https://api.postmon.com.br/v1/cep/88020-280");
+		// System.out.println(json.toString());
+		// } catch (JSONException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
+
+		// if(json != null) {
+		// System.out.println(json.toString());
+		// System.out.println(json.get("bairro"));
+		// System.out.println(json.get("logradouro"));
+		// System.out.println(json.get("estado"));
+		// System.out.println(json.get("cidade"));
+		// }
+
 	}
 
 	// GETTERS E SETTER PARA A VIEW

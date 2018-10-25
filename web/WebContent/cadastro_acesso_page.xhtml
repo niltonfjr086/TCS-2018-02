@@ -2,7 +2,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
-	xmlns:c="http://xmlns.jcp.org/jsf/composite/components"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
@@ -10,204 +9,213 @@
 	<ui:composition template="layout.xhtml">
 
 		<ui:define name="content">
-
-			<h:form method="post" class="row"
-				style="max-width:900px; padding-top: 32px;">
-
-				<div class="col s5 m3 l2">
-					<label for="tipo-pessoa" class="col">Tipo de Pessoa</label>
-					<h:selectOneMenu id="tipo-pessoa"
-						value="#{cadastroAcessoController.tipoPessoaSelecionada}"
-						converter="tipoPessoaConverter" required="true"
-						class="browser-default col s12 m12 l12 box-color z-depth-1"
-						disabled="#{cadastroAcessoController.logado}">
-
-						<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
-							var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-						<f:ajax event="change" render="documento doc_label"
-							listener="#{cadastroAcessoController.defineDoc()}" />
-					</h:selectOneMenu>
-
-				</div>
-
-				<div class="col s7 m9 l3 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:outputLabel id="doc_label" for="documento"
-						value="#{cadastroAcessoController.tipoPessoaSelecionada.chave}" />
-					<h:inputText id="documento" name="documento" type="text"
-						disabled="#{cadastroAcessoController.logado}" class="validate"
-						required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.pessoa.documento}"
-						onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
-
-						<f:ajax event="change" />
-					</h:inputText>
-				</div>
-
-				<div class="col s12 m12 l7 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputText id="nome" name="nome" type="text" class="validate"
-						required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.pessoa.nome}">
-
-						<f:ajax event="change" />
-					</h:inputText>
-					<h:outputLabel for="nome" value="Nome" />
-
-				</div>
-
-			</h:form>
-
-
-			<h:form method="post" class="row" style="max-width: 540px;">
-
-				<div class="col s12 m12 l12 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputText id="login" name="login" type="text" class="validate"
-						required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.login}">
-
-						<f:ajax event="change" />
-					</h:inputText>
-					<h:outputLabel for="login" value="Login" />
-
-				</div>
-
-				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputSecret id="senha" name="senha" type="text" class="validate"
-						required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.senha}">
-
-						<f:ajax event="change" />
-					</h:inputSecret>
-					<h:outputLabel for="senha" value="Senha" />
-
-				</div>
-
-				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputSecret id="conf-senha" name="conf-senha" type="text"
-						class="validate" required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.senha}">
-
-						<f:ajax event="change" />
-					</h:inputSecret>
-					<h:outputLabel for="conf-senha" value="Confirme a Senha" />
-
-				</div>
-
-			</h:form>
-
-
-
-			<h:form id="contatos" method="post" class="row"
-				style="max-width: 540px;">
-				<fieldset>
-					<legend>
-						<h:commandButton type="button" class="btn box-color waves-effect"
-							onclick="abreModal('adiciona_contato');" value="Contatos +" />
-					</legend>
-
-					<ui:repeat var="item" class="col s12 m12 l2"
-						value="#{cadastroAcessoController.usuario.pessoa.contatos}"
-						varStatus="status">
-						<div>#{status.index + 1} | #{item.tipoContato.nome}:
-							#{item.informacao}</div>
-					</ui:repeat>
-				</fieldset>
-			</h:form>
-
-			<h:form id="endereco" method="post" class="row"
-				style="max-width: 540px;">
-				<fieldset>
-					<legend>Endereço</legend>
-
-					<div class="col s4 m3 l3 input-field">
-						<h:inputText id="cep" name="cep" type="text" class="validate"
-							required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
-
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="cep" value="CEP" />
-
-					</div>
-
-					<div class="col s4 m3 l2 input-field">
-						<h:commandButton type="button" class="btn box-color waves-effect"
-							onclick="abreModal('adiciona_contato');" value="Q" />
-					</div>
-
-					<div class="col s4 m6 l7 input-field">
-						<h:inputText id="pais" name="pais" type="text" class="validate"
-							required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
-
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="pais" value="País" />
-
-					</div>
-
-				</fieldset>
-			</h:form>
-
-
-			<h:form method="post" class="row"
-				style="max-width:900px; padding-top: 32px;">
-				<div class="col s12 m12 l12 center">
-					<h:commandButton type="submit" class="btn box-color waves-effect"
-						actionListener="#{cadastroAcessoController.adicionaContato()}"
-						value="Salvar" />
-				</div>
-				<div class="col s12 m12 l12 center">
-					<a href="login_page.xhtml" class="btn yellow darken-2 waves-effect">Voltar
-						ao Login</a>
-				</div>
-			</h:form>
-
-			<!-- Modal -->
 			<form>
+				<div class="row" style="max-width: 900px; padding-top: 32px;">
+					<h:form>
+
+						<div class="col s5 m3 l2">
+							<label for="tipo-pessoa" class="col">Tipo de Pessoa</label>
+							<h:selectOneMenu id="tipo-pessoa"
+								value="#{cadastroAcessoController.tipoPessoaSelecionada}"
+								converter="tipoPessoaConverter" required="true"
+								class="browser-default col s12 m12 l12 box-color z-depth-1"
+								disabled="#{cadastroAcessoController.logado}">
+
+								<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
+									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+								<f:ajax event="change" render="documento doc_label"
+									listener="#{cadastroAcessoController.defineDoc()}" />
+							</h:selectOneMenu>
+
+						</div>
+
+						<div class="col s7 m9 l3 input-field">
+							<i class="material-icons prefix">account_circle</i>
+							<h:outputLabel id="doc_label" for="documento"
+								value="#{cadastroAcessoController.tipoPessoaSelecionada.chave}" />
+							<h:inputText id="documento" name="documento" type="text"
+								disabled="#{cadastroAcessoController.logado}" class="validate"
+								required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.documento}"
+								onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
+
+								<f:ajax event="change" />
+							</h:inputText>
+						</div>
+
+						<div class="col s12 m12 l7 input-field">
+							<i class="material-icons prefix">account_circle</i>
+							<h:inputText id="nome" name="nome" type="text" class="validate"
+								required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.nome}">
+
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="nome" value="Nome" />
+
+						</div>
+
+					</h:form>
+				</div>
+
+				<h:form class="row" style="max-width: 540px;">
+
+					<div class="col s12 m12 l12 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputText id="login" name="login" type="text" class="validate"
+							required="required" maxlength="30"
+							value="#{cadastroAcessoController.usuario.login}">
+
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="login" value="Login" />
+
+					</div>
+
+					<div class="col s12 m6 l6 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputSecret id="senha" name="senha" type="text"
+							class="validate" required="required" maxlength="30"
+							value="#{cadastroAcessoController.usuario.senha}">
+
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="senha" value="Senha" />
+
+					</div>
+
+					<div class="col s12 m6 l6 input-field">
+						<i class="material-icons prefix">account_circle</i>
+						<h:inputSecret id="conf-senha" name="conf-senha" type="text"
+							class="validate" required="required" maxlength="30"
+							value="#{cadastroAcessoController.usuario.senha}">
+
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="conf-senha" value="Confirme a Senha" />
+
+					</div>
+
+				</h:form>
+
+
+
+				<h:form id="contatos" class="row" style="max-width: 540px;">
+					<fieldset>
+						<legend>
+							<h:commandButton type="button" class="btn box-color waves-effect"
+								onclick="abreModal('adiciona_contato');" value="Contatos +" />
+						</legend>
+
+						<ui:repeat var="item" class="col s12 m12 l2"
+							value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+							varStatus="status">
+							<div>#{status.index + 1} | #{item.tipoContato.nome}:
+								#{item.informacao}</div>
+						</ui:repeat>
+					</fieldset>
+				</h:form>
+
+				<h:form id="endereco" class="row" style="max-width: 540px;">
+					<fieldset>
+						<legend>Endereço</legend>
+
+						<div class="col s4 m3 l3 input-field">
+							<h:inputText id="cep" name="cep" type="text" class="validate"
+								required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
+
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="cep" value="CEP" />
+
+						</div>
+
+						<div class="col s4 m3 l2">
+							<h:commandButton type="submit" class="btn box-color waves-effect"
+								actionListener="#{cadastroAcessoController.carregaEndereco()}"
+								value="Q" />
+						</div>
+
+						<div class="col s4 m6 l7 input-field">
+							<h:inputText id="pais" name="pais" type="text" class="validate"
+								required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
+
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="pais" value="País" />
+
+						</div>
+
+					</fieldset>
+				</h:form>
+
+
+
+				<h:form class="row" style="max-width: 900px; padding-top: 32px;">
+					<div class="col s12 m12 l12 center">
+						<h:commandButton type="submit" class="btn box-color waves-effect"
+							actionListener="#{cadastroAcessoController.adicionaContato()}"
+							value="Salvar" />
+					</div>
+
+					<div class="col s4 m3 l2">
+						<h:commandButton type="submit" class="btn box-color waves-effect"
+							actionListener="#{cadastroAcessoController.carregaEndereco()}"
+							value="Q" />
+					</div>
+
+					<div class="col s12 m12 l12 center">
+						<a href="login_page.xhtml"
+							class="btn yellow darken-2 waves-effect">Voltar ao Login</a>
+					</div>
+				</h:form>
+
+				<!-- 			</h:form> -->
+
+
+				<!-- Modal Adição Contato -->
+				<!-- 			<form> -->
 				<div id="adiciona_contato" class="modal">
 					<div class="modal-content">
 						<h4>Deseja adicionar Contato?</h4>
 						<p>Favor preencher os dados e confirmar, obrigado.</p>
 
-						<div class="row" style="max-width: 540px;">
+						<h:form class="row" style="max-width: 540px;">
 
-							<h:form id="cmd_contatos2" method="post">
+							<!-- 							<h:form id="cmd_contatos2" method="post"> -->
 
-								<div class="col s6 m6 l6">
-									<label for="tipo-contato2" class="col">Tipo de Contato</label>
-									<h:selectOneMenu id="tipo-contato2"
-										value="#{cadastroAcessoController.tipoContatoSelecionado}"
-										converter="tipoContatoConverter" required="true"
-										class="browser-default col s12 m12 l12 box-color z-depth-1">
+							<div class="col s6 m6 l6">
+								<label for="tipo-contato2" class="col">Tipo de Contato</label>
+								<h:selectOneMenu id="tipo-contato2"
+									value="#{cadastroAcessoController.tipoContatoSelecionado}"
+									converter="tipoContatoConverter" required="true"
+									class="browser-default col s12 m12 l12 box-color z-depth-1">
 
-										<f:selectItems
-											value="#{cadastroAcessoController.tiposContato}" var="item"
-											itemValue="#{item}" itemLabel="#{item.nome}" />
-										<f:ajax event="change" render="info-contato2"
-											listener="#{cadastroAcessoController.defineTipoContato()}" />
-									</h:selectOneMenu>
+									<f:selectItems value="#{cadastroAcessoController.tiposContato}"
+										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+									<f:ajax event="change" render="info-contato2"
+										listener="#{cadastroAcessoController.defineTipoContato()}" />
+								</h:selectOneMenu>
 
-								</div>
-								<div class="col s6 m6 l6 input-field">
-									<i class="material-icons prefix">account_circle</i>
-									<h:inputText id="info-contato2" name="info-contato2"
-										type="text" class="validate" required="required"
-										maxlength="30" value="#{cadastroAcessoController.infoContato}">
+							</div>
+							<div class="col s6 m6 l6 input-field">
+								<i class="material-icons prefix">account_circle</i>
+								<h:inputText id="info-contato2" name="info-contato2" type="text"
+									class="validate" required="required" maxlength="30"
+									value="#{cadastroAcessoController.infoContato}">
 
-										<f:ajax event="change" />
-									</h:inputText>
-									<h:outputLabel for="info-contato2" value="Contato" />
-								</div>
-							</h:form>
+									<f:ajax event="change" />
+								</h:inputText>
+								<h:outputLabel for="info-contato2" value="Contato" />
+							</div>
+							<!-- 							</h:form> -->
 
 
-						</div>
+						</h:form>
 					</div>
+					<!-- 					<h:form class="modal-footer"> -->
 					<h:form class="modal-footer">
 						<h:commandButton type="submit"
 							class="modal-close waves-effect waves-green btn-flat"
@@ -215,9 +223,11 @@
 							value="Sim" />
 						<a class="modal-close waves-effect waves-green btn-flat">Não</a>
 					</h:form>
+					<!-- 					</h:form> -->
 				</div>
-			</form>
+				<!-- 			</form> -->
 
+			</form>
 		</ui:define>
 	</ui:composition>
 </h:body>
