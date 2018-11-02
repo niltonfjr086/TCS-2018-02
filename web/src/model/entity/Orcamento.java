@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -28,6 +29,10 @@ public class Orcamento extends BaseEntity {
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
 	@JoinColumn(name = "nicho", nullable = false)
 	private Nicho nicho;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "endereco")
+	private Endereco endereco;
 
 	public Long getId() {
 		return id;
@@ -51,6 +56,14 @@ public class Orcamento extends BaseEntity {
 
 	public void setNicho(Nicho nicho) {
 		this.nicho = nicho;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 }

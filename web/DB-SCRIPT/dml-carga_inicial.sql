@@ -26,16 +26,19 @@ INSERT INTO `tcs_seu_valor`.`tb_tipo_usuario` (`nome`) VALUES('Ofertante');
 -- -----------------------------------------------------
 -- INSERTS tb_status_pedido
 -- -----------------------------------------------------
--- COR AMARELA
+-- COR BRANCA
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Aguardando');
--- COR VERDE
+-- COR AMARELA
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Negociando');
--- COR VERMELHO
-INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Cancelado');
 
--- COR 
--- STATUS ONDE OS OUTROS SÃO CANCELADOS
+-- COR VERDE - STATUS ONDE UM É SELECIONADO E OS OUTROS SÃO DESCARTADOS AUTOMATICAMENTE PARA COR PRETA
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Executando');
+
+-- COR PRETA
+INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Descartado');
+
+-- COR VERMELHA - ESTE STATUS CORRESPONDE AO CANCELAMENTO DE UM PEDIDO DURANTE SUA EXECUÇÃO
+INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Cancelado interrompido');
 
 -- COR AZUL
 INSERT INTO `tcs_seu_valor`.`tb_status_pedido` (`nome`) VALUES('Concluído');
@@ -66,12 +69,11 @@ INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Esporte');
 INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Saúde');
 INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Lazer');
 INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Automobilismo');
-INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Construção');
-INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Alvenaria');
-INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Mobília');
+INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Informática');
+INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Imobiliário');
+INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Mobiliário');
 INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Eletrodoméstico');
-INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Tecnologia');
-INSERT INTO `tcs_seu_valor`.`tb_ramo` (`nome`) VALUES('Eletrônico');
+
 
 
 -- -----------------------------------------------------
@@ -83,45 +85,40 @@ INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Aula de Inglês'
 INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Aula de Espanhol', 1);
 
 -- Alimento
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Japonês', 2);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Tailandês', 2);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Buffet Japonês', 2);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Buffet Tailandês', 2);
 
 -- Esporte
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Futebol', 3);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Basquete', 3);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Aula de Futebol', 3);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Aula de Basquete', 3);
 
 -- Saúde
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 4);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 4);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Medicamento Tele-entrega', 4);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Consulta Nutricionista', 4);
 
 -- Lazer
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 5);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 5);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Bebida tele-entrega', 5);
 
 -- Automobilismo
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 6);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 6);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Reparo mecânico', 6);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Reparo interno', 6);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Reparo externo', 6);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Customização', 6);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Limpeza', 6);
 
--- Construção
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 7);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 7);
+-- Informática
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Desenvolvimento software mobile', 7);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Desenvolvimento software web', 7);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Manutenção smartphone', 7);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Manutenção smartwatch', 7);
 
--- Alvenaria
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 8);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 8);
+-- Imobiliário
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Construção manutenção', 8);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Pintua', 8);
 
--- Mobília
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 9);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 9);
+-- Mobiliário
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Montagem móveis', 9);
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Frete', 9);
 
--- Eletrodoméstico
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 10);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 10);
-
--- Tecnologia
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 11);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 11);
-
--- Eletrônico
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 12);
-INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('', 12);
+-- Eletroeletrônico
+INSERT INTO `tcs_seu_valor`.`tb_nicho` (`nome`, `ramo`) VALUES('Manutenção peças', 10);

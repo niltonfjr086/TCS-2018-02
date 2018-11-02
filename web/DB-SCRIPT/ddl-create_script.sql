@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_ramo` (
 CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_nicho` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
-    `nome` VARCHAR(30) UNIQUE NOT NULL,
+    `nome` VARCHAR(40) UNIQUE NOT NULL,
     `ramo` BIGINT NOT NULL, FOREIGN KEY (`ramo`) REFERENCES `tcs_seu_valor`.`tb_ramo` (`id`)
 
     ) ENGINE = InnoDB;
@@ -153,8 +153,10 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_filtro_oferta` (
 CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_orcamento` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
+	`titulo` VARCHAR(30) NOT NULL,
     `tipo` BIGINT NOT NULL, FOREIGN KEY (`tipo`) REFERENCES `tcs_seu_valor`.`tb_tipo_oferta` (`id`),
-    `nicho` BIGINT NOT NULL, FOREIGN KEY (`nicho`) REFERENCES `tcs_seu_valor`.`tb_nicho` (`id`)
+    `nicho` BIGINT NOT NULL, FOREIGN KEY (`nicho`) REFERENCES `tcs_seu_valor`.`tb_nicho` (`id`),
+    `endereco` BIGINT NOT NULL, FOREIGN KEY (`endereco`) REFERENCES `tcs_seu_valor`.`tb_endereco` (`id`)
 
     ) ENGINE = InnoDB;
 
@@ -194,6 +196,9 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
     `ofertante` BIGINT, FOREIGN KEY (`ofertante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),
     `nota_para_ofertante` INT,
     `comentario_para_ofertante` VARCHAR(100),
+    `valor_unidade` DOUBLE,
+    `quantidade` INT,
+    `valor_total` DOUBLE,    
     `dt_abertura` DATETIME DEFAULT NOW(),
     `dt_fechamento` DATETIME
 

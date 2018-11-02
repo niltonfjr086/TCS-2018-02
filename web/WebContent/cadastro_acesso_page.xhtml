@@ -117,13 +117,14 @@
 				</h:form>
 
 				<h:form id="endereco" class="row" style="max-width: 540px;">
+
 					<fieldset>
 						<legend>Endereço</legend>
 
-						<div class="col s4 m3 l3 input-field">
+						<div class="col s8 m3 l3 input-field">
 							<h:inputText id="cep" name="cep" type="text" class="validate"
 								required="required" maxlength="30"
-								value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
+								value="#{cadastroAcessoController.endereco.cep}">
 
 								<f:ajax event="change" />
 							</h:inputText>
@@ -134,21 +135,81 @@
 						<div class="col s4 m3 l2">
 							<h:commandButton type="submit" class="btn box-color waves-effect"
 								actionListener="#{cadastroAcessoController.carregaEndereco()}"
-								value="Q" />
+								value='Q'>
+								<f:ajax event="change"
+									render="pais uf municipio bairro logradouro complemento" />
+							</h:commandButton>
+
 						</div>
 
-						<div class="col s4 m6 l7 input-field">
+						<div class="col s4 m6 l5 input-field">
 							<h:inputText id="pais" name="pais" type="text" class="validate"
 								required="required" maxlength="30"
-								value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
-
+								value="#{cadastroAcessoController.endereco.pais}">
 								<f:ajax event="change" />
 							</h:inputText>
 							<h:outputLabel for="pais" value="País" />
-
 						</div>
 
+						<div class="col s4 m3 l5 input-field">
+							<h:inputText id="uf" name="uf" type="text" class="validate"
+								required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.estado}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="uf" value="U.F." />
+						</div>
+
+
+						<div class="col s12 m6 l6 input-field">
+							<h:inputText id="municipio" name="municipio" type="text"
+								class="validate" required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.municipio}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="municipio" value="Município" />
+						</div>
+
+						<div class="col s12 m6 l6 input-field">
+							<h:inputText id="bairro" name="bairro" type="text"
+								class="validate" required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.bairro}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="bairro" value="Bairro" />
+						</div>
+
+						<div class="col s12 m12 l12 input-field">
+							<h:inputText id="logradouro" name="logradouro" type="text"
+								class="validate" required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.logradouro}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="logradouro" value="Logradouro" />
+						</div>
+
+						<div class="col s12 m8 l8 input-field">
+							<h:inputText id="complemento" name="complemento" type="text"
+								class="validate" required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.complemento}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="complemento" value="Complemento" />
+						</div>
+
+						<div class="col s12 m4 l4 input-field">
+							<h:inputText id="numero" name="numero" type="text"
+								class="validate" required="required" maxlength="30"
+								value="#{cadastroAcessoController.endereco.numero}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="numero" value="Número" />
+						</div>
+
+
 					</fieldset>
+
+
 				</h:form>
 
 
@@ -156,15 +217,15 @@
 				<h:form class="row" style="max-width: 900px; padding-top: 32px;">
 					<div class="col s12 m12 l12 center">
 						<h:commandButton type="submit" class="btn box-color waves-effect"
-							actionListener="#{cadastroAcessoController.adicionaContato()}"
+							actionListener="#{cadastroAcessoController.adicionaUsuario()}"
 							value="Salvar" />
 					</div>
 
-					<div class="col s4 m3 l2">
-						<h:commandButton type="submit" class="btn box-color waves-effect"
-							actionListener="#{cadastroAcessoController.carregaEndereco()}"
-							value="Q" />
-					</div>
+<!-- 					<div class="col s4 m3 l2"> -->
+<!-- 						<h:commandButton type="submit" class="btn box-color waves-effect" -->
+<!-- 							actionListener="#{cadastroAcessoController.carregaEndereco()}" -->
+<!-- 							value="Q" /> -->
+<!-- 					</div> -->
 
 					<div class="col s12 m12 l12 center">
 						<a href="login_page.xhtml"

@@ -78,11 +78,11 @@ public abstract class Pessoa extends BaseEntity {
 		this.documento = documento;
 	}
 
-	protected TipoPessoa getTipoPessoa() {
+	public TipoPessoa getTipoPessoa() {
 		return tipoPessoa;
 	}
 
-	protected void setTipoPessoa(TipoPessoa tipoPessoa) {
+	public void setTipoPessoa(TipoPessoa tipoPessoa) {
 		this.tipoPessoa = tipoPessoa;
 	}
 
