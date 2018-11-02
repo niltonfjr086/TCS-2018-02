@@ -36,8 +36,13 @@ public class LoginController implements Serializable {
 		Usuario tmp = this.usuarioDAO.validarLogin(this.usuario);
 		this.usuario = tmp != null ? tmp : new Usuario();
 		
-//		ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
-//		Bindings obj = (Bindings)engine.eval("abreModal('login_submetido');");
+		if(this.usuario.getId() != null) {
+			
+		}
+		System.out.println(this.usuario);
+		
+		// ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
+		// Bindings obj = (Bindings)engine.eval("abreModal('login_submetido');");
 		// RequestContext.getCurrentInstance().execute("abreModal('login_submetido');");
 		// "abreModal('login_submetido');"
 		// return "login_submetido";

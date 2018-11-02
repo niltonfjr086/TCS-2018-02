@@ -16,8 +16,6 @@ import javax.inject.Named;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.primefaces.PrimeFaces;
-import org.primefaces.context.RequestContext;
 
 import component.JsonReader;
 import model.dao.ContatoDAO;
@@ -60,7 +58,8 @@ public class CadastroAcessoController implements Serializable {
 	private TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
 	private List<TipoPessoa> tiposPessoa = new LinkedList<>();
 
-	private TipoUsuario tipoUsuario = new TipoUsuario();
+//	private TipoUsuario tipoUsuario = new TipoUsuario();
+	private List<TipoUsuario> tiposUsuario = new LinkedList<>();
 	private TipoUsuarioDAO tipoUsuarioDAO = new TipoUsuarioDAO();
 
 	private Boolean logado;
@@ -78,6 +77,8 @@ public class CadastroAcessoController implements Serializable {
 	public CadastroAcessoController(LoginController loginController) {
 		super();
 		this.loginController = loginController;
+		
+		
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
 		this.tipoContatoSelecionado = this.tiposContato.get(0);
@@ -85,6 +86,9 @@ public class CadastroAcessoController implements Serializable {
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
+		
+		this.tiposUsuario = this.tipoUsuarioDAO.findAll();
+
 
 		verificarLogin(loginController);
 
@@ -107,14 +111,13 @@ public class CadastroAcessoController implements Serializable {
 			} else {
 				this.logado = false;
 				this.tipoPessoaSelecionada = this.getTiposPessoa().get(0);
-				// this.tipoPessoaSelecionada = new PessoaFisica().getConfiguracao();
-				// this.tipoPessoaSelecionada = new PessoaJuridica().getConfiguracao();
+				
 
 				this.usuarioDAO = new UsuarioDAO();
 				this.usuario = new Usuario();
+				this.usuario.setTipo(this.tiposUsuario.get(1));
 				this.usuario.setPessoa(new PessoaFisica());
 				this.usuario.getPessoa().setTipoPessoa(this.tipoPessoaSelecionada);
-				// this.usuario.getPessoa().setEndereco(new Endereco());
 
 			}
 		}
@@ -137,14 +140,9 @@ public class CadastroAcessoController implements Serializable {
 
 	public void defineTipoContato() {
 		System.out.println("CadastroAcessoController -> defineTipoContato()");
-		// PrimeFaces.current().executeScript("");
-
 		// if (this.tipoPessoaSelecionada.getNome().equalsIgnoreCase("Física")) {
-		//
 		// this.usuario.setPessoa(new PessoaFisica());
-		//
 		// } else {
-		//
 		// this.usuario.setPessoa(new PessoaJuridica());
 		// }
 	}
@@ -155,25 +153,25 @@ public class CadastroAcessoController implements Serializable {
 
 		contato.setInformacao(this.infoContato);
 		contato.setTipoContato(this.tipoContatoSelecionado);
-
 		this.usuario.getPessoa().getContatos().add(contato);
 
 		this.infoContato = "";
-
 		// return "printTest()";
 
 	}
 
 	public void adicionaUsuario() {
 
-		this.usuario.setPessoa(this.pessoaDAO.insert(this.usuario.getPessoa()));
+		// this.usuario.getPessoa().setEndereco(this.endereco);
+		// this.usuario.setPessoa(this.pessoaDAO.insert(this.usuario.getPessoa()));
 
-		// ENDEREÇO ESTÁ SALVANDO OK
-		this.endereco = this.enderecoDAO.insert(this.endereco);
+		// ENDEREÇO E PESSOA ESTÃO SALVANDO OK COM CASCADE
+//		this.usuario.getPessoa().setEndereco(this.endereco);
+//		this.usuario.setPessoa(this.pessoaDAO.insert(this.usuario.getPessoa()));
 
+		
 		this.usuario.getPessoa().setEndereco(this.endereco);
-
-		this.usuario = this.usuarioDAO.insert(this.usuario);
+		 this.usuario = this.usuarioDAO.insert(this.usuario);
 
 		System.out.println(this.usuario);
 
