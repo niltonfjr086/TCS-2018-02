@@ -22,9 +22,15 @@
 						</div>
 						<div class="row center">
 							<h:form>
+							
 								<h:commandLink action="login_page.xhtml" value="Acessar"
 									class="btn-large box-color waves-effect"
 									rendered="#{loginController.usuario.id == null ? true : false}" />
+
+								<h5>#{loginController.usuario.id != null ? 'Olá,
+									'.concat(loginController.usuario.pessoa.nome) : ''}</h5>
+
+
 							</h:form>
 						</div>
 						<br /> <br />

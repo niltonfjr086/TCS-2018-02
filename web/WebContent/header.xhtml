@@ -13,11 +13,21 @@
 				<nav class="custom-primary-color" role="navigation">
 				<div class="nav-wrapper container">
 
-
-					<a id="logo-container" href="landing_page.xhtml" class="brand-logo">
-						SV </a>
+					<div id="logo-container">
+						<a href="landing_page.xhtml" class="brand-logo">SV</a>
+					</div>
 
 					<ul class="right hide-on-med-and-down">
+
+						<li>
+							<div class="input-field" style="max-width: 300px;">
+								<input id="search" type="search"> <label
+									class="label-icon" for="search"> <i
+										class="material-icons">search</i>
+								</label><i class="material-icons">close</i> </input>
+							</div>
+						</li>
+
 						<li><a href="landing_page.xhtml"
 							class="blue-text text-lighten-5">Home</a></li>
 						<li><h:commandLink action="login_page.xhtml" value="Entrar"
@@ -42,6 +52,14 @@
 			</div>
 
 			<ul id="nav-mobile" class="sidenav custom-primary-color">
+
+				<li>
+					<div class="input-field">
+
+						<label for="search"> <i class="material-icons">search</i>
+						</label> <input id="search" type="search"> </input>
+					</div>
+				</li>
 
 				<li><a href="landing_page.xhtml"
 					class="blue-text text-lighten-5">Home</a></li>
