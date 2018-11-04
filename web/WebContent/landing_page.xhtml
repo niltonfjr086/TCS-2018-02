@@ -21,8 +21,11 @@
 								necessidades</h5>
 						</div>
 						<div class="row center">
-							<a href="login_page.xhtml" id="download-button"
-								class="btn-large box-color waves-effect">Acessar</a>
+							<h:form>
+								<h:commandLink action="login_page.xhtml" value="Acessar"
+									class="btn-large box-color waves-effect"
+									rendered="#{loginController.usuario.id == null ? true : false}" />
+							</h:form>
 						</div>
 						<br /> <br />
 					</div>

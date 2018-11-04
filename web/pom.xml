@@ -8,6 +8,10 @@
 	<packaging>war</packaging>
 	<name>tcs-2018-02</name>
 
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
 	<dependencies>
 
@@ -89,6 +93,7 @@
 			<artifactId>json</artifactId>
 			<version>20180813</version>
 		</dependency>
+
 
 	</dependencies>
 

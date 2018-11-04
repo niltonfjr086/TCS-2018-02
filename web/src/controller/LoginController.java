@@ -1,18 +1,12 @@
 package controller;
 
-import java.io.Reader;
+import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.script.Bindings;
-import javax.script.ScriptContext;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
-
-import org.primefaces.PrimeFaces;
 
 import model.dao.UsuarioDAO;
 import model.entity.Usuario;
@@ -27,26 +21,39 @@ public class LoginController implements Serializable {
 	private Usuario usuario = new Usuario();
 
 	public void validar() throws ScriptException {
-		// TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
-		System.out.println("validar()");
 
 		System.out.println(this.usuario.getLogin());
 		System.out.println(this.usuario.getSenha());
 
 		Usuario tmp = this.usuarioDAO.validarLogin(this.usuario);
 		this.usuario = tmp != null ? tmp : new Usuario();
-		
-		if(this.usuario.getId() != null) {
-			
+
+		if (this.usuario.getId() != null) {
+			this.recarregar();
 		}
-		System.out.println(this.usuario);
-		
-		// ScriptEngine engine = new ScriptEngineManager().getEngineByName("js");
-		// Bindings obj = (Bindings)engine.eval("abreModal('login_submetido');");
-		// RequestContext.getCurrentInstance().execute("abreModal('login_submetido');");
-		// "abreModal('login_submetido');"
-		// return "login_submetido";
-		// PrimeFaces.current().executeScript("abreModal('login_submetido');");
+//		System.out.println(this.usuario);
+	}
+
+	public void logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		this.recarregar();
+	}
+
+	public void recarregar() {
+		try {
+			FacesContext.getCurrentInstance().getExternalContext().redirect("landing_page.xhtml");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String carregarPerfil() {
+		return "cadastro_acesso_page.xhtml";
+//		try {
+//			FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro_acesso_page.xhtml");
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	public void apagar() {

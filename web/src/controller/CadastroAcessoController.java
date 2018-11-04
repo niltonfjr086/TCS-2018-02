@@ -2,13 +2,13 @@ package controller;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.enterprise.context.SessionScoped;
-import javax.enterprise.context.control.RequestContextController;
+//import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 //import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -19,17 +19,12 @@ import org.json.JSONObject;
 
 import component.JsonReader;
 import model.dao.ContatoDAO;
-import model.dao.EnderecoDAO;
-import model.dao.PessoaDAO;
-import model.dao.PessoaFisicaDAO;
-import model.dao.PessoaJuridicaDAO;
 import model.dao.TipoContatoDAO;
 import model.dao.TipoPessoaDAO;
 import model.dao.TipoUsuarioDAO;
 import model.dao.UsuarioDAO;
 import model.entity.Contato;
 import model.entity.Endereco;
-import model.entity.Pessoa;
 import model.entity.PessoaFisica;
 import model.entity.PessoaJuridica;
 import model.entity.TipoContato;
@@ -50,15 +45,14 @@ public class CadastroAcessoController implements Serializable {
 	private List<TipoContato> tiposContato = new LinkedList<>();
 
 	private ContatoDAO contatoDAO = new ContatoDAO();
-
-	private PessoaDAO pessoaDAO = new PessoaDAO();
-	private PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-	private PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
+	// private PessoaDAO pessoaDAO = new PessoaDAO();
+	// private PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
+	// private PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
 
 	private TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
 	private List<TipoPessoa> tiposPessoa = new LinkedList<>();
 
-//	private TipoUsuario tipoUsuario = new TipoUsuario();
+	// private TipoUsuario tipoUsuario = new TipoUsuario();
 	private List<TipoUsuario> tiposUsuario = new LinkedList<>();
 	private TipoUsuarioDAO tipoUsuarioDAO = new TipoUsuarioDAO();
 
@@ -70,15 +64,12 @@ public class CadastroAcessoController implements Serializable {
 	private TipoContato tipoContatoSelecionado;
 	private TipoPessoa tipoPessoaSelecionada;
 
-	private EnderecoDAO enderecoDAO = new EnderecoDAO();
-	private Endereco endereco = new Endereco();
+	private boolean ofertante = false;
 
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
 		super();
 		this.loginController = loginController;
-		
-		
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
 		this.tipoContatoSelecionado = this.tiposContato.get(0);
@@ -86,17 +77,16 @@ public class CadastroAcessoController implements Serializable {
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
-		
+
 		this.tiposUsuario = this.tipoUsuarioDAO.findAll();
 
-
 		verificarLogin(loginController);
-
-		this.endereco.setCep("88020-180");
 
 	}
 
 	private void verificarLogin(LoginController loginController) {
+
+		this.usuarioDAO = new UsuarioDAO();
 
 		if (loginController != null) {
 
@@ -104,27 +94,52 @@ public class CadastroAcessoController implements Serializable {
 
 			if (tmp != null && tmp.getId() != null) {
 				this.logado = true;
-				this.tipoPessoaSelecionada = this.usuario.getPessoa().getConfiguracao();
-
 				this.usuario = tmp;
+
+				if (this.usuario.getTipo().getNome().equalsIgnoreCase("Ofertante")) {
+					this.ofertante = true;
+				}
+
+				System.out.println(this.usuario);
 
 			} else {
 				this.logado = false;
 				this.tipoPessoaSelecionada = this.getTiposPessoa().get(0);
-				
-
-				this.usuarioDAO = new UsuarioDAO();
 				this.usuario = new Usuario();
 				this.usuario.setTipo(this.tiposUsuario.get(1));
 				this.usuario.setPessoa(new PessoaFisica());
 				this.usuario.getPessoa().setTipoPessoa(this.tipoPessoaSelecionada);
 
 			}
+
+			if (this.usuario.getPessoa().getEndereco() == null) {
+				this.usuario.getPessoa().setEndereco(new Endereco());
+				this.usuario.getPessoa().getEndereco().setCep("");
+			}
+
+			JSONObject json;
+			try {
+				json = JsonReader.readJsonFromUrl("https://api.myip.com");
+				System.out.println("SHOW IP: " + json.get("ip").toString());
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 		}
+
 	}
 
 	public void defineDoc() {
 		System.out.println(this.tipoPessoaSelecionada);
+
+		String nome, login, senha;
+		nome = this.usuario.getPessoa().getNome();
+		login = this.usuario.getLogin();
+		senha = this.usuario.getSenha();
+		Endereco e = this.usuario.getPessoa().getEndereco();
+		List<Contato> contatos = this.usuario.getPessoa().getContatos();
 
 		if (this.tipoPessoaSelecionada.getNome().equalsIgnoreCase("Física")) {
 
@@ -136,19 +151,23 @@ public class CadastroAcessoController implements Serializable {
 			this.usuario.setPessoa(new PessoaJuridica());
 			this.usuario.getPessoa().setTipoPessoa(this.tipoPessoaSelecionada);
 		}
+		this.usuario.getPessoa().setNome(nome);
+		this.usuario.setLogin(login);
+		this.usuario.setSenha(senha);
+		this.usuario.getPessoa().setEndereco(e);
+		this.usuario.getPessoa().setContatos(contatos);
+	}
+
+	public void defineTipoUsuario(ValueChangeEvent event) {
+		System.out.println("defineTipoUsuario()");
+		System.out.println(this.ofertante);
 	}
 
 	public void defineTipoContato() {
 		System.out.println("CadastroAcessoController -> defineTipoContato()");
-		// if (this.tipoPessoaSelecionada.getNome().equalsIgnoreCase("Física")) {
-		// this.usuario.setPessoa(new PessoaFisica());
-		// } else {
-		// this.usuario.setPessoa(new PessoaJuridica());
-		// }
 	}
 
 	public void adicionaContato() {
-		System.out.println("adicionaContato()");
 		Contato contato = new Contato();
 
 		contato.setInformacao(this.infoContato);
@@ -156,55 +175,79 @@ public class CadastroAcessoController implements Serializable {
 		this.usuario.getPessoa().getContatos().add(contato);
 
 		this.infoContato = "";
-		// return "printTest()";
 
 	}
 
 	public void adicionaUsuario() {
 
-		// this.usuario.getPessoa().setEndereco(this.endereco);
-		// this.usuario.setPessoa(this.pessoaDAO.insert(this.usuario.getPessoa()));
+		if (this.ofertante) {
+			this.usuario.setTipo(this.tiposUsuario.get(2));
+		} else {
+			this.usuario.setTipo(this.tiposUsuario.get(1));
+		}
 
-		// ENDEREÇO E PESSOA ESTÃO SALVANDO OK COM CASCADE
-//		this.usuario.getPessoa().setEndereco(this.endereco);
-//		this.usuario.setPessoa(this.pessoaDAO.insert(this.usuario.getPessoa()));
+		List<Contato> contatos = this.usuario.getPessoa().getContatos();
 
-		
-		this.usuario.getPessoa().setEndereco(this.endereco);
-		 this.usuario = this.usuarioDAO.insert(this.usuario);
+		if (this.usuario != null) {
 
-		System.out.println(this.usuario);
+			if (this.usuario.getPessoa() != null) {
 
-	}
+				for (Contato contato : contatos) {
+					contato.setPessoa(this.usuario.getPessoa());
+				}
+			}
 
-	public void digitando() {
-		System.out.println(this.infoContato);
+			if (this.usuario.getId() == null) {
+				this.usuario = this.usuarioDAO.insert(this.usuario);
+			} else {
+				this.usuario = this.usuarioDAO.save(this.usuario);
+			}
+		}
+
+		this.loginController.setUsuario(this.usuario);
+
+		this.recarregar();
+
 	}
 
 	public void carregaEndereco() {
 
-		System.out.println("carregaEndereco()");
-		JSONObject json;
+		if (this.usuario.getPessoa().getEndereco().getCep() != null
+				&& this.usuario.getPessoa().getEndereco().getCep().length() == 9) {
+			JSONObject json;
+			try {
+
+				json = JsonReader.readJsonFromUrl(
+						"https://api.postmon.com.br/v1/cep/" + this.usuario.getPessoa().getEndereco().getCep());
+				// System.out.println(json.toString());
+
+				this.usuario.getPessoa().getEndereco().setPais("Brasil");
+
+				this.usuario.getPessoa().getEndereco().setEstado(json.get("estado").toString());
+				this.usuario.getPessoa().getEndereco().setMunicipio(json.get("cidade").toString());
+				this.usuario.getPessoa().getEndereco().setLogradouro(json.get("logradouro").toString());
+				this.usuario.getPessoa().getEndereco().setBairro(json.get("bairro").toString());
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
+	public void apagarContato(int index) {
+		this.usuario.getPessoa().getContatos().remove(index);
+
+	}
+
+	public void recarregar() {
 		try {
-			json = JsonReader.readJsonFromUrl("https://api.postmon.com.br/v1/cep/" + this.endereco.getCep());
-			// System.out.println(json.toString());
-
-			this.endereco.setPais("Brasil");
-
-			this.endereco.setEstado(json.get("estado").toString());
-			this.endereco.setMunicipio(json.get("cidade").toString());
-			this.endereco.setLogradouro(json.get("logradouro").toString());
-			this.endereco.setBairro(json.get("bairro").toString());
-
-			// this.endereco.setComplemento(json.get("complemento").toString());
-			// this.endereco.setEstado(json.get("numero").toString());
-
-		} catch (JSONException e) {
-			e.printStackTrace();
+			FacesContext.getCurrentInstance().getExternalContext().redirect("landing_page.xhtml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	// GETTERS E SETTER PARA A VIEW
@@ -265,12 +308,12 @@ public class CadastroAcessoController implements Serializable {
 		this.tipoPessoaSelecionada = tipoPessoaSelecionada;
 	}
 
-	public Endereco getEndereco() {
-		return endereco;
+	public boolean getOfertante() {
+		return ofertante;
 	}
 
-	public void setEndereco(Endereco endereco) {
-		this.endereco = endereco;
+	public void setOfertante(boolean ofertante) {
+		this.ofertante = ofertante;
 	}
 
 }

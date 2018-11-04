@@ -5,7 +5,8 @@
     $('ul.tabs').tabs(); // {swipeable : true}
     $('.parallax').parallax();
     $('.modal').modal();
-    
+    $('.collapsible').collapsible();
+
     /**
 	 * https://pt.stackoverflow.com/questions/123816/como-mudar-para-portugu%C3%AAs-o-campo-data-no-materialize
 	 */
