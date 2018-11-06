@@ -39,7 +39,8 @@
 							value="#{cadastroAcessoController.usuario.pessoa.documento}"
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
 
-							<f:ajax event="change" />
+							<f:ajax event="change"
+								listener="#{cadastroAcessoController.digitando()}" />
 						</h:inputText>
 					</div>
 
@@ -48,6 +49,7 @@
 						<h:inputText id="nome" name="nome" type="text" class="validate"
 							required="required" maxlength="30"
 							onkeypress="mascara(this,capitalizer)"
+							disabled="#{cadastroAcessoController.logado}"
 							value="#{cadastroAcessoController.usuario.pessoa.nome}">
 
 							<f:ajax event="change" />
@@ -65,6 +67,7 @@
 					<i class="material-icons prefix">account_circle</i>
 					<h:inputText id="login" name="login" type="text" class="validate"
 						required="required" maxlength="30"
+						disabled="#{cadastroAcessoController.logado}"
 						value="#{cadastroAcessoController.usuario.login}">
 
 						<f:ajax event="change" />
@@ -139,8 +142,9 @@
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
-										<h:commandButton type="submit" value="X" class="input-field col s2 m2 l2" 
-										actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m2 l2"
+											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
 									</ui:repeat>
 
 									<div class="collapsible-header col s12 m12 l12">
@@ -283,31 +287,30 @@
 						<h4>Deseja adicionar Contato?</h4>
 						<p>Favor preencher os dados e confirmar, obrigado.</p>
 
-						<h:form id="cmd_contatos2" method="post">
+						<h:form id="cmd_contatos2">
 
 							<div class="col s12 m4 l4">
-								<label for="tipo-contato2" class="col">Tipo de Contato</label>
-								<h:selectOneMenu id="tipo-contato2"
-									value="#{cadastroAcessoController.tipoContatoSelecionado}"
-									converter="tipoContatoConverter" required="true"
+								<label for="add-tipo-contato" class="col">Tipo de
+									Contato</label>
+								<h:selectOneMenu id="add-tipo-contato"
+									value="#{cadastroAcessoController.contatoAdd.tipoContato}"
+									converter="tipoContatoConverter"
 									class="browser-default col s12 m12 l12 box-color z-depth-1">
 
 									<f:selectItems value="#{cadastroAcessoController.tiposContato}"
 										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-									<f:ajax event="change" render="info-contato2"
-										listener="#{cadastroAcessoController.defineTipoContato()}" />
+									<f:ajax event="change" render="add-info-contato" />
 								</h:selectOneMenu>
 
 							</div>
 							<div class="col s12 m8 l8 input-field">
 								<i class="material-icons prefix">account_circle</i>
-								<h:inputText id="info-contato2" name="info-contato2" type="text"
-									class="validate" required="required" maxlength="30"
-									value="#{cadastroAcessoController.infoContato}">
-
+								<h:inputText id="add-info-contato" name="add-info-contato"
+									type="text" class="validate" required="required" maxlength="30"
+									value="#{cadastroAcessoController.contatoAdd.informacao}">
 									<f:ajax event="change" />
 								</h:inputText>
-								<h:outputLabel for="info-contato2" value="Contato" />
+								<h:outputLabel for="add-info-contato" value="Contato" />
 							</div>
 
 						</h:form>

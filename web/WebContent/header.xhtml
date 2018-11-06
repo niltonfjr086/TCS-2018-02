@@ -15,6 +15,37 @@
 
 					<div id="logo-container">
 						<a href="landing_page.xhtml" class="brand-logo">SV</a>
+
+
+						<div class="fixed-action-btn">
+							<h:outputLabel
+								rendered="#{loginController.usuario.id != null ? true : false}"
+								class="btn-floating btn-large box-color waves-effect"
+								value="&#x2795;" />
+
+
+							<ul>
+								<!-- UNICODE PLUS ICON -->
+								<li><h:commandLink
+										rendered="#{loginController.usuario.id != null ? true : false}"
+										class="btn-floating waves-effect yellow opacity-m"
+										action="landing_page.xhtml" value="&#x2795;" /></li>
+
+								<!-- UNICODE CHAT ICON -->
+								<li><h:commandLink
+										rendered="#{loginController.usuario.id != null ? true : false}"
+										class="btn-floating waves-effect custom-background opacity-m"
+										action="landing_page.xhtml" value="&#x1f4ac;" /></li>
+
+								<!-- UNICODE CHECK ICON -->
+								<li><h:commandLink
+										rendered="#{loginController.usuario.id != null ? true : false}"
+										class="btn-floating waves-effect custom-primary-color  opacity-m"
+										action="landing_page.xhtml" value="&#x2713;" /></li>
+
+							</ul>
+						</div>
+
 					</div>
 
 					<ul class="right hide-on-med-and-down">

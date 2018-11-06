@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.faces.component.EditableValueHolder;
 //import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -62,6 +63,8 @@ public class CadastroAcessoController implements Serializable {
 
 	private String infoContato;
 	private TipoContato tipoContatoSelecionado;
+	private Contato contatoAdd = new Contato();
+
 	private TipoPessoa tipoPessoaSelecionada;
 
 	private boolean ofertante = false;
@@ -72,8 +75,9 @@ public class CadastroAcessoController implements Serializable {
 		this.loginController = loginController;
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
-		this.tipoContatoSelecionado = this.tiposContato.get(0);
-		this.infoContato = "";
+
+		this.contatoAdd = new Contato();
+		this.contatoAdd.setTipoContato(this.tiposContato.get(0));
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
@@ -96,11 +100,21 @@ public class CadastroAcessoController implements Serializable {
 				this.logado = true;
 				this.usuario = tmp;
 
+				List<Contato> contatos = this.usuario.getPessoa().getContatos();
+				List<Contato> contatosLinked = new LinkedList<>();
+				for (Contato c : contatos) {
+					contatosLinked.add(c);
+				}
+				this.usuario.getPessoa().getContatos().clear();
+				this.usuario.getPessoa().getContatos().addAll(contatosLinked);
+
+				// this.usuario.getPessoa().setContatos((List)this.usuario.getPessoa().getContatos());
+
 				if (this.usuario.getTipo().getNome().equalsIgnoreCase("Ofertante")) {
 					this.ofertante = true;
 				}
 
-				System.out.println(this.usuario);
+				// System.out.println(this.usuario);
 
 			} else {
 				this.logado = false;
@@ -109,6 +123,8 @@ public class CadastroAcessoController implements Serializable {
 				this.usuario.setTipo(this.tiposUsuario.get(1));
 				this.usuario.setPessoa(new PessoaFisica());
 				this.usuario.getPessoa().setTipoPessoa(this.tipoPessoaSelecionada);
+
+				this.usuario.getPessoa().setDocumento("");
 
 			}
 
@@ -132,7 +148,7 @@ public class CadastroAcessoController implements Serializable {
 	}
 
 	public void defineDoc() {
-		System.out.println(this.tipoPessoaSelecionada);
+		// System.out.println(this.tipoPessoaSelecionada);
 
 		String nome, login, senha;
 		nome = this.usuario.getPessoa().getNome();
@@ -158,23 +174,26 @@ public class CadastroAcessoController implements Serializable {
 		this.usuario.getPessoa().setContatos(contatos);
 	}
 
-	public void defineTipoUsuario(ValueChangeEvent event) {
-		System.out.println("defineTipoUsuario()");
-		System.out.println(this.ofertante);
-	}
-
 	public void defineTipoContato() {
 		System.out.println("CadastroAcessoController -> defineTipoContato()");
 	}
 
 	public void adicionaContato() {
-		Contato contato = new Contato();
 
-		contato.setInformacao(this.infoContato);
-		contato.setTipoContato(this.tipoContatoSelecionado);
-		this.usuario.getPessoa().getContatos().add(contato);
+		if (this.contatoAdd.getInformacao() != null && this.contatoAdd.getInformacao().length() > 5) {
 
-		this.infoContato = "";
+			Contato contato = new Contato();
+
+			contato.setTipoContato(this.contatoAdd.getTipoContato());
+			contato.setInformacao(this.contatoAdd.getInformacao());
+			contato.setTipoContato(this.contatoAdd.getTipoContato());
+
+			this.usuario.getPessoa().getContatos().add(contato);
+
+			this.contatoAdd = new Contato();
+			this.contatoAdd.setTipoContato(this.tiposContato.get(0));
+
+		}
 
 	}
 
@@ -250,6 +269,15 @@ public class CadastroAcessoController implements Serializable {
 		}
 	}
 
+	public void digitando() {
+//		Object o = ((EditableValueHolder) event.getComponent().getParent()).getValue();
+		
+		System.out.println("digitando()");
+//		System.out.println(o.toString());
+		
+		System.out.println(this.usuario.getPessoa().getDocumento().toString());
+	}
+
 	// GETTERS E SETTER PARA A VIEW
 
 	public List<TipoPessoa> getTiposPessoa() {
@@ -290,6 +318,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setInfoContato(String infoContato) {
 		this.infoContato = infoContato;
+	}
+
+	public Contato getContatoAdd() {
+		return contatoAdd;
+	}
+
+	public void setContatoAdd(Contato contatoAdd) {
+		this.contatoAdd = contatoAdd;
 	}
 
 	public TipoContato getTipoContatoSelecionado() {
