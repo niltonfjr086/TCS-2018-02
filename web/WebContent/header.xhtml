@@ -17,6 +17,8 @@
 						<a href="landing_page.xhtml" class="brand-logo">SV</a>
 
 
+						<!-- CLASSE PARA CONTROLAR VISUALIZAÇÃO DO COMPONENTE ESCONDENDO APENAS NO TAMANHO MAIOR -->
+						<!-- hide-on-large-only -->
 						<div class="fixed-action-btn">
 							<h:outputLabel
 								rendered="#{loginController.usuario.id != null ? true : false}"
@@ -29,7 +31,7 @@
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect yellow opacity-m"
-										action="landing_page.xhtml" value="&#x2795;" /></li>
+										action="novo_orcamento.xhtml" value="&#x2795;" /></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
@@ -87,8 +89,8 @@
 				<li>
 					<div class="input-field">
 
-						<label for="search"> <i class="material-icons">search</i>
-						</label> <input id="search" type="search"> </input>
+						<label for="search2"> <i class="material-icons">search</i>
+						</label> <input id="search2" type="search"> </input>
 					</div>
 				</li>
 

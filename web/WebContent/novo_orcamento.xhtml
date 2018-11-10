@@ -15,24 +15,24 @@
 						<label for="ramo" class="col">Ramo</label>
 						<h:selectOneMenu id="ramo"
 							value="#{novoOrcamentoController.ramoSelecionado}"
-							required="true"
+							required="true" converter="ramoConverter"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
 							<f:selectItem itemValue=" " itemLabel="Selecione um ramo..." />
 							<f:selectItems value="#{novoOrcamentoController.ramos}"
-								var="item" itemValue="#{item}" itemLabel="#{item}" />
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
 							<f:ajax event="change" render="nicho"
-								listener="#{novoOrcamentoController.defineNicho()}" />
+								listener="#{novoOrcamentoController.defineNichosVigentes()}" />
 						</h:selectOneMenu>
 					</div>
 					<div class="col s5 m3 l2">
 						<label for="nicho" class="col">Nicho</label>
 						<h:selectOneMenu id="nicho"
-							value="#{novoOrcamentoController.nichoSelecionado}"
-							required="true"
+							value="#{novoOrcamentoController.orcamento.nicho}"
+							required="true" converter="nichoConverter"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
-
+							<f:selectItem itemValue=" " itemLabel="Selecione um nicho..." />
 							<f:selectItems value="#{novoOrcamentoController.nichosVigentes}"
-								var="item" itemValue="#{item}" itemLabel="#{item}" />
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
 							<f:ajax event="change" />
 						</h:selectOneMenu>
 					</div>
@@ -51,16 +51,16 @@
 					</div>
 
 					<div class="col s5 m3 l3">
-						<label for="tipo-Servico" class="col">Tipo Serviço</label>
-						<h:selectOneMenu id="tipo-Servico"
-							value="#{novoOrcamentoController.tipoServicoSelecionado}"
-							required="true"
+						<label for="tipo-servico" class="col">Tipo Serviço</label>
+						<h:selectOneMenu id="tipo-servico"
+							value="#{novoOrcamentoController.orcamento.tipoOferta}"
+							required="true" converter="tipoOfertaConverter"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
 
 							<f:selectItem itemValue=" "
 								itemLabel="Selecione um tipo de serviço..." />
 							<f:selectItems value="#{novoOrcamentoController.tipoServico}"
-								var="item" itemValue="#{item}" itemLabel="#{item}" />
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
 							<f:ajax event="change" />
 						</h:selectOneMenu>
 					</div>
@@ -69,9 +69,9 @@
 				</div>
 
 				<div class="input-field col s12 m6 l6">
-					<h:inputTextarea id="textarea1" class="materialize-textarea"
-						value="#{novoOrcamentoController.pedido.descricao}"></h:inputTextarea>
-					<h:outputLabel for="textarea1">Descricao</h:outputLabel>
+					<h:inputTextarea id="descricao" class="materialize-textarea"
+						value="#{novoOrcamentoController.descricao}"></h:inputTextarea>
+					<h:outputLabel for="descricao">Descrição</h:outputLabel>
 				</div>
 
 			</h:form>
