@@ -95,7 +95,7 @@ public class CadastroAcessoTest {
 
 		Pessoa p = pDAO.findById(PessoaTest.getPfVigente());
 		this.usuario.setPessoa(p);
-		this.usuario.setTipo(tpUsuarioDAO.findById(2L));
+		this.usuario.setTipoUsuario(tpUsuarioDAO.findById(2L));
 
 		this.usuario.setLogin("joao02");
 		this.usuario.setSenha("1234");
@@ -115,7 +115,7 @@ public class CadastroAcessoTest {
 
 		Pessoa p = pDAO.findById(PessoaTest.getPjVigente());
 		this.usuario.setPessoa(p);
-		this.usuario.setTipo(tpUsuarioDAO.findById(3L));
+		this.usuario.setTipoUsuario(tpUsuarioDAO.findById(3L));
 
 		this.usuario.setLogin("allstech");
 		this.usuario.setSenha("1234");

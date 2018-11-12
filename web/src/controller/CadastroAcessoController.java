@@ -20,15 +20,23 @@ import org.json.JSONObject;
 
 import component.JsonReader;
 import model.dao.ContatoDAO;
+import model.dao.FiltroOfertaDAO;
+import model.dao.NichoDAO;
+import model.dao.RamoDAO;
 import model.dao.TipoContatoDAO;
+import model.dao.TipoOfertaDAO;
 import model.dao.TipoPessoaDAO;
 import model.dao.TipoUsuarioDAO;
 import model.dao.UsuarioDAO;
 import model.entity.Contato;
 import model.entity.Endereco;
+import model.entity.FiltroOferta;
+import model.entity.Nicho;
 import model.entity.PessoaFisica;
 import model.entity.PessoaJuridica;
+import model.entity.Ramo;
 import model.entity.TipoContato;
+import model.entity.TipoOferta;
 import model.entity.TipoPessoa;
 import model.entity.TipoUsuario;
 import model.entity.Usuario;
@@ -69,6 +77,18 @@ public class CadastroAcessoController implements Serializable {
 
 	private boolean ofertante = false;
 
+	private FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+	private FiltroOferta filtroOferta = new FiltroOferta();
+
+	private TipoOfertaDAO tipoOfertaDAO = new TipoOfertaDAO();
+	private List<TipoOferta> tiposOferta = new LinkedList<>();
+
+	private RamoDAO ramoDAO = new RamoDAO();
+	private List<Ramo> ramos = new LinkedList<>();
+	private Ramo ramoSelecionado;
+	private NichoDAO nichoDAO = new NichoDAO();
+	private List<Nicho> nichosVigentes = new LinkedList<>();
+
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
 		super();
@@ -83,6 +103,11 @@ public class CadastroAcessoController implements Serializable {
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
 
 		this.tiposUsuario = this.tipoUsuarioDAO.findAll();
+
+		this.tiposOferta = this.tipoOfertaDAO.findAll();
+
+		this.ramos.clear();
+		this.ramos.addAll(this.ramoDAO.findAll());
 
 		verificarLogin(loginController);
 
@@ -102,25 +127,28 @@ public class CadastroAcessoController implements Serializable {
 
 				List<Contato> contatos = this.usuario.getPessoa().getContatos();
 				List<Contato> contatosLinked = new LinkedList<>();
+				
 				for (Contato c : contatos) {
 					contatosLinked.add(c);
 				}
+				
 				this.usuario.getPessoa().getContatos().clear();
 				this.usuario.getPessoa().getContatos().addAll(contatosLinked);
 
-				// this.usuario.getPessoa().setContatos((List)this.usuario.getPessoa().getContatos());
-
-				if (this.usuario.getTipo().getNome().equalsIgnoreCase("Ofertante")) {
+				if (this.usuario.getTipoUsuario().getNome().equalsIgnoreCase("Ofertante")) {
 					this.ofertante = true;
-				}
 
-				// System.out.println(this.usuario);
+					this.filtroOferta = this.filtroOfertaDAO.consultarFiltrosUsuario(this.usuario).get(0);
+					
+					this.ramoSelecionado = this.filtroOferta.getNicho().getRamo();
+					this.nichosVigentes = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
+				}
 
 			} else {
 				this.logado = false;
 				this.tipoPessoaSelecionada = this.getTiposPessoa().get(0);
 				this.usuario = new Usuario();
-				this.usuario.setTipo(this.tiposUsuario.get(1));
+				this.usuario.setTipoUsuario(this.tiposUsuario.get(1));
 				this.usuario.setPessoa(new PessoaFisica());
 				this.usuario.getPessoa().setTipoPessoa(this.tipoPessoaSelecionada);
 
@@ -174,6 +202,14 @@ public class CadastroAcessoController implements Serializable {
 		this.usuario.getPessoa().setContatos(contatos);
 	}
 
+	public void defineNichosVigentes() {
+		List<Nicho> nichos = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
+		if (nichos != null) {
+			this.nichosVigentes.clear();
+			this.nichosVigentes.addAll(nichos);
+		}
+	}
+
 	public void defineTipoContato() {
 		System.out.println("CadastroAcessoController -> defineTipoContato()");
 	}
@@ -200,9 +236,9 @@ public class CadastroAcessoController implements Serializable {
 	public void adicionaUsuario() {
 
 		if (this.ofertante) {
-			this.usuario.setTipo(this.tiposUsuario.get(2));
+			this.usuario.setTipoUsuario(this.tiposUsuario.get(2));
 		} else {
-			this.usuario.setTipo(this.tiposUsuario.get(1));
+			this.usuario.setTipoUsuario(this.tiposUsuario.get(1));
 		}
 
 		List<Contato> contatos = this.usuario.getPessoa().getContatos();
@@ -221,6 +257,16 @@ public class CadastroAcessoController implements Serializable {
 			} else {
 				this.usuario = this.usuarioDAO.save(this.usuario);
 			}
+		}
+
+		/**
+		 * USUÁRIOS NÃO OFERTANTES NÃO POSSUEM FiltroOferta - Para evitar sujar a classe
+		 * Usuario onde somente o tipo Ofertante teria esse atributo foi realizada a
+		 * lógica no controller
+		 */
+		if (this.usuario.getTipoUsuario().getNome().equalsIgnoreCase("Ofertante") && this.usuario.getId() != null) {
+			this.filtroOferta.setOfertante(this.usuario);
+			this.filtroOferta = this.filtroOfertaDAO.insert(this.filtroOferta);
 		}
 
 		this.loginController.setUsuario(this.usuario);
@@ -270,12 +316,18 @@ public class CadastroAcessoController implements Serializable {
 	}
 
 	public void digitando() {
-//		Object o = ((EditableValueHolder) event.getComponent().getParent()).getValue();
-		
 		System.out.println("digitando()");
-//		System.out.println(o.toString());
-		
-		System.out.println(this.usuario.getPessoa().getDocumento().toString());
+		System.out.println(this.usuario.getPessoa().getDocumento());
+	}
+
+	public void digitando(ValueChangeEvent event) {
+		System.out.println("digitando2()");
+		System.out.println(this.usuario.getPessoa().getDocumento());
+	}
+
+	public void defineOfertante() {
+		System.out.println("defineOfertante()");
+
 	}
 
 	// GETTERS E SETTER PARA A VIEW
@@ -350,6 +402,46 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setOfertante(boolean ofertante) {
 		this.ofertante = ofertante;
+	}
+
+	public FiltroOferta getFiltroOferta() {
+		return filtroOferta;
+	}
+
+	public void setFiltroOferta(FiltroOferta filtroOferta) {
+		this.filtroOferta = filtroOferta;
+	}
+
+	public List<TipoOferta> getTiposOferta() {
+		return tiposOferta;
+	}
+
+	public void setTiposOferta(List<TipoOferta> tiposOferta) {
+		this.tiposOferta = tiposOferta;
+	}
+
+	public List<Ramo> getRamos() {
+		return ramos;
+	}
+
+	public void setRamos(List<Ramo> ramos) {
+		this.ramos = ramos;
+	}
+
+	public Ramo getRamoSelecionado() {
+		return ramoSelecionado;
+	}
+
+	public void setRamoSelecionado(Ramo ramoSelecionado) {
+		this.ramoSelecionado = ramoSelecionado;
+	}
+
+	public List<Nicho> getNichosVigentes() {
+		return nichosVigentes;
+	}
+
+	public void setNichosVigentes(List<Nicho> nichosVigentes) {
+		this.nichosVigentes = nichosVigentes;
 	}
 
 }

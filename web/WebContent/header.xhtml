@@ -27,39 +27,34 @@
 
 
 							<ul>
-								<!-- UNICODE PLUS ICON -->
+								<!-- UNICODE UP ICON -->
+								<li><h:commandLink
+										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
+										class="btn-floating waves-effect custom-primary-color opacity-m"
+										action="perfil_ofertante_page.xhtml" value="&#x25B2;" /></li>
+								<!-- UNICODE DOWN ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
-										class="btn-floating waves-effect yellow opacity-m"
-										action="novo_orcamento.xhtml" value="&#x2795;" /></li>
+										class="btn-floating waves-effect box-color opacity-m"
+										action="perfil_demandante_page.xhtml" value="&#x25BC;" /></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect custom-background opacity-m"
-										action="landing_page.xhtml" value="&#x1f4ac;" /></li>
+										action="acompanhamento_page.xhtml" value="&#x1f4ac;" /></li>
 
-								<!-- UNICODE CHECK ICON -->
+								<!-- UNICODE PLUS ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
-										class="btn-floating waves-effect custom-primary-color  opacity-m"
-										action="landing_page.xhtml" value="&#x2713;" /></li>
-
+										class="btn-floating waves-effect yellow opacity-m"
+										action="novo_orcamento.xhtml" value="&#x2795;" /></li>
 							</ul>
 						</div>
 
 					</div>
 
 					<ul class="right hide-on-med-and-down">
-
-						<li>
-							<div class="input-field" style="max-width: 300px;">
-								<input id="search" type="search"> <label
-									class="label-icon" for="search"> <i
-										class="material-icons">search</i>
-								</label><i class="material-icons">close</i> </input>
-							</div>
-						</li>
 
 						<li><a href="landing_page.xhtml"
 							class="blue-text text-lighten-5">Home</a></li>
@@ -68,9 +63,9 @@
 								rendered="#{loginController.usuario.id == null ? true : false}" /></li>
 
 						<li><h:commandLink
-								action="#{loginController.carregarPerfil()}" value="Perfil"
-								class="blue-text text-lighten-5"
-								rendered="#{loginController.usuario.id != null ? true : false}" /></li>
+								action="#{loginController.carregarPerfil()}"
+								value="#{loginController.usuario.id != null ? 'Dados Cadastrais' : 'Cadastrar'}"
+								class="blue-text text-lighten-5" /></li>
 
 						<li><h:commandLink action="#{loginController.logout()}"
 								value="Sair" class="blue-text text-lighten-5"
@@ -86,14 +81,6 @@
 
 			<ul id="nav-mobile" class="sidenav custom-primary-color">
 
-				<li>
-					<div class="input-field">
-
-						<label for="search2"> <i class="material-icons">search</i>
-						</label> <input id="search2" type="search"> </input>
-					</div>
-				</li>
-
 				<li><a href="landing_page.xhtml"
 					class="blue-text text-lighten-5">Home</a></li>
 				<li><h:commandLink action="login_page.xhtml" value="Entrar"
@@ -101,8 +88,8 @@
 						rendered="#{loginController.usuario.id == null ? true : false}" /></li>
 
 				<li><h:commandLink action="#{loginController.carregarPerfil()}"
-						value="Perfil" class="blue-text text-lighten-5"
-						rendered="#{loginController.usuario.id != null ? true : false}" /></li>
+						value="#{loginController.usuario.id != null ? 'Dados Cadastrais' : 'Cadastrar'}"
+						class="blue-text text-lighten-5" /></li>
 
 				<li><h:commandLink action="#{loginController.logout()}"
 						value="Sair" class="blue-text text-lighten-5"

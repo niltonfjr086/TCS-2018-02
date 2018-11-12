@@ -36,4 +36,22 @@ public class FiltroOfertaDAO extends GenericDAO<FiltroOferta, Long> {
 		return null;
 	}
 
+	public List<FiltroOferta> consultarFiltrosUsuario(Usuario usuario) {
+
+		Map<String, String> params = new HashMap<>();
+
+		Long usuarioId = usuario.getId();
+		params.put("ofertante", usuarioId != null ? String.valueOf(usuarioId) : "0L");
+
+		if (!params.get("ofertante").equals("0L")) {
+
+			List<FiltroOferta> filtros = this.executeQuery(params);
+
+			if (filtros != null && filtros.size() > 0) {
+				return filtros;
+			}
+		}
+		return null;
+	}
+
 }

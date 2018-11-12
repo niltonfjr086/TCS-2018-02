@@ -57,11 +57,11 @@ public class Usuario extends BaseEntity {
 		this.id = id;
 	}
 
-	public TipoUsuario getTipo() {
+	public TipoUsuario getTipoUsuario() {
 		return tipoUsuario;
 	}
 
-	public void setTipo(TipoUsuario tipo) {
+	public void setTipoUsuario(TipoUsuario tipo) {
 		this.tipoUsuario = tipo;
 	}
 

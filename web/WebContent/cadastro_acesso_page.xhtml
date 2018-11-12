@@ -30,12 +30,12 @@
 					</div>
 
 					<div class="col s7 m9 l3 input-field">
-						<i class="material-icons prefix">account_circle</i>
 						<h:outputLabel id="doc_label" for="documento"
 							value="#{cadastroAcessoController.tipoPessoaSelecionada.chave}" />
 						<h:inputText id="documento" name="documento" type="text"
 							disabled="#{cadastroAcessoController.logado}" class="validate"
 							required="required" maxlength="30"
+							valueChangeListener="#{cadastroAcessoController.digitando($event)}"
 							value="#{cadastroAcessoController.usuario.pessoa.documento}"
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
 
@@ -45,7 +45,6 @@
 					</div>
 
 					<div class="col s12 m12 l7 input-field">
-						<i class="material-icons prefix">account_circle</i>
 						<h:inputText id="nome" name="nome" type="text" class="validate"
 							required="required" maxlength="30"
 							onkeypress="mascara(this,capitalizer)"
@@ -79,15 +78,17 @@
 				<div class="col s2 m2 l2">
 					<h:outputLabel>
 					Ofertante? <h:selectBooleanCheckbox type="checkbox" id="ofertante"
+							disabled="#{cadastroAcessoController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
 							value="#{cadastroAcessoController.ofertante}">
-							<f:ajax event="change" />
+							<f:ajax event="change" render="tipo-oferta ramo nicho"
+								listener="#{cadastroAcessoController.defineOfertante()}" />
 						</h:selectBooleanCheckbox>
 						<span></span>
 					</h:outputLabel>
 				</div>
 
 				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">account_circle</i>
+					<i class="material-icons prefix">dialpad</i>
 					<h:inputSecret id="senha" name="senha" type="text" class="validate"
 						required="required" maxlength="30"
 						value="#{cadastroAcessoController.usuario.senha}">
@@ -99,7 +100,7 @@
 				</div>
 
 				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">account_circle</i>
+					<i class="material-icons prefix">dialpad</i>
 					<h:inputSecret id="conf-senha" name="conf-senha" type="text"
 						class="validate" required="required" maxlength="30"
 						value="#{cadastroAcessoController.usuario.senha}">
@@ -109,6 +110,53 @@
 					<h:outputLabel for="conf-senha" value="Confirme a Senha" />
 
 				</div>
+
+				<div class="col s12 m12 l12">
+					<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col" value="Tipo da Oferta" />
+					<h:selectOneMenu id="tipo-oferta"
+						value="#{cadastroAcessoController.filtroOferta.tipo}"
+						required="true" converter="tipoOfertaConverter"
+						disabled="#{!cadastroAcessoController.ofertante}"
+						class="browser-default col s12 m12 l12 box-color z-depth-1">
+						<f:selectItem itemValue=" " itemLabel="Selecione o tipo da oferta.." />
+						<f:selectItems value="#{cadastroAcessoController.tiposOferta}"
+							var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+						<f:ajax event="change" />
+					</h:selectOneMenu>
+				</div>
+
+
+				<div class="row">
+					<div class="col s12 m6 l6">
+						<h:outputLabel id="lbl-ramo" for="ramo" class="col" value="Ramo" />
+						<h:selectOneMenu id="ramo"
+							value="#{cadastroAcessoController.ramoSelecionado}"
+							required="true" converter="ramoConverter"
+							disabled="#{!cadastroAcessoController.ofertante}"
+							class="browser-default col s12 m12 l12 box-color z-depth-1">
+							<f:selectItem itemValue=" " itemLabel="Selecione um ramo..." />
+							<f:selectItems value="#{cadastroAcessoController.ramos}"
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+							<f:ajax event="change" render="nicho"
+								listener="#{cadastroAcessoController.defineNichosVigentes()}" />
+						</h:selectOneMenu>
+					</div>
+					<div class="col s12 m6 l6">
+						<h:outputLabel id="lbl-nicho" for="nicho" class="col"
+							value="Nicho" />
+						<h:selectOneMenu id="nicho"
+							value="#{cadastroAcessoController.filtroOferta.nicho}"
+							required="true" converter="nichoConverter"
+							disabled="#{!cadastroAcessoController.ofertante}"
+							class="browser-default col s12 m12 l12 box-color z-depth-1">
+							<f:selectItem itemValue=" " itemLabel="Selecione um nicho..." />
+							<f:selectItems value="#{cadastroAcessoController.nichosVigentes}"
+								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+							<f:ajax event="change" />
+						</h:selectOneMenu>
+					</div>
+				</div>
+
 
 			</h:form>
 
