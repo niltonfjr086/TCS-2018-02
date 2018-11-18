@@ -24,12 +24,12 @@ public class Pedido extends BaseEntity {
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinColumn(name = "status_pedido", nullable = false)
+	@JoinColumn(name = "status_pedido", nullable = true)
 	private StatusPedido statusPedido;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,
 			CascadeType.DETACH }, fetch = FetchType.EAGER)
-	@JoinColumn(name = "unidade_medida", nullable = false)
+	@JoinColumn(name = "unidade_medida", nullable = true)
 	private UnidadeMedida unidadeMedida;
 
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH,

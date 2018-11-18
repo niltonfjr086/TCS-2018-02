@@ -66,7 +66,7 @@ public class LoginController implements Serializable {
 	}
 
 	public String perfilOfertante() {
-		this.paginaVigente = " | Perfil Fornecedor";
+		this.paginaVigente = " | Perfil Prestador";
 
 		return "perfil_ofertante_page.xhtml";
 	}

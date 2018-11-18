@@ -14,9 +14,10 @@
 				<div class="nav-wrapper container">
 
 					<div id="logo-container">
-						<a href="landing_page.xhtml" class="brand-logo">SV
-							#{loginController.paginaVigente}</a>
 
+						<h:commandLink
+							class="brand-logo" action="#{loginController.homePage()}"
+							value="SV #{loginController.paginaVigente}" />
 
 						<!-- CLASSE PARA CONTROLAR VISUALIZAÇÃO DO COMPONENTE ESCONDENDO APENAS NO TAMANHO MAIOR -->
 						<!-- hide-on-large-only -->

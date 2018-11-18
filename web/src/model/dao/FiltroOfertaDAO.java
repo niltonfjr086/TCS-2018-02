@@ -11,17 +11,19 @@ import model.entity.Usuario;
 
 public class FiltroOfertaDAO extends GenericDAO<FiltroOferta, Long> {
 
-	public List<Usuario> consultarOfertantesNicho(Nicho nicho) {
+	public List<Usuario> consultarOfertantesNicho(Nicho nicho, Usuario logado) {
 
 		Map<String, String> params = new HashMap<>();
 
 		Long nichoId = nicho.getId();
+		Long usuarioLogadoId = logado.getId();
 
 		params.put("nicho", nichoId != null ? String.valueOf(nichoId) : "0L");
+		params.put("ofertante NOT", usuarioLogadoId != null ? String.valueOf(usuarioLogadoId) : "0L");
 
 		List<Usuario> ofertantes = new LinkedList<>();
 
-		if (!params.get("nicho").equals("0L")) {
+		if (!params.get("nicho").equals("0L") && !params.get("ofertante NOT").equals("0L")) {
 
 			List<FiltroOferta> consulta = this.executeQuery(params);
 
@@ -36,6 +38,13 @@ public class FiltroOfertaDAO extends GenericDAO<FiltroOferta, Long> {
 		return null;
 	}
 
+	/**
+	 * ESTE MÉTODO SERIA USADO APENAS SE USUÁRIOS TIVESSEM VÁRIOS NICHOS PARA
+	 * FILTRAR
+	 * 
+	 * @param usuario
+	 * @return
+	 */
 	public List<FiltroOferta> consultarFiltrosUsuario(Usuario usuario) {
 
 		Map<String, String> params = new HashMap<>();

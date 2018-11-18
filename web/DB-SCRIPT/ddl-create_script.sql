@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `tcs_seu_valor`.`tb_pedido` (
 
 	`id` BIGINT PRIMARY KEY AUTO_INCREMENT,
     `status_pedido` BIGINT DEFAULT 1, FOREIGN KEY (`status_pedido`) REFERENCES `tcs_seu_valor`.`tb_status_pedido` (`id`),
-    `unidade_medida` BIGINT NOT NULL, FOREIGN KEY (`unidade_medida`) REFERENCES `tcs_seu_valor`.`tb_unidade_medida` (`id`),
+    `unidade_medida` BIGINT, FOREIGN KEY (`unidade_medida`) REFERENCES `tcs_seu_valor`.`tb_unidade_medida` (`id`),
 	`orcamento` BIGINT NOT NULL, FOREIGN KEY (`orcamento`) REFERENCES `tcs_seu_valor`.`tb_orcamento` (`id`),
     `descricao` VARCHAR(10000),
     `demandante` BIGINT NOT NULL, FOREIGN KEY (`demandante`) REFERENCES `tcs_seu_valor`.`tb_usuario` (`id`),

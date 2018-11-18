@@ -15,7 +15,9 @@ import javax.inject.Named;
 import model.dao.FiltroOfertaDAO;
 import model.dao.NichoDAO;
 import model.dao.OrcamentoDAO;
+import model.dao.PedidoDAO;
 import model.dao.RamoDAO;
+import model.dao.StatusPedidoDAO;
 import model.dao.TipoOfertaDAO;
 import model.entity.Endereco;
 import model.entity.FiltroOferta;
@@ -23,6 +25,7 @@ import model.entity.Nicho;
 import model.entity.Orcamento;
 import model.entity.Pedido;
 import model.entity.Ramo;
+import model.entity.StatusPedido;
 import model.entity.TipoOferta;
 import model.entity.Usuario;
 
@@ -34,7 +37,7 @@ public class NovoOrcamentoController implements Serializable {
 
 	private Ramo ramoSelecionado;
 
-	private String descricao;
+	private String descricao = "";
 
 	private List<TipoOferta> tipoServico = new LinkedList<>();
 	private TipoOfertaDAO tipoOfertaDAO = new TipoOfertaDAO();
@@ -42,9 +45,8 @@ public class NovoOrcamentoController implements Serializable {
 	private List<Nicho> nichosVigentes = new LinkedList<>();
 
 	private Orcamento orcamento = new Orcamento();
-	private Pedido pedido;
-
 	private OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
+
 	private LoginController loginController;
 
 	private RamoDAO ramoDAO = new RamoDAO();
@@ -83,29 +85,52 @@ public class NovoOrcamentoController implements Serializable {
 	}
 
 	public void adicionaOrcamento() {
-		// this.orcamento = this.orcamentoDAO.insert(this.orcamento);
+		this.orcamento = this.orcamentoDAO.insert(this.orcamento);
 		System.out.println("adicionaOrcamento()");
 		System.out.println(this.orcamento);
 
-		enviaPedidos(this.orcamento);
+		System.out.println("DESCRIÇÃO PEDIDOS");
+		System.out.println(this.descricao);
+
+		this.enviaPedidos(this.orcamento);
 
 	}
 
 	private void enviaPedidos(Orcamento prePedido) {
 
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		Calendar calendar = new GregorianCalendar();
-		// System.out.println(calendar);
-
-		// Pedido p = new Pedido();
-		// p.setOrcamento(prePedido);
-		// p.setDtAbertura(d);
-		// p.setDescricao(this.descricao);
-		// this.pedidoDAO.insert(p);
+		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		// Calendar calendar = new GregorianCalendar();
 
 		FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
-		FiltroOferta filtroOferta = new FiltroOferta();
-		
+		// FiltroOferta filtroOferta = new FiltroOferta();
+
+		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(prePedido.getNicho(), this.loginController.getUsuario());
+
+		System.out.println(listaOfertantesNicho);
+
+		if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+
+			Pedido p;
+			PedidoDAO pedidoDAO = new PedidoDAO();
+			Calendar abertura = new GregorianCalendar();
+
+			for (Usuario usuario : listaOfertantesNicho) {
+				p = new Pedido();
+				p.setOrcamento(prePedido);
+
+				p.setStatusPedido(new StatusPedidoDAO().findById(1L));
+				p.setDtAbertura(abertura);
+
+				p.setOfertante(usuario);
+				p.setDemandante(this.loginController.getUsuario());
+
+				p.setDescricao(this.descricao);
+
+				pedidoDAO.insert(p);
+			}
+
+		}
+
 	}
 
 	public String getDescricao() {
@@ -138,14 +163,6 @@ public class NovoOrcamentoController implements Serializable {
 
 	public void setOrcamento(Orcamento orcamento) {
 		this.orcamento = orcamento;
-	}
-
-	public Pedido getPedido() {
-		return pedido;
-	}
-
-	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
 	}
 
 	public List<TipoOferta> getTipoServico() {

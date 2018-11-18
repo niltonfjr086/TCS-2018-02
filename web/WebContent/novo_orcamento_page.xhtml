@@ -59,11 +59,10 @@
 						</div>
 
 						<div class="col s12 m12 l12 input-field">
-							<h:outputLabel id="lbl-titulo" for="titulo" value="Titulo" />
+							<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
 							<h:inputText id="titulo" name="titulo" type="text"
 								class="validate" required="required" maxlength="30"
 								value="#{novoOrcamentoController.orcamento.titulo}">
-
 								<f:ajax event="change" />
 							</h:inputText>
 						</div>
@@ -74,7 +73,9 @@
 						<div class="input-field col s12 m12 l12">
 							<h:inputTextarea id="descricao" class="materialize-textarea"
 								style="overflow-y: scroll;height:150px;max-height:150px;"
-								value="#{novoOrcamentoController.descricao}"></h:inputTextarea>
+								value="#{novoOrcamentoController.descricao}">
+								<f:ajax event="change" />
+							</h:inputTextarea>
 							<h:outputLabel for="descricao">Descrição</h:outputLabel>
 						</div>
 					</fieldset>
@@ -85,7 +86,7 @@
 				<h:form id="endereco" class="row" style="max-width: 650px;">
 
 					<fieldset>
-						<legend>Endereço</legend>
+						<legend>Endereço (Você pode alterar os dados)</legend>
 
 						<div class="col s8 m3 l3 input-field">
 							<h:inputText id="cep" name="cep" type="text" class="validate"

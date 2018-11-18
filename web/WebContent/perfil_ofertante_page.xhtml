@@ -22,24 +22,26 @@
 								</div>
 								<div class="collapsible-body col s12 m12 l12">
 									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										value="#{perfilOfertanteController.pedidosPorStatus.get('Aguardando')}"
 										varStatus="status">
 
 
-
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
+										<div class="input-field col s8 m10 l10">
+											<h:outputLabel for="info-pedido"
+												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+											<h:inputText id="info-pedido" name="info-pedido"
+												disabled="true" type="text" class="validate"
+												required="required" maxlength="30"
+												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
+										<h:commandButton type="submit" value="&#x270E;"
+											class="input-field col s2 m1 l1"
+											actionListener="#{perfilOfertanteController.verificarPedido('Aguardando', status.index)}" />
 										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
-
+											class="input-field col s2 m1 l1"
+											actionListener="#{perfilOfertanteController.descartarPedido('Aguardando', status.index)}" />
 
 
 									</ui:repeat>
@@ -114,20 +116,25 @@
 								<div
 									class="collapsible-body col s12 m12 l12 blue-grey lighten-1">
 									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										value="#{perfilOfertanteController.pedidosPorStatus.get('Descartado')}"
 										varStatus="status">
+
+
 										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
+											<h:outputLabel for="info-pedido"
+												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+											<h:inputText id="info-pedido" name="info-pedido"
+												disabled="true" type="text" class="validate"
+												required="required" maxlength="30"
+												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
-										<h:commandButton type="submit" value="X"
+										<h:commandButton type="submit" value="&#x270E;"
 											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+											actionListener="#{perfilOfertanteController.verificarPedido('Descartado', status.index)}" />
+
+
 									</ui:repeat>
 									<div
 										class="collapsible-header col s12 m12 l12 white-text blue-grey darken-1">
