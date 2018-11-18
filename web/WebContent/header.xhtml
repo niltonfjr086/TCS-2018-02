@@ -14,7 +14,8 @@
 				<div class="nav-wrapper container">
 
 					<div id="logo-container">
-						<a href="landing_page.xhtml" class="brand-logo">SV</a>
+						<a href="landing_page.xhtml" class="brand-logo">SV
+							#{loginController.paginaVigente}</a>
 
 
 						<!-- CLASSE PARA CONTROLAR VISUALIZAÇÃO DO COMPONENTE ESCONDENDO APENAS NO TAMANHO MAIOR -->
@@ -31,35 +32,38 @@
 								<li><h:commandLink
 										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
 										class="btn-floating waves-effect custom-primary-color opacity-m"
-										action="perfil_ofertante_page.xhtml" value="&#x25B2;" /></li>
+										action="#{loginController.perfilOfertante()}" value="&#x25B2;" /></li>
 								<!-- UNICODE DOWN ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect box-color opacity-m"
-										action="perfil_demandante_page.xhtml" value="&#x25BC;" /></li>
+										action="#{loginController.perfilDemandante()}"
+										value="&#x25BC;" /></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect custom-background opacity-m"
-										action="acompanhamento_page.xhtml" value="&#x1f4ac;" /></li>
+										action="#{loginController.acompanhamento()}" value="&#x1f4ac;" /></li>
 
 								<!-- UNICODE PLUS ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect yellow opacity-m"
-										action="novo_orcamento.xhtml" value="&#x2795;" /></li>
+										action="#{loginController.novoOrcamento()}" value="&#x2795;" /></li>
 							</ul>
 						</div>
 
 					</div>
 
+
 					<ul class="right hide-on-med-and-down">
 
-						<li><a href="landing_page.xhtml"
-							class="blue-text text-lighten-5">Home</a></li>
-						<li><h:commandLink action="login_page.xhtml" value="Entrar"
-								class="blue-text text-lighten-5"
+						<li><h:commandLink action="#{loginController.homePage()}"
+								value="Home" class="blue-text text-lighten-5" /></li>
+
+						<li><h:commandLink action="#{loginController.login()}"
+								value="Entrar" class="blue-text text-lighten-5"
 								rendered="#{loginController.usuario.id == null ? true : false}" /></li>
 
 						<li><h:commandLink
@@ -81,10 +85,11 @@
 
 			<ul id="nav-mobile" class="sidenav custom-primary-color">
 
-				<li><a href="landing_page.xhtml"
-					class="blue-text text-lighten-5">Home</a></li>
-				<li><h:commandLink action="login_page.xhtml" value="Entrar"
-						class="blue-text text-lighten-5"
+				<li><h:commandLink action="#{loginController.homePage()}"
+						value="Home" class="blue-text text-lighten-5" /></li>
+
+				<li><h:commandLink action="#{loginController.login()}"
+						value="Entrar" class="blue-text text-lighten-5"
 						rendered="#{loginController.usuario.id == null ? true : false}" /></li>
 
 				<li><h:commandLink action="#{loginController.carregarPerfil()}"

@@ -62,6 +62,15 @@ public class Pedido extends BaseEntity {
 	@Column(name = "comentario_para_ofertante", length = 100)
 	private String comentarioParaOfertante;
 
+	@Column(name = "valor_unidade")
+	private Double valorUnidade;
+
+	@Column(name = "quantidade")
+	private Integer quantidade;
+
+	@Column(name = "valor_total")
+	private Double valorTotal;
+
 	@Column(name = "dt_abertura")
 	private Calendar dtAbertura;
 
@@ -154,6 +163,30 @@ public class Pedido extends BaseEntity {
 
 	public void setComentarioParaOfertante(String comentarioParaOfertante) {
 		this.comentarioParaOfertante = comentarioParaOfertante;
+	}
+
+	public Double getValorUnidade() {
+		return valorUnidade;
+	}
+
+	public void setValorUnidade(Double valorUnidade) {
+		this.valorUnidade = valorUnidade;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+
+	public Double getValorTotal() {
+		return valorTotal;
+	}
+
+	public void setValorTotal(Double valorTotal) {
+		this.valorTotal = valorTotal;
 	}
 
 	public Calendar getDtAbertura() {

@@ -11,9 +11,7 @@
 			<div class="container">
 
 				<h:form>
-				
-				<h3 class="center">Perfil Fornecedor</h3>
-				
+
 					<div class="row">
 						<ul class="collapsible center">
 
@@ -26,6 +24,9 @@
 									<ui:repeat var="item"
 										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
 										varStatus="status">
+
+
+
 										<div class="input-field col s10 m10 l10">
 											<h:outputLabel for="info-contato"
 												value="#{status.index + 1} | #{item.tipoContato.nome}" />
@@ -38,6 +39,9 @@
 										<h:commandButton type="submit" value="X"
 											class="input-field col s2 m2 l2"
 											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+
+
+
 									</ui:repeat>
 									<div class="collapsible-header col s12 m12 l12">
 										Recolher<i class="material-icons">arrow_drop_up</i>
@@ -95,7 +99,8 @@
 											class="input-field col s2 m2 l2"
 											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
 									</ui:repeat>
-									<div class="collapsible-header col s12 m12 l12 white-text green darken-1">
+									<div
+										class="collapsible-header col s12 m12 l12 white-text green darken-1">
 										Recolher<i class="material-icons">arrow_drop_up</i>
 									</div>
 								</div>
@@ -153,7 +158,8 @@
 											class="input-field col s2 m2 l2"
 											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
 									</ui:repeat>
-									<div class="collapsible-header col s12 m12 l12 white-text red darken-1">
+									<div
+										class="collapsible-header col s12 m12 l12 white-text red darken-1">
 										Recolher<i class="material-icons">arrow_drop_up</i>
 									</div>
 								</div>
@@ -181,7 +187,8 @@
 											class="input-field col s2 m2 l2"
 											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
 									</ui:repeat>
-									<div class="collapsible-header col s12 m12 l12 white-text blue darken-1">
+									<div
+										class="collapsible-header col s12 m12 l12 white-text blue darken-1">
 										Recolher<i class="material-icons">arrow_drop_up</i>
 									</div>
 								</div>

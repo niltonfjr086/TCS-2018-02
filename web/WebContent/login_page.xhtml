@@ -37,11 +37,11 @@
 
 				<div class="col s12 m12 l12 center">
 					<h:commandButton type="submit" value="Entrar"
-						class="btn indigo darken-4 waves-effect"
+						class="btn indigo white-text darken-4 waves-effect"
 						actionListener="#{loginController.validar()}" />
 				</div>
 				<div class="col s12 m12 l12 center">
-					<a class="waves-effect box-color" href="cadastro_acesso_page.xhtml">Cadastrar</a>
+					<a class="waves-effect box-color" href="#{loginController.carregarPerfil()}">Cadastrar</a>
 				</div>
 
 

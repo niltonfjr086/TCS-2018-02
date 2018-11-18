@@ -23,7 +23,7 @@
 						<div class="row center">
 							<h:form>
 							
-								<h:commandLink action="login_page.xhtml" value="Acessar"
+								<h:commandLink action="#{loginController.login()}" value="Acessar"
 									class="btn-large box-color waves-effect"
 									rendered="#{loginController.usuario.id == null ? true : false}" />
 

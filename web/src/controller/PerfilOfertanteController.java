@@ -10,6 +10,14 @@ import javax.inject.Named;
 public class PerfilOfertanteController implements Serializable {
 	private static final long serialVersionUID = 1190432464992303360L;
 
+	
+	
+	
+	
+	
+	
+	
+	
 	private String nome = "perfilOfertanteController";
 
 	public String getNome() {

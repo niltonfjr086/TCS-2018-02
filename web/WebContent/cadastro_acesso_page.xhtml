@@ -112,13 +112,15 @@
 				</div>
 
 				<div class="col s12 m12 l12">
-					<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col" value="Tipo da Oferta" />
+					<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col"
+						value="Tipo da Oferta" />
 					<h:selectOneMenu id="tipo-oferta"
 						value="#{cadastroAcessoController.filtroOferta.tipo}"
 						required="true" converter="tipoOfertaConverter"
 						disabled="#{!cadastroAcessoController.ofertante}"
 						class="browser-default col s12 m12 l12 box-color z-depth-1">
-						<f:selectItem itemValue=" " itemLabel="Selecione o tipo da oferta.." />
+						<f:selectItem itemValue=" "
+							itemLabel="Selecione o tipo da oferta.." />
 						<f:selectItems value="#{cadastroAcessoController.tiposOferta}"
 							var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
 						<f:ajax event="change" />
@@ -310,20 +312,21 @@
 
 
 			<h:form class="row" style="max-width: 500px; padding-top: 32px;">
+
 				<h:commandButton type="submit"
-					class="col s12 m6 l6 btn box-color waves-effect"
+					class="col s12 m6 l6 btn i-box-color"
 					actionListener="#{cadastroAcessoController.adicionaUsuario()}"
 					value="Salvar" />
 
-				<h:commandLink action="login_page.xhtml" value="Voltar ao Login"
-					class="col s12 m6 l6 btn yellow darken-2 waves-effect"
+
+				<h:commandLink action="#{loginController.login()}"
+					value="Voltar ao Login"
+					class="col s12 m6 l6 btn box-color"
 					rendered="#{loginController.usuario.id == null ? true : false}" />
 
-
 				<h:commandLink actionListener="#{loginController.logout()}"
-					value="Sair" class="col s12 m6 l6 btn yellow darken-2 waves-effect"
+					value="Sair" class="col s12 m6 l6 btn box-color waves-effect"
 					rendered="#{loginController.usuario.id != null ? true : false}" />
-
 
 			</h:form>
 

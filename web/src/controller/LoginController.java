@@ -6,7 +6,6 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
-import javax.script.ScriptException;
 
 import model.dao.UsuarioDAO;
 import model.entity.Usuario;
@@ -20,7 +19,9 @@ public class LoginController implements Serializable {
 	private UsuarioDAO usuarioDAO = new UsuarioDAO();
 	private Usuario usuario = new Usuario();
 
-	public void validar() throws ScriptException {
+	private String paginaVigente = "";
+
+	public void validar() {
 
 		System.out.println(this.usuario.getLogin());
 		System.out.println(this.usuario.getSenha());
@@ -31,15 +32,26 @@ public class LoginController implements Serializable {
 		if (this.usuario.getId() != null) {
 			this.recarregar();
 		}
-//		System.out.println(this.usuario);
+	}
+
+	public String homePage() {
+		this.paginaVigente = "";
+		return "landing_page.xhtml";
+	}
+
+	public String login() {
+		this.paginaVigente = " | Acesso ao Sistema";
+		return "login_page.xhtml";
 	}
 
 	public void logout() {
+
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		this.recarregar();
 	}
 
 	public void recarregar() {
+		this.paginaVigente = "";
 		try {
 			FacesContext.getCurrentInstance().getExternalContext().redirect("landing_page.xhtml");
 		} catch (IOException e) {
@@ -48,12 +60,33 @@ public class LoginController implements Serializable {
 	}
 
 	public String carregarPerfil() {
+		this.paginaVigente = " | Dados Cadastrais";
+
 		return "cadastro_acesso_page.xhtml";
-//		try {
-//			FacesContext.getCurrentInstance().getExternalContext().redirect("cadastro_acesso_page.xhtml");
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+	}
+
+	public String perfilOfertante() {
+		this.paginaVigente = " | Perfil Fornecedor";
+
+		return "perfil_ofertante_page.xhtml";
+	}
+
+	public String perfilDemandante() {
+		this.paginaVigente = " | Perfil Cliente";
+
+		return "perfil_demandante_page.xhtml";
+	}
+
+	public String acompanhamento() {
+		this.paginaVigente = " | Acompanhamento";
+
+		return "acompanhamento_page.xhtml";
+	}
+
+	public String novoOrcamento() {
+		this.paginaVigente = " | Novo Orçamento";
+
+		return "novo_orcamento_page.xhtml";
 	}
 
 	public void apagar() {
@@ -68,6 +101,14 @@ public class LoginController implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getPaginaVigente() {
+		return paginaVigente;
+	}
+
+	public void setPaginaVigente(String paginaVigente) {
+		this.paginaVigente = paginaVigente;
 	}
 
 }
