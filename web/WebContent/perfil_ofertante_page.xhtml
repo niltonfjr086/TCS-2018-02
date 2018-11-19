@@ -36,8 +36,9 @@
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
-										<h:commandButton type="submit" value="&#x270E;"
+										<h:commandButton type="button" value="&#x270E;"
 											class="input-field col s2 m1 l1"
+											onclick="abreModal('responde_pedido');"
 											actionListener="#{perfilOfertanteController.verificarPedido('Aguardando', status.index)}" />
 										<h:commandButton type="submit" value="X"
 											class="input-field col s2 m1 l1"
@@ -204,13 +205,96 @@
 
 						</ul>
 					</div>
-
 					<div class="row">
 						<h:outputLabel value="#{perfilOfertanteController.nome}" />
 					</div>
 				</h:form>
-
 			</div>
+
+			<!-- Modal Responde Pedido -->
+			<form>
+				<div id="responde_pedido" class="modal">
+					<div class="modal-content row"
+						style="max-width: 800px; padding-top: 15px;">
+						<h4>Resposta do Orçamento</h4>
+						<p>Preencha os dados</p>
+						<h:form>
+							<div class="col s12 m12 l6 input-field">
+								<h:inputText id="nome" name="nome" type="text" class="validate"
+									required="required" maxlength="30"
+									value="#{perfilOfertanteController.pedidoSelecionado.demandante.pessoa.nome}">
+									<f:ajax event="change" />
+								</h:inputText>
+								<h:outputLabel for="nome" value="Nome" />
+							</div>
+							<div class="col s12 m12 l6 input-field">
+								<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
+								<h:inputText id="titulo" name="titulo" type="text"
+									class="validate" required="required" maxlength="30"
+									value="#{perfilOfertanteController.pedidoSelecionado.orcamento.titulo}">
+									<f:ajax event="change" />
+								</h:inputText>
+							</div>
+							<div class="col s12 m6 l6">
+								<label for="ramo" class="col">Unidade de Medida</label>
+								<h:selectOneMenu id="tipo_unidade" 
+								value="#{perfilOfertanteController.unidadeMedidas}"
+								required="true" converter="unidadeConverter"
+									class="browser-default col s12 m12 l12 box-color z-depth-1">
+									<f:selectItem itemValue=" " itemLabel="Selecione uma unidade..." />
+									<f:selectItems value="#{perfilOfertanteController.unidadeMedidas}"
+									var="item" itemValue="#{item}" itemLabel="#{item.nome}"/>
+									<f:ajax event="change" />
+								</h:selectOneMenu>
+							</div>
+
+							<div class="col s12 m12 l6 input-field">
+								<h:outputLabel id="lbl-quantidade" for="quantidade"
+									value="Quantidade" />
+								<h:inputText id="quantidade" name="quantidade" type="text"
+									class="validate" required="required" maxlength="30"
+									value="#{perfilOfertanteController.pedidoSelecionado.quantidade}">
+									<f:ajax event="change" />
+								</h:inputText>
+							</div>
+							<div class="col s12 m12 l6 input-field">
+								<h:outputLabel id="lbl-valor-cobrado" for="valor-cobrado"
+									value="Valor cobrado por unidade" />
+								<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
+									class="validate" required="required" maxlength="30"
+									value="#{perfilOfertanteController.pedidoSelecionado.valorUnidade}">
+									<f:ajax event="change" />
+								</h:inputText>
+							</div>
+							<div class="col s12 m12 l6 input-field">
+								<h:outputLabel id="lbl-valor-total" for="valor-total"
+									value="Valor total do orçamento" />
+								<h:inputText id="valor-total" name="valor-total" type="text"
+									class="validate" required="required" maxlength="30"
+									value="#{perfilOfertanteController.pedidoSelecionado.valorTotal}">
+									<f:ajax event="change" />
+								</h:inputText>
+							</div>
+
+							<fieldset>
+								<div class="input-field col s12 m12 l12">
+									<h:inputTextarea id="descricao" class="materialize-textarea"
+										style="overflow-y: scroll;height:150px;max-height:150px;"
+										value="#{perfilOfertanteController.pedidoSelecionado.descricao}">
+										<f:ajax event="change" />
+									</h:inputTextarea>
+									<h:outputLabel for="descricao">Descrição</h:outputLabel>
+								</div>
+							</fieldset>
+						</h:form>
+					</div>
+					<h:form class="modal-footer">
+						<a class="modal-close waves-effect waves-green btn-flat">Descartar Orçamento</a>
+						<h:commandButton type="submit"
+							class="modal-close waves-effect waves-green btn-flat" value="Enviar Orçamento" />
+					</h:form>
+				</div>
+			</form>
 		</ui:define>
 	</ui:composition>
 </h:body>

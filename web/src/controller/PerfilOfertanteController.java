@@ -12,7 +12,9 @@ import javax.inject.Named;
 
 import model.dao.PedidoDAO;
 import model.dao.StatusPedidoDAO;
+import model.dao.UnidadeMedidaDAO;
 import model.entity.Pedido;
+import model.entity.UnidadeMedida;
 
 @Named
 @ViewScoped
@@ -23,6 +25,9 @@ public class PerfilOfertanteController implements Serializable {
 	private PedidoDAO pedidoDAO;
 	private List<Pedido> pedidos;
 	private Map<String, List<Pedido>> pedidosPorStatus;
+	
+	private UnidadeMedidaDAO unidadeMedidaDAO = new UnidadeMedidaDAO();
+	private List<UnidadeMedida> unidadeMedidas = new LinkedList<>();
 
 	private Pedido pedidoSelecionado;
 
@@ -37,6 +42,11 @@ public class PerfilOfertanteController implements Serializable {
 		this.pedidoDAO = new PedidoDAO();
 
 		this.pedidos = new LinkedList<>();
+		
+		this.pedidoSelecionado = null;
+		
+		this.unidadeMedidas.clear();
+		this.unidadeMedidas.addAll(this.unidadeMedidaDAO.findAll());
 
 		// this.pedidos.clear();
 		// this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));
@@ -129,5 +139,25 @@ public class PerfilOfertanteController implements Serializable {
 	public void setPedidosPorStatus(Map<String, List<Pedido>> pedidosPorStatus) {
 		this.pedidosPorStatus = pedidosPorStatus;
 	}
+
+	public Pedido getPedidoSelecionado() {
+		return pedidoSelecionado;
+	}
+
+	public void setPedidoSelecionado(Pedido pedidoSelecionado) {
+		this.pedidoSelecionado = pedidoSelecionado;
+	}
+
+	public List<UnidadeMedida> getUnidadeMedidas() {
+		return unidadeMedidas;
+	}
+
+	public void setUnidadeMedidas(List<UnidadeMedida> unidadeMedidas) {
+		this.unidadeMedidas = unidadeMedidas;
+	}
+	
+	
+	
+	
 
 }
