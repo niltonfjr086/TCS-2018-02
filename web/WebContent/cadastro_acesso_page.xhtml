@@ -16,13 +16,12 @@
 					<div class="col s5 m3 l2">
 						<label for="tipo-pessoa" class="col">Tipo de Pessoa</label>
 						<h:selectOneMenu id="tipo-pessoa"
-							value="#{cadastroAcessoController.tipoPessoaSelecionada}"
-							converter="tipoPessoaConverter" required="true"
+							value="#{cadastroAcessoController.idTipoPessoaPreSelecionada}"
+							required="true"
 							class="browser-default col s12 m12 l12 box-color z-depth-1"
 							disabled="#{cadastroAcessoController.logado}">
-
-							<f:selectItems value="#{cadastroAcessoController.tiposPessoa}"
-								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+							<f:selectItems
+								value="#{cadastroAcessoController.itensTiposPessoa}" />
 							<f:ajax event="change" render="documento doc_label"
 								listener="#{cadastroAcessoController.defineDoc()}" />
 						</h:selectOneMenu>
@@ -35,12 +34,10 @@
 						<h:inputText id="documento" name="documento" type="text"
 							disabled="#{cadastroAcessoController.logado}" class="validate"
 							required="required" maxlength="30"
-							valueChangeListener="#{cadastroAcessoController.digitando($event)}"
 							value="#{cadastroAcessoController.usuario.pessoa.documento}"
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
 
-							<f:ajax event="change"
-								listener="#{cadastroAcessoController.digitando()}" />
+							<f:ajax event="change" />
 						</h:inputText>
 					</div>
 
@@ -313,15 +310,13 @@
 
 			<h:form class="row" style="max-width: 500px; padding-top: 32px;">
 
-				<h:commandButton type="submit"
-					class="col s12 m6 l6 btn i-box-color"
+				<h:commandButton type="submit" class="col s12 m6 l6 btn i-box-color"
 					actionListener="#{cadastroAcessoController.adicionaUsuario()}"
 					value="Salvar" />
 
 
 				<h:commandLink action="#{loginController.login()}"
-					value="Voltar ao Login"
-					class="col s12 m6 l6 btn box-color"
+					value="Voltar ao Login" class="col s12 m6 l6 btn box-color"
 					rendered="#{loginController.usuario.id == null ? true : false}" />
 
 				<h:commandLink actionListener="#{loginController.logout()}"

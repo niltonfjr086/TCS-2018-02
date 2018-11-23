@@ -25,7 +25,7 @@ public class PerfilOfertanteController implements Serializable {
 	private PedidoDAO pedidoDAO;
 	private List<Pedido> pedidos;
 	private Map<String, List<Pedido>> pedidosPorStatus;
-	
+
 	private UnidadeMedidaDAO unidadeMedidaDAO = new UnidadeMedidaDAO();
 	private List<UnidadeMedida> unidadeMedidas = new LinkedList<>();
 
@@ -42,9 +42,9 @@ public class PerfilOfertanteController implements Serializable {
 		this.pedidoDAO = new PedidoDAO();
 
 		this.pedidos = new LinkedList<>();
-		
+
 		this.pedidoSelecionado = null;
-		
+
 		this.unidadeMedidas.clear();
 		this.unidadeMedidas.addAll(this.unidadeMedidaDAO.findAll());
 
@@ -56,7 +56,11 @@ public class PerfilOfertanteController implements Serializable {
 
 	public void classificarPedidos() {
 		this.pedidos.clear();
-		this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));
+		
+		List<Pedido> retornada = this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario());
+		if(retornada != null) {
+			this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));			
+		}
 
 		this.pedidosPorStatus = new HashMap<>();
 		this.pedidosPorStatus.put("Aguardando", new LinkedList<>());
@@ -95,18 +99,34 @@ public class PerfilOfertanteController implements Serializable {
 
 	}
 
-	public void verificarPedido(String status, Integer index) {
+	public void verificarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
-		this.pedidoSelecionado = pedidosStatus.get(index);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.parseInt(index));
 
+		System.out.println("verificarPedido(String status, String index)");
 		System.out.println(this.pedidoSelecionado);
+
+		if (this.pedidoSelecionado.getValorTotal() == null || this.pedidoSelecionado.getValorTotal() < 0) {
+			this.pedidoSelecionado.setValorTotal(0.0);
+		}
+
+//		return "responde_pedido";
+	}
+
+	public void responderPedido() {
+
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+
+		this.classificarPedidos();
+
 	}
 
 	public void descartarPedido(String status, Integer index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(index);
-		
-//		this.pedidoSelecionado = this.pedidos.get(index);
+
+		// this.pedidoSelecionado = this.pedidos.get(index);
 
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
@@ -114,14 +134,26 @@ public class PerfilOfertanteController implements Serializable {
 		this.classificarPedidos();
 	}
 
-	private String nome = "perfilOfertanteController";
-
-	public String getNome() {
-		return nome;
+	public void calcularTotal() {
+		if (respeitaCondicaoDeCalculo()) {
+			this.pedidoSelecionado
+					.setValorTotal(this.pedidoSelecionado.getQuantidade() * this.pedidoSelecionado.getValorUnidade());
+		}
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	private Boolean respeitaCondicaoDeCalculo() {
+		if (this.pedidoSelecionado != null && this.pedidoSelecionado.getValorUnidade() != null
+				&& this.pedidoSelecionado.getValorUnidade() > 0 && this.pedidoSelecionado.getQuantidade() != null
+				&& this.pedidoSelecionado.getQuantidade() > 0) {
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	public void clicou() {
+		System.out.println("clicou()");
 	}
 
 	public List<Pedido> getPedidos() {
@@ -155,9 +187,5 @@ public class PerfilOfertanteController implements Serializable {
 	public void setUnidadeMedidas(List<UnidadeMedida> unidadeMedidas) {
 		this.unidadeMedidas = unidadeMedidas;
 	}
-	
-	
-	
-	
 
 }

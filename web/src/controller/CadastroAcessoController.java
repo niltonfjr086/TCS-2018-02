@@ -10,6 +10,7 @@ import javax.faces.component.EditableValueHolder;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
 //import javax.enterprise.context.RequestScoped;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
@@ -60,6 +61,7 @@ public class CadastroAcessoController implements Serializable {
 
 	private TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
 	private List<TipoPessoa> tiposPessoa = new LinkedList<>();
+	private List<SelectItem> itensTiposPessoa = new LinkedList<>();
 
 	// private TipoUsuario tipoUsuario = new TipoUsuario();
 	private List<TipoUsuario> tiposUsuario = new LinkedList<>();
@@ -73,6 +75,7 @@ public class CadastroAcessoController implements Serializable {
 	private TipoContato tipoContatoSelecionado;
 	private Contato contatoAdd = new Contato();
 
+	private Long idTipoPessoaPreSelecionada;
 	private TipoPessoa tipoPessoaSelecionada;
 
 	private boolean ofertante = false;
@@ -100,7 +103,10 @@ public class CadastroAcessoController implements Serializable {
 		this.contatoAdd.setTipoContato(this.tiposContato.get(0));
 
 		this.tiposPessoa = this.tipoPessoaDAO.findAll();
+		this.carregaSelectTiposPessoa();
+
 		this.tipoPessoaSelecionada = this.tiposPessoa.get(0);
+		this.idTipoPessoaPreSelecionada = this.tipoPessoaSelecionada.getId();
 
 		this.tiposUsuario = this.tipoUsuarioDAO.findAll();
 
@@ -127,11 +133,11 @@ public class CadastroAcessoController implements Serializable {
 
 				List<Contato> contatos = this.usuario.getPessoa().getContatos();
 				List<Contato> contatosLinked = new LinkedList<>();
-				
+
 				for (Contato c : contatos) {
 					contatosLinked.add(c);
 				}
-				
+
 				this.usuario.getPessoa().getContatos().clear();
 				this.usuario.getPessoa().getContatos().addAll(contatosLinked);
 
@@ -139,7 +145,7 @@ public class CadastroAcessoController implements Serializable {
 					this.ofertante = true;
 
 					this.filtroOferta = this.filtroOfertaDAO.consultarFiltrosUsuario(this.usuario).get(0);
-					
+
 					this.ramoSelecionado = this.filtroOferta.getNicho().getRamo();
 					this.nichosVigentes = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
 				}
@@ -147,6 +153,7 @@ public class CadastroAcessoController implements Serializable {
 			} else {
 				this.logado = false;
 				this.tipoPessoaSelecionada = this.getTiposPessoa().get(0);
+				this.idTipoPessoaPreSelecionada = this.tipoPessoaSelecionada.getId();
 				this.usuario = new Usuario();
 				this.usuario.setTipoUsuario(this.tiposUsuario.get(1));
 				this.usuario.setPessoa(new PessoaFisica());
@@ -175,6 +182,15 @@ public class CadastroAcessoController implements Serializable {
 
 	}
 
+	private void carregaSelectTiposPessoa() {
+
+		itensTiposPessoa.clear();
+		for (TipoPessoa tp : this.tiposPessoa) {
+			itensTiposPessoa.add(new SelectItem(tp.getId(), tp.getNome()));
+		}
+
+	}
+
 	public void defineDoc() {
 		// System.out.println(this.tipoPessoaSelecionada);
 
@@ -185,6 +201,7 @@ public class CadastroAcessoController implements Serializable {
 		Endereco e = this.usuario.getPessoa().getEndereco();
 		List<Contato> contatos = this.usuario.getPessoa().getContatos();
 
+		this.tipoPessoaSelecionada = this.tipoPessoaDAO.findById(this.idTipoPessoaPreSelecionada);
 		if (this.tipoPessoaSelecionada.getNome().equalsIgnoreCase("Física")) {
 
 			this.usuario.setPessoa(new PessoaFisica());
@@ -315,16 +332,6 @@ public class CadastroAcessoController implements Serializable {
 		}
 	}
 
-	public void digitando() {
-		System.out.println("digitando()");
-		System.out.println(this.usuario.getPessoa().getDocumento());
-	}
-
-	public void digitando(ValueChangeEvent event) {
-		System.out.println("digitando2()");
-		System.out.println(this.usuario.getPessoa().getDocumento());
-	}
-
 	public void defineOfertante() {
 		System.out.println("defineOfertante()");
 
@@ -338,6 +345,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setTiposPessoa(List<TipoPessoa> tiposPessoa) {
 		this.tiposPessoa = tiposPessoa;
+	}
+
+	public List<SelectItem> getItensTiposPessoa() {
+		return itensTiposPessoa;
+	}
+
+	public void setItensTiposPessoa(List<SelectItem> itensTiposPessoa) {
+		this.itensTiposPessoa = itensTiposPessoa;
 	}
 
 	public List<TipoContato> getTiposContato() {
@@ -394,6 +409,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setTipoPessoaSelecionada(TipoPessoa tipoPessoaSelecionada) {
 		this.tipoPessoaSelecionada = tipoPessoaSelecionada;
+	}
+
+	public Long getIdTipoPessoaPreSelecionada() {
+		return idTipoPessoaPreSelecionada;
+	}
+
+	public void setIdTipoPessoaPreSelecionada(Long idTipoPessoaPreSelecionada) {
+		this.idTipoPessoaPreSelecionada = idTipoPessoaPreSelecionada;
 	}
 
 	public boolean getOfertante() {

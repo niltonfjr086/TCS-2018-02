@@ -8,6 +8,32 @@
 <h:body>
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
+
+			<script>
+				function lazyModal(data) {
+// 					console.log('lazyModal(data)');
+// 					console.log(data);
+					var status = data.status; // Can be "begin", "complete" or "success".
+					var source = data.source; // The parent HTML DOM element.
+
+					switch (status) {
+					case "begin": // Before the ajax request is sent.
+						console.log('INICIOU');
+						break;
+
+					case "complete": // After the ajax response is arrived.
+						console.log('COMPLETOU');
+						abreModal('responde_pedido');
+						break;
+
+					case "success": // After update of HTML DOM based on ajax response.
+						console.log('ATUALIZOU');
+						break;
+					}
+				}
+			</script>
+
+
 			<div class="container">
 
 				<h:form>
@@ -36,10 +62,16 @@
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
-										<h:commandButton type="button" value="&#x270E;"
-											class="input-field col s2 m1 l1"
-											onclick="abreModal('responde_pedido');"
-											actionListener="#{perfilOfertanteController.verificarPedido('Aguardando', status.index)}" />
+
+										<h:commandButton id="btn-abre-modal_#{status.index}"
+											type="button" value="&#x270E;"
+											class="input-field col s2 m1 l1">
+											<f:ajax event="click"
+												listener="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())}"
+												onevent="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())} lazyModal" render="pedido_selecionado" />
+										</h:commandButton>
+
+
 										<h:commandButton type="submit" value="X"
 											class="input-field col s2 m1 l1"
 											actionListener="#{perfilOfertanteController.descartarPedido('Aguardando', status.index)}" />
@@ -59,20 +91,37 @@
 								</div>
 								<div class="collapsible-body col s12 m12 l12 yellow lighten-1">
 									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										value="#{perfilOfertanteController.pedidosPorStatus.get('Negociando')}"
 										varStatus="status">
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
+
+
+										<div class="input-field col s8 m10 l10">
+											<h:outputLabel for="info-pedido"
+												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+											<h:inputText id="info-pedido" name="info-pedido"
+												disabled="true" type="text" class="validate"
+												required="required" maxlength="30"
+												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
 												<f:ajax event="change" />
 											</h:inputText>
 										</div>
+
+
+										<h:commandButton id="btn-abre-modal_#{status.index}"
+											type="button" value="&#x270E;"
+											class="input-field col s2 m1 l1">
+											<f:ajax event="click"
+												listener="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())}"
+												onevent="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())} lazyModal" render="pedido_selecionado"></f:ajax>
+										</h:commandButton>
+
+
+
 										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+											class="input-field col s2 m1 l1"
+											actionListener="#{perfilOfertanteController.descartarPedido('Negociando', status.index)}" />
+
+
 									</ui:repeat>
 									<div class="collapsible-header col s12 m12 l12 yellow darken-1">
 										Recolher<i class="material-icons">arrow_drop_up</i>
@@ -83,7 +132,7 @@
 
 							<li>
 								<div class="collapsible-header white-text green darken-1">
-									Executanto<i class="material-icons">arrow_drop_down</i>
+									Executando<i class="material-icons">arrow_drop_down</i>
 								</div>
 								<div class="collapsible-body col s12 m12 l12 green lighten-1">
 									<ui:repeat var="item"
@@ -205,9 +254,6 @@
 
 						</ul>
 					</div>
-					<div class="row">
-						<h:outputLabel value="#{perfilOfertanteController.nome}" />
-					</div>
 				</h:form>
 			</div>
 
@@ -218,14 +264,15 @@
 						style="max-width: 800px; padding-top: 15px;">
 						<h4>Resposta do Orçamento</h4>
 						<p>Preencha os dados</p>
-						<h:form>
+						<h:form id="pedido_selecionado">
 							<div class="col s12 m12 l6 input-field">
-								<h:inputText id="nome" name="nome" type="text" class="validate"
+								<h:inputText id="nome_pedido_selecionado"
+									name="nome_pedido_selecionado" type="text" class="validate"
 									required="required" maxlength="30"
 									value="#{perfilOfertanteController.pedidoSelecionado.demandante.pessoa.nome}">
 									<f:ajax event="change" />
 								</h:inputText>
-								<h:outputLabel for="nome" value="Nome" />
+								<h:outputLabel for="nome_pedido_selecionado" value="Nome" />
 							</div>
 							<div class="col s12 m12 l6 input-field">
 								<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
@@ -237,13 +284,15 @@
 							</div>
 							<div class="col s12 m6 l6">
 								<label for="ramo" class="col">Unidade de Medida</label>
-								<h:selectOneMenu id="tipo_unidade" 
-								value="#{perfilOfertanteController.unidadeMedidas}"
-								required="true" converter="unidadeConverter"
+								<h:selectOneMenu id="tipo_unidade"
+									value="#{perfilOfertanteController.pedidoSelecionado.unidadeMedida}"
+									required="true" converter="unidadeConverter"
 									class="browser-default col s12 m12 l12 box-color z-depth-1">
-									<f:selectItem itemValue=" " itemLabel="Selecione uma unidade..." />
-									<f:selectItems value="#{perfilOfertanteController.unidadeMedidas}"
-									var="item" itemValue="#{item}" itemLabel="#{item.nome}"/>
+									<f:selectItem itemValue=" "
+										itemLabel="Selecione uma unidade..." />
+									<f:selectItems
+										value="#{perfilOfertanteController.unidadeMedidas}" var="item"
+										itemValue="#{item}" itemLabel="#{item.nome}" />
 									<f:ajax event="change" />
 								</h:selectOneMenu>
 							</div>
@@ -254,7 +303,9 @@
 								<h:inputText id="quantidade" name="quantidade" type="text"
 									class="validate" required="required" maxlength="30"
 									value="#{perfilOfertanteController.pedidoSelecionado.quantidade}">
-									<f:ajax event="change" />
+									<f:ajax event="change"
+										listener="#{perfilOfertanteController.calcularTotal()}"
+										render="valor-total" />
 								</h:inputText>
 							</div>
 							<div class="col s12 m12 l6 input-field">
@@ -263,7 +314,9 @@
 								<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
 									class="validate" required="required" maxlength="30"
 									value="#{perfilOfertanteController.pedidoSelecionado.valorUnidade}">
-									<f:ajax event="change" />
+									<f:ajax event="change"
+										listener="#{perfilOfertanteController.calcularTotal()}"
+										render="valor-total" />
 								</h:inputText>
 							</div>
 							<div class="col s12 m12 l6 input-field">
@@ -271,6 +324,7 @@
 									value="Valor total do orçamento" />
 								<h:inputText id="valor-total" name="valor-total" type="text"
 									class="validate" required="required" maxlength="30"
+									disabled="true"
 									value="#{perfilOfertanteController.pedidoSelecionado.valorTotal}">
 									<f:ajax event="change" />
 								</h:inputText>
@@ -288,11 +342,19 @@
 							</fieldset>
 						</h:form>
 					</div>
-					<h:form class="modal-footer">
-						<a class="modal-close waves-effect waves-green btn-flat">Descartar Orçamento</a>
-						<h:commandButton type="submit"
-							class="modal-close waves-effect waves-green btn-flat" value="Enviar Orçamento" />
-					</h:form>
+					<div class="modal-footer">
+						<h:form>
+							<a class="modal-close waves-effect waves-green btn-flat">Descartar
+								Orçamento</a>
+
+
+
+							<h:commandButton type="submit"
+								class="modal-close waves-effect waves-green btn-flat"
+								actionListener="#{perfilOfertanteController.responderPedido()}"
+								value="Responder Orçamento" />
+						</h:form>
+					</div>
 				</div>
 			</form>
 		</ui:define>
