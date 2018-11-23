@@ -15,8 +15,8 @@
 
 					<div id="logo-container">
 
-						<h:commandLink
-							class="brand-logo" action="#{loginController.homePage()}"
+						<h:commandLink class="brand-logo"
+							action="#{loginController.homePage()}"
 							value="SV #{loginController.paginaVigente}" />
 
 						<!-- CLASSE PARA CONTROLAR VISUALIZAÇÃO DO COMPONENTE ESCONDENDO APENAS NO TAMANHO MAIOR -->
@@ -34,24 +34,36 @@
 										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
 										class="btn-floating waves-effect custom-primary-color opacity-m"
 										action="#{loginController.perfilOfertante()}" value="&#x25B2;" /></li>
+								<li><h:commandLink href="#"
+										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
+										class="btn-floating mobile-fab-tip i-box-color">Orçamentos </h:commandLink>
+								</li>
 								<!-- UNICODE DOWN ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect box-color opacity-m"
 										action="#{loginController.perfilDemandante()}"
 										value="&#x25BC;" /></li>
+								<li><a href="#"
+									class="btn-floating mobile-fab-tip box-color">Pedidos</a></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect custom-background opacity-m"
 										action="#{loginController.acompanhamento()}" value="&#x1f4ac;" /></li>
+								<li><a href="#"
+									class="btn-floating mobile-fab-tip i-box-color">Acompanhamentos</a>
+								</li>
 
 								<!-- UNICODE PLUS ICON -->
 								<li><h:commandLink
 										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect yellow opacity-m"
 										action="#{loginController.novoOrcamento()}" value="&#x2795;" /></li>
+								<li><a href="#"
+									class="btn-floating mobile-fab-tip box-color">Novo
+										Orçamento</a></li>
 							</ul>
 						</div>
 

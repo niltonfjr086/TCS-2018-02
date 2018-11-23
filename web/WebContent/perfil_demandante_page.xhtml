@@ -12,20 +12,201 @@
 
 				<h:form>
 
-					<div class="input-field" style="max-width: 300px;">
-						<input id="search" type="search"> <label
-							class="label-icon" for="search"> <i
-								class="material-icons">search</i>
-						</label><i class="material-icons">close</i> </input>
+					<div class="row">
+						<ul class="collapsible center">
+							<li>
+								<div class="collapsible-header">
+									Aguardando<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div class="collapsible-body col s12 m12 l12">
+									<ui:repeat var="item"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Aguardando')}"
+										varStatus="status">
+
+
+										<div class="input-field col s8 m10 l10">
+											<h:outputLabel for="info-pedido"
+												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+											<h:inputText id="info-pedido" name="info-pedido"
+												disabled="true" type="text" class="validate"
+												required="required" maxlength="30"
+												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="button" value="&#x270E;"
+											class="input-field col s2 m1 l1"
+											onclick="abreModal('responde_pedido');"
+											actionListener="#{perfilDemandanteController.verificarPedido('Aguardando', status.index)}" />
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m1 l1"
+											actionListener="#{perfilDemandanteController.descartarPedido('Aguardando', status.index)}" />
+
+
+									</ui:repeat>
+									<div class="collapsible-header col s12 m12 l12">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+							<li>
+								<div class="collapsible-header yellow darken-1">
+									Negociando<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div class="collapsible-body col s12 m12 l12 yellow lighten-1">
+									<ui:repeat var="item"
+										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										varStatus="status">
+										<div class="input-field col s10 m10 l10">
+											<h:outputLabel for="info-contato"
+												value="#{status.index + 1} | #{item.tipoContato.nome}" />
+											<h:inputText id="info-contato" name="info-contato"
+												type="text" class="validate" required="required"
+												maxlength="30" value="#{item.informacao}">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m2 l2"
+											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+									</ui:repeat>
+									<div class="collapsible-header col s12 m12 l12 yellow darken-1">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+							<li>
+								<div class="collapsible-header white-text green darken-1">
+									Executanto<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div class="collapsible-body col s12 m12 l12 green lighten-1">
+									<ui:repeat var="item"
+										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										varStatus="status">
+										<div class="input-field col s10 m10 l10">
+											<h:outputLabel for="info-contato"
+												value="#{status.index + 1} | #{item.tipoContato.nome}" />
+											<h:inputText id="info-contato" name="info-contato"
+												type="text" class="validate" required="required"
+												maxlength="30" value="#{item.informacao}">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m2 l2"
+											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+									</ui:repeat>
+									<div
+										class="collapsible-header col s12 m12 l12 white-text green darken-1">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+							<li>
+								<div class="collapsible-header white-text blue-grey darken-1">
+									Descartado<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div
+									class="collapsible-body col s12 m12 l12 blue-grey lighten-1">
+									<ui:repeat var="item"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Descartado')}"
+										varStatus="status">
+
+
+										<div class="input-field col s10 m10 l10">
+											<h:outputLabel for="info-pedido"
+												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+											<h:inputText id="info-pedido" name="info-pedido"
+												disabled="true" type="text" class="validate"
+												required="required" maxlength="30"
+												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="submit" value="&#x270E;"
+											class="input-field col s2 m2 l2"
+											actionListener="#{perfilDemandanteController.verificarPedido('Descartado', status.index)}" />
+
+
+									</ui:repeat>
+									<div
+										class="collapsible-header col s12 m12 l12 white-text blue-grey darken-1">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+							<li>
+								<div class="collapsible-header white-text red darken-1">
+									Cancelado/Interrompido<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div class="collapsible-body col s12 m12 l12 red lighten-1">
+									<ui:repeat var="item"
+										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										varStatus="status">
+										<div class="input-field col s10 m10 l10">
+											<h:outputLabel for="info-contato"
+												value="#{status.index + 1} | #{item.tipoContato.nome}" />
+											<h:inputText id="info-contato" name="info-contato"
+												type="text" class="validate" required="required"
+												maxlength="30" value="#{item.informacao}">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m2 l2"
+											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+									</ui:repeat>
+									<div
+										class="collapsible-header col s12 m12 l12 white-text red darken-1">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+							<li>
+								<div class="collapsible-header white-text blue darken-1">
+									Concluído<i class="material-icons">arrow_drop_down</i>
+								</div>
+								<div class="collapsible-body col s12 m12 l12 blue lighten-1">
+									<ui:repeat var="item"
+										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+										varStatus="status">
+										<div class="input-field col s10 m10 l10">
+											<h:outputLabel for="info-contato"
+												value="#{status.index + 1} | #{item.tipoContato.nome}" />
+											<h:inputText id="info-contato" name="info-contato"
+												type="text" class="validate" required="required"
+												maxlength="30" value="#{item.informacao}">
+												<f:ajax event="change" />
+											</h:inputText>
+										</div>
+										<h:commandButton type="submit" value="X"
+											class="input-field col s2 m2 l2"
+											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+									</ui:repeat>
+									<div
+										class="collapsible-header col s12 m12 l12 white-text blue darken-1">
+										Recolher<i class="material-icons">arrow_drop_up</i>
+									</div>
+								</div>
+							</li>
+
+
+						</ul>
+					</div>
+					<div class="row">
+						<h:outputLabel value="#{perfilDemandanteController.nome}" />
 					</div>
 
-					<div class="input-field">
-
-						<label for="search2"> <i class="material-icons">search</i>
-						</label> <input id="search2" type="search"> </input>
-					</div>
-
-					<h:outputLabel value="#{perfilDemandanteController.nome}" />
 				</h:form>
 
 			</div>
