@@ -34,5 +34,30 @@ public class PedidoDAO extends GenericDAO<Pedido, Long> {
 
 		return null;
 	}
+	
+	public List<Pedido> consultarPedidosDemandante(Usuario demandante){
+		
+		Map<String, String> params = new HashMap<>();
+		
+		Long demandanteId = demandante.getId();
+		
+		params.put("demandante", demandanteId != null ? String.valueOf(demandanteId) : "0L");
+		
+		List<Pedido> pedidos = new LinkedList<>();
+		
+		if(!params.get("demandante").equals("0L")) {
+			
+			List<Pedido> consulta = this.executeQuery(params);
+			
+			if(consulta != null && consulta.size() > 0) {
+				for(Pedido p : consulta) {
+					pedidos.add(p);
+				}
+				return pedidos;
+			}
+		}
+		
+		return null;
+	}
 
 }
