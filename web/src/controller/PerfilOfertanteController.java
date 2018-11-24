@@ -32,11 +32,14 @@ public class PerfilOfertanteController implements Serializable {
 	private Pedido pedidoSelecionado;
 
 	private LoginController loginController;
+	private DetalhesPedidoController detalhesPedidoController;
 
 	@Inject
-	public PerfilOfertanteController(LoginController loginController) {
+	public PerfilOfertanteController(LoginController loginController,
+			DetalhesPedidoController detalhesPedidoController) {
 		super();
 		this.loginController = loginController;
+		this.detalhesPedidoController = detalhesPedidoController;
 
 		this.statusPedidoDAO = new StatusPedidoDAO();
 		this.pedidoDAO = new PedidoDAO();
@@ -56,10 +59,10 @@ public class PerfilOfertanteController implements Serializable {
 
 	public void classificarPedidos() {
 		this.pedidos.clear();
-		
+
 		List<Pedido> retornada = this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario());
-		if(retornada != null) {
-			this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));			
+		if (retornada != null) {
+			this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));
 		}
 
 		this.pedidosPorStatus = new HashMap<>();
@@ -99,7 +102,7 @@ public class PerfilOfertanteController implements Serializable {
 
 	}
 
-	public void verificarPedido(String status, String index) {
+	public String verificarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(Integer.parseInt(index));
 
@@ -110,7 +113,7 @@ public class PerfilOfertanteController implements Serializable {
 			this.pedidoSelecionado.setValorTotal(0.0);
 		}
 
-//		return "responde_pedido";
+		 return irParaDetalhes();
 	}
 
 	public void responderPedido() {
@@ -132,6 +135,13 @@ public class PerfilOfertanteController implements Serializable {
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 
 		this.classificarPedidos();
+	}
+
+	private String irParaDetalhes() {
+		this.loginController.setPaginaVigente(" | Detalhes Pedido");
+		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
+
+		return "detalhes_pedido_page.xhtml";
 	}
 
 	public void calcularTotal() {

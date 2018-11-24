@@ -18,39 +18,42 @@ import model.entity.Pedido;
 @ViewScoped
 public class PerfilDemandanteController implements Serializable {
 	private static final long serialVersionUID = 1508573494335963749L;
-	
+
 	private StatusPedidoDAO statusPedidoDAO;
 	private PedidoDAO pedidoDAO;
 	private List<Pedido> pedidos;
 	private Map<String, List<Pedido>> pedidosPorStatus;
-	
+
 	private Pedido pedidoSelecionado;
-	
+
 	private LoginController loginController;
-	
+	private DetalhesPedidoController detalhesPedidoController;
+
 	private String nome = "perfilDemandanteController";
-	
+
 	@Inject
-	public PerfilDemandanteController(LoginController loginController) {
+	public PerfilDemandanteController(LoginController loginController,
+			DetalhesPedidoController detalhesPedidoController) {
 		super();
 		this.loginController = loginController;
-		
+		this.detalhesPedidoController = detalhesPedidoController;
+
 		this.statusPedidoDAO = new StatusPedidoDAO();
 		this.pedidoDAO = new PedidoDAO();
-		
+
 		this.pedidos = new LinkedList<>();
-		
+
 		this.pedidoSelecionado = null;
-		
+
 		this.classificarPedidos();
 	}
-	
+
 	public void classificarPedidos() {
 		this.pedidos.clear();
 		List<Pedido> pedidosDemandante = this.pedidoDAO.consultarPedidosDemandante(this.loginController.getUsuario());
-		
-		if(pedidosDemandante != null && pedidosDemandante.size() > 0) {
-			this.pedidos.addAll(pedidosDemandante);			
+
+		if (pedidosDemandante != null && pedidosDemandante.size() > 0) {
+			this.pedidos.addAll(pedidosDemandante);
 		}
 
 		this.pedidosPorStatus = new HashMap<>();
@@ -88,7 +91,7 @@ public class PerfilDemandanteController implements Serializable {
 			}
 		}
 	}
-	
+
 	public void verificarPedido(String status, Integer index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(index);
@@ -99,8 +102,8 @@ public class PerfilDemandanteController implements Serializable {
 	public void descartarPedido(String status, Integer index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(index);
-		
-//		this.pedidoSelecionado = this.pedidos.get(index);
+
+		// this.pedidoSelecionado = this.pedidos.get(index);
 
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
@@ -108,6 +111,12 @@ public class PerfilDemandanteController implements Serializable {
 		this.classificarPedidos();
 	}
 	
+	public String irParaDetalhes() {
+		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
+		
+		return "detalhes_pedido_page.xhtml";
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -140,6 +149,4 @@ public class PerfilDemandanteController implements Serializable {
 		this.pedidoSelecionado = pedidoSelecionado;
 	}
 
-	
-	
 }

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:body>
+	<ui:composition template="layout.xhtml">
+		<ui:define name="content">
+
+			<div
+				class="row #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
+				style="max-width: 800px; padding-top: 15px;">
+				<h4 class="center">#{detalhesPedidoController.pedidoSelecionado.ofertante.id
+					== loginController.usuario.id ? 'Ofertando' : 'Solicitando'}</h4>
+
+
+				<h5 class="center">Estado Atual:
+					#{detalhesPedidoController.pedidoSelecionado.statusPedido.nome}</h5>
+				<p class="center">Verifique os dados</p>
+
+				<h:form id="pedido_selecionado">
+					<div class="col s12 m12 l6 input-field">
+						<h:inputText id="nome_pedido_selecionado"
+							name="nome_pedido_selecionado" type="text" class="validate"
+							required="required" maxlength="30"
+							value="#{detalhesPedidoController.pedidoSelecionado.demandante.pessoa.nome}">
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="nome_pedido_selecionado" value="Nome" />
+					</div>
+					<div class="col s12 m12 l6 input-field">
+						<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
+						<h:inputText id="titulo" name="titulo" type="text"
+							class="validate" required="required" maxlength="30"
+							value="#{detalhesPedidoController.pedidoSelecionado.orcamento.titulo}">
+							<f:ajax event="change" />
+						</h:inputText>
+					</div>
+					<div class="col s12 m6 l6">
+						<label for="ramo" class="col">Unidade de Medida</label>
+						<h:selectOneMenu id="tipo_unidade"
+							value="#{detalhesPedidoController.unidadeMedidaSelecionada}"
+							required="true"
+							class="browser-default col s12 m12 l12 box-color z-depth-1">
+							<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione uma unidade..." />
+							<f:selectItems
+								value="#{detalhesPedidoController.itensUnidadesMedida}" />
+							<f:ajax event="change"
+								listener="#{detalhesPedidoController.selecionaUnidadeMedida()}" />
+						</h:selectOneMenu>
+					</div>
+
+					<div class="col s12 m12 l6 input-field">
+						<h:outputLabel id="lbl-quantidade" for="quantidade"
+							value="Quantidade" />
+						<h:inputText id="quantidade" name="quantidade" type="text"
+							class="validate" required="required" maxlength="30"
+							value="#{detalhesPedidoController.pedidoSelecionado.quantidade}">
+							<f:ajax event="change"
+								listener="#{detalhesPedidoController.calcularTotal()}"
+								render="valor-total" />
+						</h:inputText>
+					</div>
+					<div class="col s12 m12 l6 input-field">
+						<h:outputLabel id="lbl-valor-cobrado" for="valor-cobrado"
+							value="Valor cobrado por unidade" />
+						<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
+							class="validate" required="required" maxlength="30"
+							value="#{detalhesPedidoController.pedidoSelecionado.valorUnidade}">
+							<f:ajax event="change"
+								listener="#{detalhesPedidoController.calcularTotal()}"
+								render="valor-total" />
+						</h:inputText>
+					</div>
+					<div class="col s12 m12 l6 input-field">
+						<h:outputLabel id="lbl-valor-total" for="valor-total"
+							value="Valor total do orçamento" />
+						<h:inputText id="valor-total" name="valor-total" type="text"
+							class="validate" required="required" maxlength="30"
+							disabled="true"
+							value="#{detalhesPedidoController.pedidoSelecionado.valorTotal}">
+							<f:ajax event="change" />
+						</h:inputText>
+					</div>
+
+					<fieldset>
+						<div class="input-field col s12 m12 l12">
+							<h:inputTextarea id="descricao" class="materialize-textarea"
+								style="overflow-y: scroll;height:150px;max-height:150px;"
+								value="#{detalhesPedidoController.pedidoSelecionado.descricao}">
+								<f:ajax event="change" />
+							</h:inputTextarea>
+							<h:outputLabel for="descricao">Descrição</h:outputLabel>
+						</div>
+					</fieldset>
+				</h:form>
+
+				<h:form class="col s12 m12 l12 center">
+					<h:commandButton type="submit" class="btn box-color"
+						actionListener="#{detalhesPedidoController.descartarPedido()}"
+						value="Descartar Orçamento" />
+
+					<h:commandButton type="submit" class="btn i-box-color"
+						actionListener="#{detalhesPedidoController.responderPedido()}"
+						value="Responder Orçamento" />
+				</h:form>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

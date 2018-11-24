@@ -11,8 +11,8 @@
 
 			<script>
 				function lazyModal(data) {
-// 					console.log('lazyModal(data)');
-// 					console.log(data);
+					// 					console.log('lazyModal(data)');
+					// 					console.log(data);
 					var status = data.status; // Can be "begin", "complete" or "success".
 					var source = data.source; // The parent HTML DOM element.
 
@@ -64,11 +64,9 @@
 										</div>
 
 										<h:commandButton id="btn-abre-modal_#{status.index}"
-											type="button" value="&#x270E;"
-											class="input-field col s2 m1 l1">
-											<f:ajax event="click"
-												listener="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())}"
-												onevent="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())} lazyModal" render="pedido_selecionado" />
+											type="submit" value="&#x270E;"
+											class="input-field col s2 m1 l1"
+											action="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())}">
 										</h:commandButton>
 
 
@@ -108,11 +106,9 @@
 
 
 										<h:commandButton id="btn-abre-modal_#{status.index}"
-											type="button" value="&#x270E;"
-											class="input-field col s2 m1 l1">
-											<f:ajax event="click"
-												listener="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())}"
-												onevent="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())} lazyModal" render="pedido_selecionado"></f:ajax>
+											type="submit" value="&#x270E;"
+											class="input-field col s2 m1 l1"
+											action="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())}">
 										</h:commandButton>
 
 

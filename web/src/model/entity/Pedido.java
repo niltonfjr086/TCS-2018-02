@@ -63,13 +63,13 @@ public class Pedido extends BaseEntity {
 	private String comentarioParaOfertante;
 
 	@Column(name = "valor_unidade")
-	private Double valorUnidade;
+	private Double valorUnidade = 0.00;
 
 	@Column(name = "quantidade")
-	private Integer quantidade;
+	private Integer quantidade = 0;
 
 	@Column(name = "valor_total")
-	private Double valorTotal;
+	private Double valorTotal = 0.00;
 
 	@Column(name = "dt_abertura")
 	private Calendar dtAbertura;
