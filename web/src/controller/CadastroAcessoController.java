@@ -5,22 +5,18 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.faces.component.EditableValueHolder;
-//import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
-//import javax.enterprise.context.RequestScoped;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+//import javax.enterprise.context.RequestScoped;
+//import javax.enterprise.context.SessionScoped;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import component.JsonReader;
-import model.dao.ContatoDAO;
 import model.dao.FiltroOfertaDAO;
 import model.dao.NichoDAO;
 import model.dao.RamoDAO;
@@ -54,7 +50,7 @@ public class CadastroAcessoController implements Serializable {
 	private TipoContatoDAO tipoContatoDAO = new TipoContatoDAO();
 	private List<TipoContato> tiposContato = new LinkedList<>();
 
-	private ContatoDAO contatoDAO = new ContatoDAO();
+//	private ContatoDAO contatoDAO = new ContatoDAO();
 	// private PessoaDAO pessoaDAO = new PessoaDAO();
 	// private PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
 	// private PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
@@ -88,7 +84,8 @@ public class CadastroAcessoController implements Serializable {
 
 	private RamoDAO ramoDAO = new RamoDAO();
 	private List<Ramo> ramos = new LinkedList<>();
-	private Ramo ramoSelecionado;
+	private List<SelectItem> itemRamos = new LinkedList<>();
+	private Ramo ramoSelecionado = new Ramo();
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichosVigentes = new LinkedList<>();
 
@@ -114,6 +111,7 @@ public class CadastroAcessoController implements Serializable {
 
 		this.ramos.clear();
 		this.ramos.addAll(this.ramoDAO.findAll());
+		this.carregaSelectRamos();
 
 		verificarLogin(loginController);
 
@@ -180,6 +178,12 @@ public class CadastroAcessoController implements Serializable {
 
 		}
 
+	}
+
+	private void carregaSelectRamos() {
+		for (Ramo r : this.ramos) {
+			this.itemRamos.add(new SelectItem(r.getId(), r.getNome()));
+		}
 	}
 
 	private void carregaSelectTiposPessoa() {
@@ -449,6 +453,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setRamos(List<Ramo> ramos) {
 		this.ramos = ramos;
+	}
+
+	public List<SelectItem> getItemRamos() {
+		return itemRamos;
+	}
+
+	public void setItemRamos(List<SelectItem> itemRamos) {
+		this.itemRamos = itemRamos;
 	}
 
 	public Ramo getRamoSelecionado() {

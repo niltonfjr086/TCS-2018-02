@@ -128,17 +128,18 @@
 				<div class="row">
 					<div class="col s12 m6 l6">
 						<h:outputLabel id="lbl-ramo" for="ramo" class="col" value="Ramo" />
+
 						<h:selectOneMenu id="ramo"
-							value="#{cadastroAcessoController.ramoSelecionado}"
-							required="true" converter="ramoConverter"
-							disabled="#{!cadastroAcessoController.ofertante}"
+							value="#{cadastroAcessoController.ramoSelecionado.id}"
+							required="true" disabled="#{!cadastroAcessoController.ofertante}"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
-							<f:selectItem itemValue=" " itemLabel="Selecione um ramo..." />
-							<f:selectItems value="#{cadastroAcessoController.ramos}"
-								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+							<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione um ramo..." />
+							<f:selectItems value="#{cadastroAcessoController.itemRamos}" />
 							<f:ajax event="change" render="nicho"
 								listener="#{cadastroAcessoController.defineNichosVigentes()}" />
 						</h:selectOneMenu>
+
 					</div>
 					<div class="col s12 m6 l6">
 						<h:outputLabel id="lbl-nicho" for="nicho" class="col"
