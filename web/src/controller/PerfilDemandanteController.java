@@ -47,7 +47,11 @@ public class PerfilDemandanteController implements Serializable {
 	
 	public void classificarPedidos() {
 		this.pedidos.clear();
-		this.pedidos.addAll(this.pedidoDAO.consultarPedidosDemandante(this.loginController.getUsuario()));
+		List<Pedido> pedidosDemandante = this.pedidoDAO.consultarPedidosDemandante(this.loginController.getUsuario());
+		
+		if(pedidosDemandante != null && pedidosDemandante.size() > 0) {
+			this.pedidos.addAll(pedidosDemandante);			
+		}
 
 		this.pedidosPorStatus = new HashMap<>();
 		this.pedidosPorStatus.put("Aguardando", new LinkedList<>());
