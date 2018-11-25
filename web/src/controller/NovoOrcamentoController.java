@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,12 +19,10 @@ import model.dao.RamoDAO;
 import model.dao.StatusPedidoDAO;
 import model.dao.TipoOfertaDAO;
 import model.entity.Endereco;
-import model.entity.FiltroOferta;
 import model.entity.Nicho;
 import model.entity.Orcamento;
 import model.entity.Pedido;
 import model.entity.Ramo;
-import model.entity.StatusPedido;
 import model.entity.TipoOferta;
 import model.entity.Usuario;
 
@@ -40,8 +36,10 @@ public class NovoOrcamentoController implements Serializable {
 
 	private String descricao = "";
 
-	private List<TipoOferta> tipoServico = new LinkedList<>();
+	private List<TipoOferta> tiposOferta = new LinkedList<>();
 	private TipoOfertaDAO tipoOfertaDAO = new TipoOfertaDAO();
+	private List<SelectItem> itensTiposOferta = new LinkedList<>();
+	private Long idTipoOfertaOrcamento;
 
 	private List<Nicho> nichosVigentes = new LinkedList<>();
 	private List<SelectItem> itensNichosVigentes = new LinkedList<>();
@@ -76,9 +74,15 @@ public class NovoOrcamentoController implements Serializable {
 		this.ramos.addAll(this.ramoDAO.findAll());
 		this.carregaSelectRamos();
 
-		this.tipoServico.clear();
-		this.tipoServico.addAll(this.tipoOfertaDAO.findAll());
+		this.tiposOferta.clear();
+		this.tiposOferta.addAll(this.tipoOfertaDAO.findAll());
+		this.carregaSelectTiposOferta();
+	}
 
+	private void carregaSelectTiposOferta() {
+		for (TipoOferta item : this.tiposOferta) {
+			this.itensTiposOferta.add(new SelectItem(item.getId(), item.getNome()));
+		}
 	}
 
 	private void carregaSelectRamos() {
@@ -103,16 +107,20 @@ public class NovoOrcamentoController implements Serializable {
 		this.carregaSelecNichosVigentes();
 	}
 
-	public void adicionaOrcamento() {
+	public void defineNichoOrcamento() {
+		this.orcamento.setNicho(this.nichoDAO.findById(this.idNichoVigenteSelecionado));
+	}
+
+	public void defineTipoOferta() {
+		this.orcamento.setTipoOferta(this.tipoOfertaDAO.findById(this.idTipoOfertaOrcamento));
+	}
+
+	public String adicionaOrcamento() {
 		this.orcamento = this.orcamentoDAO.insert(this.orcamento);
-		
-		System.out.println("adicionaOrcamento()");
-		System.out.println(this.orcamento);
-		System.out.println("DESCRIÇÃO PEDIDOS");
-		System.out.println(this.descricao);
 
 		this.enviaPedidos(this.orcamento);
 
+		return this.loginController.perfilDemandante();
 	}
 
 	private void enviaPedidos(Orcamento prePedido) {
@@ -196,12 +204,28 @@ public class NovoOrcamentoController implements Serializable {
 		this.orcamento = orcamento;
 	}
 
-	public List<TipoOferta> getTipoServico() {
-		return tipoServico;
+	public List<TipoOferta> getTiposOferta() {
+		return tiposOferta;
 	}
 
-	public void setTipoServico(List<TipoOferta> tipoServico) {
-		this.tipoServico = tipoServico;
+	public void setTiposOferta(List<TipoOferta> tiposOferta) {
+		this.tiposOferta = tiposOferta;
+	}
+
+	public List<SelectItem> getItensTiposOferta() {
+		return itensTiposOferta;
+	}
+
+	public void setItensTiposOferta(List<SelectItem> itensTiposOferta) {
+		this.itensTiposOferta = itensTiposOferta;
+	}
+
+	public Long getIdTipoOfertaOrcamento() {
+		return idTipoOfertaOrcamento;
+	}
+
+	public void setIdTipoOfertaOrcamento(Long idTipoOfertaOrcamento) {
+		this.idTipoOfertaOrcamento = idTipoOfertaOrcamento;
 	}
 
 	public List<Ramo> getRamos() {

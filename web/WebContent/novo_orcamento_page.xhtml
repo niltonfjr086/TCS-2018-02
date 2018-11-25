@@ -20,7 +20,8 @@
 								value="#{novoOrcamentoController.ramoSelecionado.id}"
 								required="true"
 								class="browser-default col s12 m12 l12 box-color z-depth-1">
-								<f:selectItem noSelectionOption="true" itemLabel="Selecione um ramo..." />
+								<f:selectItem noSelectionOption="true"
+									itemLabel="Selecione um ramo..." />
 								<f:selectItems value="#{novoOrcamentoController.itemRamos}" />
 								<f:ajax event="change" render="nicho"
 									listener="#{novoOrcamentoController.defineNichosVigentes()}" />
@@ -29,13 +30,15 @@
 						<div class="col s12 m6 l6">
 							<label for="nicho" class="col">Nicho</label>
 							<h:selectOneMenu id="nicho"
-								value="#{novoOrcamentoController.orcamento.nicho}"
-								required="true" converter="nichoConverter"
+								value="#{novoOrcamentoController.idNichoVigenteSelecionado}"
+								required="true"
 								class="browser-default col s12 m12 l12 box-color z-depth-1">
-								<f:selectItem itemValue=" " itemLabel="Selecione um nicho..." />
-								<f:selectItems value="#{novoOrcamentoController.nichosVigentes}"
-									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-								<f:ajax event="change" />
+								<f:selectItem noSelectionOption="true"
+									itemLabel="Selecione um nicho..." />
+								<f:selectItems
+									value="#{novoOrcamentoController.itensNichosVigentes}" />
+								<f:ajax event="change"
+									listener="#{novoOrcamentoController.defineNichoOrcamento()}" />
 							</h:selectOneMenu>
 						</div>
 					</div>
@@ -45,15 +48,14 @@
 						<div class="col s12 m12 l12">
 							<label for="tipo-servico" class="col">Tipo Serviço</label>
 							<h:selectOneMenu id="tipo-servico"
-								value="#{novoOrcamentoController.orcamento.tipoOferta}"
-								required="true" converter="tipoOfertaConverter"
+								value="#{novoOrcamentoController.idTipoOfertaOrcamento}"
+								required="true"
 								class="browser-default col s12 m12 l12 box-color z-depth-1">
 
-								<f:selectItem itemValue=" "
+								<f:selectItem noSelectionOption="true"
 									itemLabel="Selecione um tipo de serviço..." />
-								<f:selectItems value="#{novoOrcamentoController.tipoServico}"
-									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-								<f:ajax event="change" />
+								<f:selectItems value="#{novoOrcamentoController.itensTiposOferta}" />
+								<f:ajax event="change" listener="#{novoOrcamentoController.defineTipoOferta()}" />
 							</h:selectOneMenu>
 						</div>
 
@@ -180,7 +182,7 @@
 				<h:form class="row" style="max-width: 650px;">
 					<h:commandButton type="submit"
 						styleClass="col s12 m6 l6 btn i-box-color"
-						actionListener="#{novoOrcamentoController.adicionaOrcamento()}"
+						action="#{novoOrcamentoController.adicionaOrcamento()}"
 						value="Salvar" />
 					<h:commandButton type="submit"
 						class="col s12 m6 l6 btn box-color waves-effect"

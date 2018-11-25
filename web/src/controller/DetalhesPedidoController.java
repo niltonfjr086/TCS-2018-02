@@ -13,7 +13,6 @@ import model.dao.PedidoDAO;
 import model.dao.UnidadeMedidaDAO;
 import model.dao.StatusPedidoDAO;
 import model.entity.Pedido;
-import model.entity.StatusPedido;
 import model.entity.UnidadeMedida;
 import javax.enterprise.context.SessionScoped;
 
@@ -37,18 +36,26 @@ public class DetalhesPedidoController implements Serializable {
 	public DetalhesPedidoController() {
 		super();
 
+		this.constroiMapaDeEstilizacaoDinamica();
+
+		this.unidadesMedida = this.unidadeMedidaDAO.findAll();
+		this.carregaSelectUnidadesMedida();
+
+	}
+
+	private void constroiMapaDeEstilizacaoDinamica() {
 		this.status.put("Aguardando", "");
 		this.status.put("Negociando", "yellow darken-1");
 		this.status.put("Executando", "white-text green darken-1");
 		this.status.put("Descartado", "white-text blue-grey darken-1");
-		this.status.put("Cancelado", "white-text red darken-1");
+		this.status.put("Cancelado interrompido", "white-text red darken-1");
 		this.status.put("Concluído", "white-text blue darken-1");
+	}
 
-		this.unidadesMedida = this.unidadeMedidaDAO.findAll();
+	private void carregaSelectUnidadesMedida() {
 		for (UnidadeMedida unidade : this.unidadesMedida) {
 			this.itensUnidadesMedida.add(new SelectItem(unidade.getId(), unidade.getNome()));
 		}
-
 	}
 
 	public void selecionaUnidadeMedida() {
@@ -56,17 +63,28 @@ public class DetalhesPedidoController implements Serializable {
 	}
 
 	public void responderPedido() {
-
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+	}
 
+	public void executarPedido() {
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(3L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void descartarPedido() {
-
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+	}
 
+	public void cancelarPedido() {
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(5L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+	}
+
+	public void concluirPedido() {
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(6L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void calcularTotal() {

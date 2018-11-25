@@ -2,10 +2,10 @@ package model.dao;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.text.SimpleDateFormat;
+//import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
+//import java.util.Calendar;
+//import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Query;
 import javax.persistence.Table;
 
-import org.hibernate.metadata.ClassMetadata;
+//import org.hibernate.metadata.ClassMetadata;
 
 import model.filter.FilterBuilder;
 
@@ -155,7 +155,6 @@ public class GenericDAO<T, PK> {
 		return retorno;
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<T> findAll(FilterBuilder<T> selector) {
 		return null;
 	}
@@ -210,8 +209,8 @@ public class GenericDAO<T, PK> {
 		Class<? extends Object> c1 = entityInit.getClass();
 		Class<? extends Object> c2 = entityEnd.getClass();
 
-		Map<String, String> mappedEntityInit = null;
-		Map<String, String> mappedEntityEnd = null;
+//		Map<String, String> mappedEntityInit = null;
+//		Map<String, String> mappedEntityEnd = null;
 
 		List<Map<String, String>> mappedEntities = new ArrayList<>();
 

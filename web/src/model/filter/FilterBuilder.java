@@ -1,15 +1,15 @@
 package model.filter;
 
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Column;
-import javax.persistence.Table;
+//import java.lang.reflect.Field;
+//import java.text.SimpleDateFormat;
+//import java.util.ArrayList;
+//import java.util.Calendar;
+//import java.util.HashMap;
+//import java.util.List;
+//import java.util.Map;
+//
+//import javax.persistence.Column;
+//import javax.persistence.Table;
 
 public class FilterBuilder<T extends Object> {
 

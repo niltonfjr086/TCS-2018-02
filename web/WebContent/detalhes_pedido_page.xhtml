@@ -115,6 +115,19 @@
 						actionListener="#{detalhesPedidoController.responderPedido()}"
 						value="Responder Orçamento" />
 
+					<h:commandButton type="submit" class="btn i-box-color"
+						actionListener="#{detalhesPedidoController.executarPedido()}"
+						value="Aceitar Pedido" />
+
+					<h:commandButton type="submit" class="btn i-box-color"
+						actionListener="#{detalhesPedidoController.cancelarPedido()}"
+						value="Cancelar Pedido" />
+
+
+					<h:commandButton type="submit" class="btn i-box-color"
+						actionListener="#{detalhesPedidoController.concluirPedido()}"
+						value="Concluir Pedido" />
+
 				</h:form>
 			</div>
 
