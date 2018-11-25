@@ -13,7 +13,7 @@
 				class="row #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 				style="max-width: 800px; padding-top: 15px;">
 				<h4 class="center">#{detalhesPedidoController.pedidoSelecionado.ofertante.id
-					== loginController.usuario.id ? 'Ofertando' : 'Solicitando'}</h4>
+					== loginController.usuario.id ? 'Oferta' : 'Solicitação'}</h4>
 
 
 				<h5 class="center">Estado Atual:
@@ -43,9 +43,7 @@
 						<h:selectOneMenu id="tipo_unidade"
 							value="#{detalhesPedidoController.unidadeMedidaSelecionada}"
 							required="true"
-							class="browser-default col s12 m12 l12 box-color z-depth-1">
-							<f:selectItem noSelectionOption="true"
-								itemLabel="Selecione uma unidade..." />
+							class="browser-default col s12 m12 l12 #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)} z-depth-1">
 							<f:selectItems
 								value="#{detalhesPedidoController.itensUnidadesMedida}" />
 							<f:ajax event="change"
@@ -98,7 +96,17 @@
 					</fieldset>
 				</h:form>
 
+
+			</div>
+			<div class="row" style="max-width: 800px; padding-top: 15px;">
 				<h:form class="col s12 m12 l12 center">
+
+					<h:commandButton type="submit" class="btn i-box-color"
+						action="#{loginController.voltarAoPerfilVigente(
+						detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
+						'Ofertando' : 'Solicitando')}"
+						value="Voltar" />
+
 					<h:commandButton type="submit" class="btn box-color"
 						actionListener="#{detalhesPedidoController.descartarPedido()}"
 						value="Descartar Orçamento" />
@@ -106,6 +114,7 @@
 					<h:commandButton type="submit" class="btn i-box-color"
 						actionListener="#{detalhesPedidoController.responderPedido()}"
 						value="Responder Orçamento" />
+
 				</h:form>
 			</div>
 

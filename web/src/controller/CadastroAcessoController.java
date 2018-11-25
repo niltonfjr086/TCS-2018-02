@@ -41,7 +41,6 @@ import model.entity.Usuario;
 @Named
 @ViewScoped
 // @RequestScoped
-// @SessionScoped
 public class CadastroAcessoController implements Serializable {
 
 	private static final long serialVersionUID = 2425783147349721021L;
@@ -49,19 +48,15 @@ public class CadastroAcessoController implements Serializable {
 
 	private TipoContatoDAO tipoContatoDAO = new TipoContatoDAO();
 	private List<TipoContato> tiposContato = new LinkedList<>();
-
-//	private ContatoDAO contatoDAO = new ContatoDAO();
-	// private PessoaDAO pessoaDAO = new PessoaDAO();
-	// private PessoaFisicaDAO pessoaFisicaDAO = new PessoaFisicaDAO();
-	// private PessoaJuridicaDAO pessoaJuridicaDAO = new PessoaJuridicaDAO();
+	private List<SelectItem> itensTiposContato = new LinkedList<>();
 
 	private TipoPessoaDAO tipoPessoaDAO = new TipoPessoaDAO();
 	private List<TipoPessoa> tiposPessoa = new LinkedList<>();
 	private List<SelectItem> itensTiposPessoa = new LinkedList<>();
 
-	// private TipoUsuario tipoUsuario = new TipoUsuario();
 	private List<TipoUsuario> tiposUsuario = new LinkedList<>();
 	private TipoUsuarioDAO tipoUsuarioDAO = new TipoUsuarioDAO();
+	private List<SelectItem> itensTiposUsuario = new LinkedList<>();
 
 	private Boolean logado;
 	private UsuarioDAO usuarioDAO;
@@ -69,6 +64,7 @@ public class CadastroAcessoController implements Serializable {
 
 	private String infoContato;
 	private TipoContato tipoContatoSelecionado;
+	private Long idTipoContatoSelecionado = 1L;
 	private Contato contatoAdd = new Contato();
 
 	private Long idTipoPessoaPreSelecionada;
@@ -81,6 +77,8 @@ public class CadastroAcessoController implements Serializable {
 
 	private TipoOfertaDAO tipoOfertaDAO = new TipoOfertaDAO();
 	private List<TipoOferta> tiposOferta = new LinkedList<>();
+	private List<SelectItem> itensTiposOferta = new LinkedList<>();
+	private Long idTipoOfertaSelecionada;
 
 	private RamoDAO ramoDAO = new RamoDAO();
 	private List<Ramo> ramos = new LinkedList<>();
@@ -88,6 +86,8 @@ public class CadastroAcessoController implements Serializable {
 	private Ramo ramoSelecionado = new Ramo();
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichosVigentes = new LinkedList<>();
+	private List<SelectItem> itensNichosVigentes = new LinkedList<>();
+	private Long idNichoVigenteSelecionado;
 
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
@@ -95,6 +95,7 @@ public class CadastroAcessoController implements Serializable {
 		this.loginController = loginController;
 
 		this.tiposContato = this.tipoContatoDAO.findAll();
+		this.carregaSelectTiposContato();
 
 		this.contatoAdd = new Contato();
 		this.contatoAdd.setTipoContato(this.tiposContato.get(0));
@@ -106,8 +107,10 @@ public class CadastroAcessoController implements Serializable {
 		this.idTipoPessoaPreSelecionada = this.tipoPessoaSelecionada.getId();
 
 		this.tiposUsuario = this.tipoUsuarioDAO.findAll();
+		this.carregaSelectTiposUsuario();
 
 		this.tiposOferta = this.tipoOfertaDAO.findAll();
+		this.carregaSelectTiposOferta();
 
 		this.ramos.clear();
 		this.ramos.addAll(this.ramoDAO.findAll());
@@ -129,6 +132,9 @@ public class CadastroAcessoController implements Serializable {
 				this.logado = true;
 				this.usuario = tmp;
 
+				this.tipoPessoaSelecionada = this.usuario.getPessoa().getTipoPessoa();
+				this.idTipoPessoaPreSelecionada = this.tipoPessoaSelecionada.getId();
+
 				List<Contato> contatos = this.usuario.getPessoa().getContatos();
 				List<Contato> contatosLinked = new LinkedList<>();
 
@@ -143,9 +149,13 @@ public class CadastroAcessoController implements Serializable {
 					this.ofertante = true;
 
 					this.filtroOferta = this.filtroOfertaDAO.consultarFiltrosUsuario(this.usuario).get(0);
+					this.idTipoOfertaSelecionada = this.filtroOferta.getTipo().getId();
 
 					this.ramoSelecionado = this.filtroOferta.getNicho().getRamo();
-					this.nichosVigentes = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
+					// this.nichosVigentes =
+					// this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
+					this.defineNichosVigentes();
+					this.idNichoVigenteSelecionado = this.filtroOferta.getNicho().getId();
 				}
 
 			} else {
@@ -180,6 +190,18 @@ public class CadastroAcessoController implements Serializable {
 
 	}
 
+	private void carregaSelectTiposUsuario() {
+		for (TipoUsuario item : this.tiposUsuario) {
+			this.itensTiposUsuario.add(new SelectItem(item.getId(), item.getNome()));
+		}
+	}
+
+	private void carregaSelectTiposOferta() {
+		for (TipoOferta item : this.tiposOferta) {
+			this.itensTiposOferta.add(new SelectItem(item.getId(), item.getNome()));
+		}
+	}
+
 	private void carregaSelectRamos() {
 		for (Ramo r : this.ramos) {
 			this.itemRamos.add(new SelectItem(r.getId(), r.getNome()));
@@ -187,17 +209,26 @@ public class CadastroAcessoController implements Serializable {
 	}
 
 	private void carregaSelectTiposPessoa() {
-
 		itensTiposPessoa.clear();
 		for (TipoPessoa tp : this.tiposPessoa) {
 			itensTiposPessoa.add(new SelectItem(tp.getId(), tp.getNome()));
 		}
+	}
 
+	public void carregaSelecNichosVigentes() {
+		this.itensNichosVigentes.clear();
+		for (Nicho item : this.nichosVigentes) {
+			this.itensNichosVigentes.add(new SelectItem(item.getId(), item.getNome()));
+		}
+	}
+
+	public void carregaSelectTiposContato() {
+		for (TipoContato tc : this.tiposContato) {
+			this.itensTiposContato.add(new SelectItem(tc.getId(), tc.getNome()));
+		}
 	}
 
 	public void defineDoc() {
-		// System.out.println(this.tipoPessoaSelecionada);
-
 		String nome, login, senha;
 		nome = this.usuario.getPessoa().getNome();
 		login = this.usuario.getLogin();
@@ -223,16 +254,25 @@ public class CadastroAcessoController implements Serializable {
 		this.usuario.getPessoa().setContatos(contatos);
 	}
 
+	public void defineTipoOferta() {
+		this.filtroOferta.setTipo(this.tipoOfertaDAO.findById(this.idTipoOfertaSelecionada));
+	}
+
 	public void defineNichosVigentes() {
 		List<Nicho> nichos = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
 		if (nichos != null) {
 			this.nichosVigentes.clear();
 			this.nichosVigentes.addAll(nichos);
 		}
+		this.carregaSelecNichosVigentes();
+	}
+
+	public void defineNichoOferta() {
+		this.filtroOferta.setNicho(this.nichoDAO.findById(this.idNichoVigenteSelecionado));
 	}
 
 	public void defineTipoContato() {
-		System.out.println("CadastroAcessoController -> defineTipoContato()");
+		this.tipoContatoSelecionado = this.tipoContatoDAO.findById(this.idTipoContatoSelecionado);
 	}
 
 	public void adicionaContato() {
@@ -367,6 +407,14 @@ public class CadastroAcessoController implements Serializable {
 		this.tiposContato = tiposContato;
 	}
 
+	public List<SelectItem> getItensTiposContato() {
+		return itensTiposContato;
+	}
+
+	public void setItensTiposContato(List<SelectItem> itensTiposContato) {
+		this.itensTiposContato = itensTiposContato;
+	}
+
 	public Boolean getLogado() {
 		return logado;
 	}
@@ -405,6 +453,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setTipoContatoSelecionado(TipoContato tipoContatoSelecionado) {
 		this.tipoContatoSelecionado = tipoContatoSelecionado;
+	}
+
+	public Long getIdTipoContatoSelecionado() {
+		return idTipoContatoSelecionado;
+	}
+
+	public void setIdTipoContatoSelecionado(Long idTipoContatoSelecionado) {
+		this.idTipoContatoSelecionado = idTipoContatoSelecionado;
 	}
 
 	public TipoPessoa getTipoPessoaSelecionada() {
@@ -447,6 +503,22 @@ public class CadastroAcessoController implements Serializable {
 		this.tiposOferta = tiposOferta;
 	}
 
+	public List<SelectItem> getItensTiposOferta() {
+		return itensTiposOferta;
+	}
+
+	public void setItensTiposOferta(List<SelectItem> itensTiposOferta) {
+		this.itensTiposOferta = itensTiposOferta;
+	}
+
+	public Long getIdTipoOfertaSelecionada() {
+		return idTipoOfertaSelecionada;
+	}
+
+	public void setIdTipoOfertaSelecionada(Long idTipoOfertaSelecionada) {
+		this.idTipoOfertaSelecionada = idTipoOfertaSelecionada;
+	}
+
 	public List<Ramo> getRamos() {
 		return ramos;
 	}
@@ -477,6 +549,22 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setNichosVigentes(List<Nicho> nichosVigentes) {
 		this.nichosVigentes = nichosVigentes;
+	}
+
+	public List<SelectItem> getItensNichosVigentes() {
+		return itensNichosVigentes;
+	}
+
+	public void setItensNichosVigentes(List<SelectItem> itensNichosVigentes) {
+		this.itensNichosVigentes = itensNichosVigentes;
+	}
+
+	public Long getIdNichoVigenteSelecionado() {
+		return idNichoVigenteSelecionado;
+	}
+
+	public void setIdNichoVigenteSelecionado(Long idNichoVigenteSelecionado) {
+		this.idNichoVigenteSelecionado = idNichoVigenteSelecionado;
 	}
 
 }

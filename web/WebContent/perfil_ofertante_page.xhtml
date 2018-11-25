@@ -9,350 +9,220 @@
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
 
-			<script>
-				function lazyModal(data) {
-					// 					console.log('lazyModal(data)');
-					// 					console.log(data);
-					var status = data.status; // Can be "begin", "complete" or "success".
-					var source = data.source; // The parent HTML DOM element.
-
-					switch (status) {
-					case "begin": // Before the ajax request is sent.
-						console.log('INICIOU');
-						break;
-
-					case "complete": // After the ajax response is arrived.
-						console.log('COMPLETOU');
-						abreModal('responde_pedido');
-						break;
-
-					case "success": // After update of HTML DOM based on ajax response.
-						console.log('ATUALIZOU');
-						break;
-					}
-				}
-			</script>
+			<h:form>
+				<div class="row" style="max-width: 1200px; padding-top: 32px;">
+					<ul class="collapsible center">
 
 
-			<div class="container">
-
-				<h:form>
-
-					<div class="row">
-						<ul class="collapsible center">
-
-
-							<li>
-								<div class="collapsible-header">
-									Aguardando<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12">
-									<ui:repeat var="item"
-										value="#{perfilOfertanteController.pedidosPorStatus.get('Aguardando')}"
-										varStatus="status">
+						<li>
+							<div class="collapsible-header">
+								Aguardando<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Aguardando')}"
+									varStatus="status">
 
 
-										<div class="input-field col s8 m10 l10">
-											<h:outputLabel for="info-pedido"
-												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-											<h:inputText id="info-pedido" name="info-pedido"
-												disabled="true" type="text" class="validate"
-												required="required" maxlength="30"
-												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-
-										<h:commandButton id="btn-abre-modal_#{status.index}"
-											type="submit" value="&#x270E;"
-											class="input-field col s2 m1 l1"
-											action="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())}">
-										</h:commandButton>
-
-
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m1 l1"
-											actionListener="#{perfilOfertanteController.descartarPedido('Aguardando', status.index)}" />
-
-
-									</ui:repeat>
-									<div class="collapsible-header col s12 m12 l12">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
+
+									<h:commandButton type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn box-color hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Aguardando', status.index.toString())}" />
+
+									<h:commandButton type="submit" value="&#x1F5D1;"
+										class="input-field col s2 m1 l1 btn i-box-color hexa-icon"
+										actionListener="#{perfilOfertanteController.descartarPedido('Aguardando', status.index.toString())}" />
+
+								</ui:repeat>
+								<div class="collapsible-header col s12 m12 l12">
+									Recolher<i class="material-icons">arrow_drop_up</i>
 								</div>
-							</li>
+							</div>
+						</li>
 
 
-							<li>
-								<div class="collapsible-header yellow darken-1">
-									Negociando<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12 yellow lighten-1">
-									<ui:repeat var="item"
-										value="#{perfilOfertanteController.pedidosPorStatus.get('Negociando')}"
-										varStatus="status">
+						<li>
+							<div class="collapsible-header yellow darken-1">
+								Negociando<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12 yellow lighten-1">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Negociando')}"
+									varStatus="status">
 
 
-										<div class="input-field col s8 m10 l10">
-											<h:outputLabel for="info-pedido"
-												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-											<h:inputText id="info-pedido" name="info-pedido"
-												disabled="true" type="text" class="validate"
-												required="required" maxlength="30"
-												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-
-
-										<h:commandButton id="btn-abre-modal_#{status.index}"
-											type="submit" value="&#x270E;"
-											class="input-field col s2 m1 l1"
-											action="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())}">
-										</h:commandButton>
-
-
-
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m1 l1"
-											actionListener="#{perfilOfertanteController.descartarPedido('Negociando', status.index)}" />
-
-
-									</ui:repeat>
-									<div class="collapsible-header col s12 m12 l12 yellow darken-1">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
+
+									<h:commandButton id="btn-abre-modal_#{status.index}"
+										type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn blue-text yellow lighten-1 hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Negociando', status.index.toString())}" />
+
+									<h:commandButton type="submit" value="&#x1F5D1;"
+										class="input-field col s2 m1 l1 btn blue-text yellow darken-1 hexa-icon"
+										actionListener="#{perfilOfertanteController.descartarPedido('Negociando', status.index.toString())}" />
+
+								</ui:repeat>
+								<div class="collapsible-header col s12 m12 l12 yellow darken-1">
+									Recolher<i class="material-icons">arrow_drop_up</i>
 								</div>
-							</li>
+							</div>
+						</li>
 
 
-							<li>
-								<div class="collapsible-header white-text green darken-1">
-									Executando<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12 green lighten-1">
-									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
-										varStatus="status">
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
-									</ui:repeat>
-									<div
-										class="collapsible-header col s12 m12 l12 white-text green darken-1">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+						<li>
+							<div class="collapsible-header white-text green darken-1">
+								Executando<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12 green lighten-1">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Executando')}"
+									varStatus="status">
+
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
-								</div>
-							</li>
 
+									<h:commandButton type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn blue-text green lighten-1 hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Executando', status.index.toString())}" />
 
-							<li>
-								<div class="collapsible-header white-text blue-grey darken-1">
-									Descartado<i class="material-icons">arrow_drop_down</i>
-								</div>
+									<h:commandButton type="submit" value="&#x1F5D1;"
+										class="input-field col s2 m1 l1 btn white-text green darken-1 hexa-icon"
+										actionListener="#{perfilOfertanteController.cancelarPedido('Executando', status.index.toString())}" />
+
+								</ui:repeat>
 								<div
-									class="collapsible-body col s12 m12 l12 blue-grey lighten-1">
-									<ui:repeat var="item"
-										value="#{perfilOfertanteController.pedidosPorStatus.get('Descartado')}"
-										varStatus="status">
+									class="collapsible-header col s12 m12 l12 white-text green darken-1">
+									Recolher<i class="material-icons">arrow_drop_up</i>
+								</div>
+							</div>
+						</li>
 
 
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-pedido"
-												value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-											<h:inputText id="info-pedido" name="info-pedido"
-												disabled="true" type="text" class="validate"
-												required="required" maxlength="30"
-												value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-										<h:commandButton type="submit" value="&#x270E;"
-											class="input-field col s2 m2 l2"
-											actionListener="#{perfilOfertanteController.verificarPedido('Descartado', status.index)}" />
+						<li>
+							<div class="collapsible-header white-text blue-grey darken-1">
+								Descartado<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12 blue-grey lighten-1">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Descartado')}"
+									varStatus="status">
 
-
-									</ui:repeat>
-									<div
-										class="collapsible-header col s12 m12 l12 white-text blue-grey darken-1">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
+
+									<h:commandButton type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn white-text blue-grey darken-1 hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Descartado', status.index.toString())}" />
+
+								</ui:repeat>
+								<div
+									class="collapsible-header col s12 m12 l12 white-text blue-grey darken-1">
+									Recolher<i class="material-icons">arrow_drop_up</i>
 								</div>
-							</li>
+							</div>
+						</li>
 
 
-							<li>
-								<div class="collapsible-header white-text red darken-1">
-									Cancelado/Interrompido<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12 red lighten-1">
-									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
-										varStatus="status">
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
-									</ui:repeat>
-									<div
-										class="collapsible-header col s12 m12 l12 white-text red darken-1">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+						<li>
+							<div class="collapsible-header white-text red darken-1">
+								Cancelado/Interrompido<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12 red lighten-1">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Cancelado interrompido')}"
+									varStatus="status">
+
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
+
+									<h:commandButton type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn white-text red darken-1 hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Cancelado interrompido', status.index.toString())}" />
+
+								</ui:repeat>
+								<div
+									class="collapsible-header col s12 m12 l12 white-text red darken-1">
+									Recolher<i class="material-icons">arrow_drop_up</i>
 								</div>
-							</li>
+							</div>
+						</li>
 
 
-							<li>
-								<div class="collapsible-header white-text blue darken-1">
-									Concluído<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12 blue lighten-1">
-									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
-										varStatus="status">
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
-												<f:ajax event="change" />
-											</h:inputText>
-										</div>
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
-									</ui:repeat>
-									<div
-										class="collapsible-header col s12 m12 l12 white-text blue darken-1">
-										Recolher<i class="material-icons">arrow_drop_up</i>
+						<li>
+							<div class="collapsible-header white-text blue darken-1">
+								Concluído<i class="material-icons">arrow_drop_down</i>
+							</div>
+							<div class="collapsible-body col s12 m12 l12 blue lighten-1">
+								<ui:repeat var="item"
+									value="#{perfilOfertanteController.pedidosPorStatus.get('Concluído')}"
+									varStatus="status">
+
+									<div class="input-field col s8 m10 l10">
+										<h:outputLabel for="info-pedido"
+											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
+										<h:inputText id="info-pedido" name="info-pedido"
+											disabled="true" type="text" class="validate"
+											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
+											<f:ajax event="change" />
+										</h:inputText>
 									</div>
+
+									<h:commandButton type="submit" value="&#x270E;"
+										class="input-field col s2 m1 l1 btn white-text blue darken-1 hexa-icon"
+										action="#{perfilOfertanteController.verificarPedido('Concluído', status.index.toString())}" />
+
+								</ui:repeat>
+								<div
+									class="collapsible-header col s12 m12 l12 white-text blue darken-1">
+									Recolher<i class="material-icons">arrow_drop_up</i>
 								</div>
-							</li>
-
-
-						</ul>
-					</div>
-				</h:form>
-			</div>
-
-			<!-- Modal Responde Pedido -->
-			<form>
-				<div id="responde_pedido" class="modal">
-					<div class="modal-content row"
-						style="max-width: 800px; padding-top: 15px;">
-						<h4>Resposta do Orçamento</h4>
-						<p>Preencha os dados</p>
-						<h:form id="pedido_selecionado">
-							<div class="col s12 m12 l6 input-field">
-								<h:inputText id="nome_pedido_selecionado"
-									name="nome_pedido_selecionado" type="text" class="validate"
-									required="required" maxlength="30"
-									value="#{perfilOfertanteController.pedidoSelecionado.demandante.pessoa.nome}">
-									<f:ajax event="change" />
-								</h:inputText>
-								<h:outputLabel for="nome_pedido_selecionado" value="Nome" />
 							</div>
-							<div class="col s12 m12 l6 input-field">
-								<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
-								<h:inputText id="titulo" name="titulo" type="text"
-									class="validate" required="required" maxlength="30"
-									value="#{perfilOfertanteController.pedidoSelecionado.orcamento.titulo}">
-									<f:ajax event="change" />
-								</h:inputText>
-							</div>
-							<div class="col s12 m6 l6">
-								<label for="ramo" class="col">Unidade de Medida</label>
-								<h:selectOneMenu id="tipo_unidade"
-									value="#{perfilOfertanteController.pedidoSelecionado.unidadeMedida}"
-									required="true" converter="unidadeConverter"
-									class="browser-default col s12 m12 l12 box-color z-depth-1">
-									<f:selectItem itemValue=" "
-										itemLabel="Selecione uma unidade..." />
-									<f:selectItems
-										value="#{perfilOfertanteController.unidadeMedidas}" var="item"
-										itemValue="#{item}" itemLabel="#{item.nome}" />
-									<f:ajax event="change" />
-								</h:selectOneMenu>
-							</div>
-
-							<div class="col s12 m12 l6 input-field">
-								<h:outputLabel id="lbl-quantidade" for="quantidade"
-									value="Quantidade" />
-								<h:inputText id="quantidade" name="quantidade" type="text"
-									class="validate" required="required" maxlength="30"
-									value="#{perfilOfertanteController.pedidoSelecionado.quantidade}">
-									<f:ajax event="change"
-										listener="#{perfilOfertanteController.calcularTotal()}"
-										render="valor-total" />
-								</h:inputText>
-							</div>
-							<div class="col s12 m12 l6 input-field">
-								<h:outputLabel id="lbl-valor-cobrado" for="valor-cobrado"
-									value="Valor cobrado por unidade" />
-								<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
-									class="validate" required="required" maxlength="30"
-									value="#{perfilOfertanteController.pedidoSelecionado.valorUnidade}">
-									<f:ajax event="change"
-										listener="#{perfilOfertanteController.calcularTotal()}"
-										render="valor-total" />
-								</h:inputText>
-							</div>
-							<div class="col s12 m12 l6 input-field">
-								<h:outputLabel id="lbl-valor-total" for="valor-total"
-									value="Valor total do orçamento" />
-								<h:inputText id="valor-total" name="valor-total" type="text"
-									class="validate" required="required" maxlength="30"
-									disabled="true"
-									value="#{perfilOfertanteController.pedidoSelecionado.valorTotal}">
-									<f:ajax event="change" />
-								</h:inputText>
-							</div>
-
-							<fieldset>
-								<div class="input-field col s12 m12 l12">
-									<h:inputTextarea id="descricao" class="materialize-textarea"
-										style="overflow-y: scroll;height:150px;max-height:150px;"
-										value="#{perfilOfertanteController.pedidoSelecionado.descricao}">
-										<f:ajax event="change" />
-									</h:inputTextarea>
-									<h:outputLabel for="descricao">Descrição</h:outputLabel>
-								</div>
-							</fieldset>
-						</h:form>
-					</div>
-					<div class="modal-footer">
-						<h:form>
-							<a class="modal-close waves-effect waves-green btn-flat">Descartar
-								Orçamento</a>
+						</li>
 
 
-
-							<h:commandButton type="submit"
-								class="modal-close waves-effect waves-green btn-flat"
-								actionListener="#{perfilOfertanteController.responderPedido()}"
-								value="Responder Orçamento" />
-						</h:form>
-					</div>
+					</ul>
 				</div>
-			</form>
+			</h:form>
+
 		</ui:define>
 	</ui:composition>
 </h:body>

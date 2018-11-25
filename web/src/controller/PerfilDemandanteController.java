@@ -29,8 +29,6 @@ public class PerfilDemandanteController implements Serializable {
 	private LoginController loginController;
 	private DetalhesPedidoController detalhesPedidoController;
 
-	private String nome = "perfilDemandanteController";
-
 	@Inject
 	public PerfilDemandanteController(LoginController loginController,
 			DetalhesPedidoController detalhesPedidoController) {
@@ -92,37 +90,46 @@ public class PerfilDemandanteController implements Serializable {
 		}
 	}
 
-	public void verificarPedido(String status, Integer index) {
+	public String verificarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
-		this.pedidoSelecionado = pedidosStatus.get(index);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.parseInt(index));
 
-		System.out.println(this.pedidoSelecionado);
+		if (this.pedidoSelecionado.getValorTotal() == null || this.pedidoSelecionado.getValorTotal() < 0) {
+			this.pedidoSelecionado.setValorTotal(0.0);
+		}
+
+		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
+
+		return this.loginController.detalhesPedido();
 	}
 
-	public void descartarPedido(String status, Integer index) {
-		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
-		this.pedidoSelecionado = pedidosStatus.get(index);
+	public void responderPedido() {
 
-		// this.pedidoSelecionado = this.pedidos.get(index);
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+
+		this.classificarPedidos();
+
+	}
+
+	public void descartarPedido(String status, String index) {
+		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.valueOf(index));
 
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 
 		this.classificarPedidos();
 	}
-	
-	public String irParaDetalhes() {
-		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
-		
-		return "detalhes_pedido_page.xhtml";
-	}
 
-	public String getNome() {
-		return nome;
-	}
+	public void cancelarPedido(String status, String index) {
+		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.valueOf(index));
 
-	public void setNome(String nome) {
-		this.nome = nome;
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(5L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+
+		this.classificarPedidos();
 	}
 
 	public List<Pedido> getPedidos() {

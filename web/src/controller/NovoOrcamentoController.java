@@ -8,6 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.faces.model.SelectItem;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -35,7 +36,7 @@ public class NovoOrcamentoController implements Serializable {
 
 	private static final long serialVersionUID = 2043634647244787097L;
 
-	private Ramo ramoSelecionado;
+	private Ramo ramoSelecionado = new Ramo();
 
 	private String descricao = "";
 
@@ -43,6 +44,8 @@ public class NovoOrcamentoController implements Serializable {
 	private TipoOfertaDAO tipoOfertaDAO = new TipoOfertaDAO();
 
 	private List<Nicho> nichosVigentes = new LinkedList<>();
+	private List<SelectItem> itensNichosVigentes = new LinkedList<>();
+	private Long idNichoVigenteSelecionado;
 
 	private Orcamento orcamento = new Orcamento();
 	private OrcamentoDAO orcamentoDAO = new OrcamentoDAO();
@@ -51,6 +54,7 @@ public class NovoOrcamentoController implements Serializable {
 
 	private RamoDAO ramoDAO = new RamoDAO();
 	private List<Ramo> ramos = new LinkedList<>();
+	private List<SelectItem> itemRamos = new LinkedList<>();
 
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichos = new LinkedList<>();
@@ -70,10 +74,24 @@ public class NovoOrcamentoController implements Serializable {
 
 		this.ramos.clear();
 		this.ramos.addAll(this.ramoDAO.findAll());
+		this.carregaSelectRamos();
 
 		this.tipoServico.clear();
 		this.tipoServico.addAll(this.tipoOfertaDAO.findAll());
 
+	}
+
+	private void carregaSelectRamos() {
+		for (Ramo r : this.ramos) {
+			this.itemRamos.add(new SelectItem(r.getId(), r.getNome()));
+		}
+	}
+
+	public void carregaSelecNichosVigentes() {
+		this.itensNichosVigentes.clear();
+		for (Nicho item : this.nichosVigentes) {
+			this.itensNichosVigentes.add(new SelectItem(item.getId(), item.getNome()));
+		}
 	}
 
 	public void defineNichosVigentes() {
@@ -82,13 +100,14 @@ public class NovoOrcamentoController implements Serializable {
 			this.nichosVigentes.clear();
 			this.nichosVigentes.addAll(nichos);
 		}
+		this.carregaSelecNichosVigentes();
 	}
 
 	public void adicionaOrcamento() {
 		this.orcamento = this.orcamentoDAO.insert(this.orcamento);
+		
 		System.out.println("adicionaOrcamento()");
 		System.out.println(this.orcamento);
-
 		System.out.println("DESCRIÇÃO PEDIDOS");
 		System.out.println(this.descricao);
 
@@ -97,14 +116,12 @@ public class NovoOrcamentoController implements Serializable {
 	}
 
 	private void enviaPedidos(Orcamento prePedido) {
-
 		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		// Calendar calendar = new GregorianCalendar();
 
 		FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
-		// FiltroOferta filtroOferta = new FiltroOferta();
 
-		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(prePedido.getNicho(), this.loginController.getUsuario());
+		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(prePedido.getNicho(),
+				this.loginController.getUsuario());
 
 		System.out.println(listaOfertantesNicho);
 
@@ -128,9 +145,7 @@ public class NovoOrcamentoController implements Serializable {
 
 				pedidoDAO.insert(p);
 			}
-
 		}
-
 	}
 
 	public String getDescricao() {
@@ -157,6 +172,22 @@ public class NovoOrcamentoController implements Serializable {
 		this.nichosVigentes = nichosVigentes;
 	}
 
+	public List<SelectItem> getItensNichosVigentes() {
+		return itensNichosVigentes;
+	}
+
+	public void setItensNichosVigentes(List<SelectItem> itensNichosVigentes) {
+		this.itensNichosVigentes = itensNichosVigentes;
+	}
+
+	public Long getIdNichoVigenteSelecionado() {
+		return idNichoVigenteSelecionado;
+	}
+
+	public void setIdNichoVigenteSelecionado(Long idNichoVigenteSelecionado) {
+		this.idNichoVigenteSelecionado = idNichoVigenteSelecionado;
+	}
+
 	public Orcamento getOrcamento() {
 		return orcamento;
 	}
@@ -179,6 +210,14 @@ public class NovoOrcamentoController implements Serializable {
 
 	public void setRamos(List<Ramo> ramos) {
 		this.ramos = ramos;
+	}
+
+	public List<SelectItem> getItemRamos() {
+		return itemRamos;
+	}
+
+	public void setItemRamos(List<SelectItem> itemRamos) {
+		this.itemRamos = itemRamos;
 	}
 
 	public List<Nicho> getNichos() {

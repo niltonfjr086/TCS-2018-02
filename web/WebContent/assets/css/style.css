@@ -5,6 +5,11 @@
  *
  * Made By Us
  */
+.hexa-icon {
+	font-weight:bolder;
+	font-size:25px;
+}
+ 
 .opacity-m {
 	opacity: 0.5;
 }

@@ -93,7 +93,6 @@
 						<f:ajax event="change" />
 					</h:inputSecret>
 					<h:outputLabel for="senha" value="Senha" />
-
 				</div>
 
 				<div class="col s12 m6 l6 input-field">
@@ -112,15 +111,15 @@
 					<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col"
 						value="Tipo da Oferta" />
 					<h:selectOneMenu id="tipo-oferta"
-						value="#{cadastroAcessoController.filtroOferta.tipo}"
-						required="true" converter="tipoOfertaConverter"
-						disabled="#{!cadastroAcessoController.ofertante}"
+						value="#{cadastroAcessoController.idTipoOfertaSelecionada}"
+						required="true" disabled="#{!cadastroAcessoController.ofertante}"
 						class="browser-default col s12 m12 l12 box-color z-depth-1">
-						<f:selectItem itemValue=" "
+						<f:selectItem noSelectionOption="true"
 							itemLabel="Selecione o tipo da oferta.." />
-						<f:selectItems value="#{cadastroAcessoController.tiposOferta}"
-							var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-						<f:ajax event="change" />
+						<f:selectItems
+							value="#{cadastroAcessoController.itensTiposOferta}" />
+						<f:ajax event="change"
+							listener="#{cadastroAcessoController.defineTipoOferta()}" />
 					</h:selectOneMenu>
 				</div>
 
@@ -145,14 +144,15 @@
 						<h:outputLabel id="lbl-nicho" for="nicho" class="col"
 							value="Nicho" />
 						<h:selectOneMenu id="nicho"
-							value="#{cadastroAcessoController.filtroOferta.nicho}"
-							required="true" converter="nichoConverter"
-							disabled="#{!cadastroAcessoController.ofertante}"
+							value="#{cadastroAcessoController.idNichoVigenteSelecionado}"
+							required="true" disabled="#{!cadastroAcessoController.ofertante}"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
-							<f:selectItem itemValue=" " itemLabel="Selecione um nicho..." />
-							<f:selectItems value="#{cadastroAcessoController.nichosVigentes}"
-								var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-							<f:ajax event="change" />
+							<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione um nicho..." />
+							<f:selectItems
+								value="#{cadastroAcessoController.itensNichosVigentes}" />
+							<f:ajax event="change"
+								listener="#{cadastroAcessoController.defineNichoOferta()}" />
 						</h:selectOneMenu>
 					</div>
 				</div>
@@ -340,13 +340,13 @@
 								<label for="add-tipo-contato" class="col">Tipo de
 									Contato</label>
 								<h:selectOneMenu id="add-tipo-contato"
-									value="#{cadastroAcessoController.contatoAdd.tipoContato}"
-									converter="tipoContatoConverter"
+									value="#{cadastroAcessoController.idTipoContatoSelecionado}"
 									class="browser-default col s12 m12 l12 box-color z-depth-1">
 
-									<f:selectItems value="#{cadastroAcessoController.tiposContato}"
-										var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
-									<f:ajax event="change" render="add-info-contato" />
+									<f:selectItems
+										value="#{cadastroAcessoController.itensTiposContato}" />
+									<f:ajax event="change" render="add-info-contato"
+										listener="#{cadastroAcessoController.defineTipoContato()}" />
 								</h:selectOneMenu>
 
 							</div>

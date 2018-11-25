@@ -89,6 +89,27 @@ public class LoginController implements Serializable {
 		return "novo_orcamento_page.xhtml";
 	}
 
+	public String detalhesPedido() {
+		this.setPaginaVigente(" | Detalhes Pedido");
+		return "detalhes_pedido_page.xhtml";
+	}
+
+	public String voltarAoPerfilVigente(String vigencia) {
+
+		switch (vigencia) {
+
+		case "Ofertando":
+			return this.perfilOfertante();
+
+		case "Solicitando":
+			return this.perfilDemandante();
+
+		default:
+			return this.homePage();
+		}
+
+	}
+
 	public void apagar() {
 		System.out.println("APAGADO");
 	}

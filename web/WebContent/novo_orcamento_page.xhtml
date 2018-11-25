@@ -17,12 +17,11 @@
 						<div class="col s12 m6 l6">
 							<label for="ramo" class="col">Ramo</label>
 							<h:selectOneMenu id="ramo"
-								value="#{novoOrcamentoController.ramoSelecionado}"
-								required="true" converter="ramoConverter"
+								value="#{novoOrcamentoController.ramoSelecionado.id}"
+								required="true"
 								class="browser-default col s12 m12 l12 box-color z-depth-1">
-								<f:selectItem itemValue=" " itemLabel="Selecione um ramo..." />
-								<f:selectItems value="#{novoOrcamentoController.ramos}"
-									var="item" itemValue="#{item}" itemLabel="#{item.nome}" />
+								<f:selectItem noSelectionOption="true" itemLabel="Selecione um ramo..." />
+								<f:selectItems value="#{novoOrcamentoController.itemRamos}" />
 								<f:ajax event="change" render="nicho"
 									listener="#{novoOrcamentoController.defineNichosVigentes()}" />
 							</h:selectOneMenu>

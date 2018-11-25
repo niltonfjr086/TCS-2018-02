@@ -12,9 +12,7 @@ import javax.inject.Named;
 
 import model.dao.PedidoDAO;
 import model.dao.StatusPedidoDAO;
-import model.dao.UnidadeMedidaDAO;
 import model.entity.Pedido;
-import model.entity.UnidadeMedida;
 
 @Named
 @ViewScoped
@@ -25,9 +23,6 @@ public class PerfilOfertanteController implements Serializable {
 	private PedidoDAO pedidoDAO;
 	private List<Pedido> pedidos;
 	private Map<String, List<Pedido>> pedidosPorStatus;
-
-	private UnidadeMedidaDAO unidadeMedidaDAO = new UnidadeMedidaDAO();
-	private List<UnidadeMedida> unidadeMedidas = new LinkedList<>();
 
 	private Pedido pedidoSelecionado;
 
@@ -48,12 +43,6 @@ public class PerfilOfertanteController implements Serializable {
 
 		this.pedidoSelecionado = null;
 
-		this.unidadeMedidas.clear();
-		this.unidadeMedidas.addAll(this.unidadeMedidaDAO.findAll());
-
-		// this.pedidos.clear();
-		// this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));
-		// this.pedidosPorStatus = new HashMap<>();
 		this.classificarPedidos();
 	}
 
@@ -106,14 +95,13 @@ public class PerfilOfertanteController implements Serializable {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(Integer.parseInt(index));
 
-		System.out.println("verificarPedido(String status, String index)");
-		System.out.println(this.pedidoSelecionado);
-
 		if (this.pedidoSelecionado.getValorTotal() == null || this.pedidoSelecionado.getValorTotal() < 0) {
 			this.pedidoSelecionado.setValorTotal(0.0);
 		}
 
-		 return irParaDetalhes();
+		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
+
+		return this.loginController.detalhesPedido();
 	}
 
 	public void responderPedido() {
@@ -125,11 +113,9 @@ public class PerfilOfertanteController implements Serializable {
 
 	}
 
-	public void descartarPedido(String status, Integer index) {
+	public void descartarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
-		this.pedidoSelecionado = pedidosStatus.get(index);
-
-		// this.pedidoSelecionado = this.pedidos.get(index);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.valueOf(index));
 
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
@@ -137,33 +123,14 @@ public class PerfilOfertanteController implements Serializable {
 		this.classificarPedidos();
 	}
 
-	private String irParaDetalhes() {
-		this.loginController.setPaginaVigente(" | Detalhes Pedido");
-		this.detalhesPedidoController.setPedidoSelecionado(this.pedidoSelecionado);
+	public void cancelarPedido(String status, String index) {
+		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
+		this.pedidoSelecionado = pedidosStatus.get(Integer.valueOf(index));
 
-		return "detalhes_pedido_page.xhtml";
-	}
+		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(5L));
+		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 
-	public void calcularTotal() {
-		if (respeitaCondicaoDeCalculo()) {
-			this.pedidoSelecionado
-					.setValorTotal(this.pedidoSelecionado.getQuantidade() * this.pedidoSelecionado.getValorUnidade());
-		}
-	}
-
-	private Boolean respeitaCondicaoDeCalculo() {
-		if (this.pedidoSelecionado != null && this.pedidoSelecionado.getValorUnidade() != null
-				&& this.pedidoSelecionado.getValorUnidade() > 0 && this.pedidoSelecionado.getQuantidade() != null
-				&& this.pedidoSelecionado.getQuantidade() > 0) {
-			return true;
-
-		} else {
-			return false;
-		}
-	}
-
-	public void clicou() {
-		System.out.println("clicou()");
+		this.classificarPedidos();
 	}
 
 	public List<Pedido> getPedidos() {
@@ -188,14 +155,6 @@ public class PerfilOfertanteController implements Serializable {
 
 	public void setPedidoSelecionado(Pedido pedidoSelecionado) {
 		this.pedidoSelecionado = pedidoSelecionado;
-	}
-
-	public List<UnidadeMedida> getUnidadeMedidas() {
-		return unidadeMedidas;
-	}
-
-	public void setUnidadeMedidas(List<UnidadeMedida> unidadeMedidas) {
-		this.unidadeMedidas = unidadeMedidas;
 	}
 
 }
