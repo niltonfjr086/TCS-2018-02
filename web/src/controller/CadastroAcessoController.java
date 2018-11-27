@@ -84,6 +84,8 @@ public class CadastroAcessoController implements Serializable {
 	private List<Ramo> ramos = new LinkedList<>();
 	private List<SelectItem> itemRamos = new LinkedList<>();
 	private Ramo ramoSelecionado = new Ramo();
+	private Long idRamoSelecionado;
+	
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichosVigentes = new LinkedList<>();
 	private List<SelectItem> itensNichosVigentes = new LinkedList<>();
@@ -154,6 +156,7 @@ public class CadastroAcessoController implements Serializable {
 					this.ramoSelecionado = this.filtroOferta.getNicho().getRamo();
 					// this.nichosVigentes =
 					// this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
+					this.idRamoSelecionado = this.filtroOferta.getNicho().getRamo().getId();
 					this.defineNichosVigentes();
 					this.idNichoVigenteSelecionado = this.filtroOferta.getNicho().getId();
 				}
@@ -259,6 +262,9 @@ public class CadastroAcessoController implements Serializable {
 	}
 
 	public void defineNichosVigentes() {
+		System.out.println(this.idRamoSelecionado);
+		this.ramoSelecionado = this.ramoDAO.findById(this.idRamoSelecionado);
+		
 		List<Nicho> nichos = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
 		if (nichos != null) {
 			this.nichosVigentes.clear();
@@ -541,6 +547,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setRamoSelecionado(Ramo ramoSelecionado) {
 		this.ramoSelecionado = ramoSelecionado;
+	}
+
+	public Long getIdRamoSelecionado() {
+		return idRamoSelecionado;
+	}
+
+	public void setIdRamoSelecionado(Long idRamoSelecionado) {
+		this.idRamoSelecionado = idRamoSelecionado;
 	}
 
 	public List<Nicho> getNichosVigentes() {
