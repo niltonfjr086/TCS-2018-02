@@ -57,6 +57,8 @@ public class NovoOrcamentoController implements Serializable {
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichos = new LinkedList<>();
 
+	private String aviso = null;
+
 	@Inject
 	public NovoOrcamentoController(LoginController loginController) {
 		super();
@@ -116,30 +118,43 @@ public class NovoOrcamentoController implements Serializable {
 	}
 
 	public String adicionaOrcamento() {
-		this.orcamento = this.orcamentoDAO.insert(this.orcamento);
-
-		this.enviaPedidos(this.orcamento);
-
-		return this.loginController.perfilDemandante();
-	}
-
-	private void enviaPedidos(Orcamento prePedido) {
-		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
+		this.aviso = null;
+		
 		FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
 
-		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(prePedido.getNicho(),
+		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
 				this.loginController.getUsuario());
 
-		System.out.println(listaOfertantesNicho);
-
 		if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+
+			this.orcamento = this.orcamentoDAO.insert(this.orcamento);
+			this.enviaPedidos(this.orcamento, listaOfertantesNicho);
+
+			return this.loginController.perfilDemandante();
+		}
+
+		this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a seleção atual.";
+		return "";
+	}
+
+	private void enviaPedidos(Orcamento prePedido, List<Usuario> ofertantes) {
+		// SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+		// FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+		//
+		// List<Usuario> listaOfertantesNicho =
+		// filtroOfertaDAO.consultarOfertantesNicho(prePedido.getNicho(),
+		// this.loginController.getUsuario());
+
+		// System.out.println(listaOfertantesNicho);
+
+		if (ofertantes != null && ofertantes.size() > 0) {
 
 			Pedido p;
 			PedidoDAO pedidoDAO = new PedidoDAO();
 			Calendar abertura = new GregorianCalendar();
 
-			for (Usuario usuario : listaOfertantesNicho) {
+			for (Usuario usuario : ofertantes) {
 				p = new Pedido();
 				p.setOrcamento(prePedido);
 
@@ -151,7 +166,7 @@ public class NovoOrcamentoController implements Serializable {
 
 				p.setDescricao(this.descricao);
 
-				pedidoDAO.insert(p);
+				pedidoDAO.save(p);
 			}
 		}
 	}
@@ -250,6 +265,14 @@ public class NovoOrcamentoController implements Serializable {
 
 	public void setNichos(List<Nicho> nichos) {
 		this.nichos = nichos;
+	}
+
+	public String getAviso() {
+		return aviso;
+	}
+
+	public void setAviso(String aviso) {
+		this.aviso = aviso;
 	}
 
 }

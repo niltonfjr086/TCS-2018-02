@@ -38,5 +38,5 @@ SELECT * FROM tcs_seu_valor.tb_usuario;
 SELECT * FROM tcs_seu_valor.tb_filtro_oferta;
 
 
-
+SELECT * FROM tcs_seu_valor.tb_filtro_oferta WHERE nicho LIKE 3 AND ofertante NOT LIKE 16;
 

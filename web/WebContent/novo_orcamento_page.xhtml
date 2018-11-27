@@ -13,6 +13,8 @@
 
 				<h:form method="post" class="row"
 					style="max-width:900px; padding-top: 32px;">
+					<h:outputLabel class="col s12 m12 l12 center yellow-text red darken-1 hexa-icon opacity-m" style="border-radius:15px;" value="#{novoOrcamentoController.aviso}" 
+					rendered="#{novoOrcamentoController.aviso != null}" />
 					<div class="row">
 						<div class="col s12 m6 l6">
 							<label for="ramo" class="col">Ramo</label>
@@ -54,8 +56,10 @@
 
 								<f:selectItem noSelectionOption="true"
 									itemLabel="Selecione um tipo de serviço..." />
-								<f:selectItems value="#{novoOrcamentoController.itensTiposOferta}" />
-								<f:ajax event="change" listener="#{novoOrcamentoController.defineTipoOferta()}" />
+								<f:selectItems
+									value="#{novoOrcamentoController.itensTiposOferta}" />
+								<f:ajax event="change"
+									listener="#{novoOrcamentoController.defineTipoOferta()}" />
 							</h:selectOneMenu>
 						</div>
 

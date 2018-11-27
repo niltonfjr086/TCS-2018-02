@@ -22,9 +22,9 @@
 						</div>
 						<div class="row center">
 							<h:form>
-							
-								<h:commandLink action="#{loginController.login()}" value="Acessar"
-									class="btn-large box-color waves-effect"
+
+								<h:commandLink action="#{loginController.login()}"
+									value="Acessar" class="btn-large box-color waves-effect"
 									rendered="#{loginController.usuario.id == null ? true : false}" />
 
 								<h5>#{loginController.usuario.id != null ? 'Olá,
@@ -51,31 +51,13 @@
 						<div class="col s12 m4">
 							<div class="icon-block">
 								<h2 class="center brown-text">
-									<i class="material-icons">flash_on</i>
+									<i class="material-icons">settings</i>
 								</h2>
 								<h5 class="indigo-text text-darken-4 center">Demandante</h5>
 
-								<p class="indigo-text text-darken-4 justificado">We did most
-									of the heavy lifting for you to provide a default stylings that
-									incorporate our custom components. Additionally, we refined
-									animations and transitions to provide a smoother experience for
-									developers.</p>
-							</div>
-						</div>
-
-						<div class="col s12 m4">
-							<div class="icon-block">
-								<h2 class="center brown-text">
-									<i class="material-icons">settings</i>
-								</h2>
-								<h5 class="indigo-text text-darken-4 center">Ofertante</h5>
-
-								<p class="indigo-text text-darken-4 justificado">By
-									utilizing elements and principles of Material Design, we were
-									able to create a framework that incorporates components and
-									animations that provide more feedback to users. Additionally, a
-									single underlying responsive system across all platforms allow
-									for a more unified user experience.</p>
+								<p class="indigo-text text-darken-4 justificado">Realize seu
+									cadastro e inicie a resolução de suas necessidades de forma
+									prática.</p>
 							</div>
 						</div>
 
@@ -84,15 +66,35 @@
 								<h2 class="center brown-text">
 									<i class="material-icons">group</i>
 								</h2>
-								<h5 class="indigo-text text-darken-4 center">Colaborador</h5>
+								<h5 class="indigo-text text-darken-4 center">Ofertante</h5>
 
-								<p class="indigo-text text-darken-4 justificado">We have
-									provided detailed documentation as well as specific code
-									examples to help new users get started. We are also always open
-									to feedback and can answer any questions a user may have about
-									Materialize.</p>
+								<p class="indigo-text text-darken-4 justificado">Sendo um
+									fornecedor você continua normalmente tendo acesso a suas
+									solicitações como cliente. Entre para o time.</p>
 							</div>
 						</div>
+						<h:form
+							rendered="#{loginController.usuario.id != null ? true : false}">
+							<div class="col s12 m4">
+								<div class="icon-block">
+									<h2 class="center brown-text">
+										<i class="material-icons">add</i>
+									</h2>
+									<h5 class="indigo-text text-darken-4 center">
+										<h:commandLink value="Novos Orçamentos"
+											action="#{loginController.novoOrcamento()}" />
+									</h5>
+
+									<p class="indigo-text text-darken-4 justificado">
+										Agora que você já possui cadastro passa a ter acesso a
+										inserção de novos orçamentos. Comece agora mesmo:
+										<h:commandLink value="Incluir Novo Orçamento"
+											action="#{loginController.novoOrcamento()}" />
+										ou acesse pelo menu inferior direito.
+									</p>
+								</div>
+							</div>
+						</h:form>
 					</div>
 
 				</div>
