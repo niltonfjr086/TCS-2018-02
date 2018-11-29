@@ -48,7 +48,7 @@
 
 					<!--   Icon Section   -->
 					<div class="row">
-						<div class="col s12 m4">
+						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'}">
 							<div class="icon-block">
 								<h2 class="center brown-text">
 									<i class="material-icons">settings</i>
@@ -61,7 +61,7 @@
 							</div>
 						</div>
 
-						<div class="col s12 m4">
+						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'}">
 							<div class="icon-block">
 								<h2 class="center brown-text">
 									<i class="material-icons">group</i>
