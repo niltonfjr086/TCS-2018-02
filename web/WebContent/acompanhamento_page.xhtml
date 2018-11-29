@@ -10,8 +10,36 @@
 		<ui:define name="content">
 			<div class="container">
 
-				<h:form>
+				<h:form class="row">
 					<h:outputLabel value="#{acompanhamentoController.nome}" />
+				</h:form>
+
+				<h:form class="row">
+					<fieldset>
+						<legend>Lista de recados</legend>
+
+						<ui:repeat var="item"
+							value="#{acompanhamentoController.acompanhamentos}"
+							varStatus="status">
+							
+							#{item}
+
+						</ui:repeat>
+
+<!-- 						<div class="input-field col s8 m10 l10"> -->
+<!-- 							<h:outputLabel for="msg-acompanhamento" value="Mensagem" /> -->
+<!-- 							<h:inputText id="msg-acompanhamento" name="msg-acompanhamento" -->
+<!-- 								type="text" class="validate" -->
+<!-- 								value="#{acompanhamentoController.acompanhamento.mensagem} "> -->
+<!-- 								<f:ajax event="change" /> -->
+<!-- 							</h:inputText> -->
+<!-- 						</div> -->
+
+
+						<h:commandButton type="submit" value="Enviar"
+							class="input-field col s4 m2 l2 btn i-box-color hexa-icon"
+							actionListener="#{acompanhamentoController.teste()}" />
+					</fieldset>
 				</h:form>
 
 			</div>
