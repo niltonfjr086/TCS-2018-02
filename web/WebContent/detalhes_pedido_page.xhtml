@@ -109,23 +109,30 @@
 
 					<h:commandButton type="submit" class="btn box-color"
 						actionListener="#{detalhesPedidoController.descartarPedido()}"
+						rendered="#{(detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Aguardando') ? true : false}"
 						value="Descartar Orçamento" />
 
 					<h:commandButton type="submit" class="btn i-box-color"
 						actionListener="#{detalhesPedidoController.responderPedido()}"
+						rendered="#{(detalhesPedidoController.pedidoSelecionado.ofertante.id
+					== loginController.usuario.id and detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Aguardando') ? true : false}"
 						value="Responder Orçamento" />
 
 					<h:commandButton type="submit" class="btn i-box-color"
 						actionListener="#{detalhesPedidoController.executarPedido()}"
+						rendered="#{(detalhesPedidoController.pedidoSelecionado.demandante.id
+					== loginController.usuario.id and detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Negociando') ? true : false}"
 						value="Aceitar Pedido" />
 
 					<h:commandButton type="submit" class="btn i-box-color"
 						actionListener="#{detalhesPedidoController.cancelarPedido()}"
+						rendered="#{(detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Executando') ? true : false}"
 						value="Cancelar Pedido" />
-
 
 					<h:commandButton type="submit" class="btn i-box-color"
 						actionListener="#{detalhesPedidoController.concluirPedido()}"
+						rendered="#{(detalhesPedidoController.pedidoSelecionado.demandante.id
+					== loginController.usuario.id and detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Executando') ? true : false}"
 						value="Concluir Pedido" />
 
 				</h:form>
