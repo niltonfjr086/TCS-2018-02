@@ -22,13 +22,22 @@
 
 				<h:form id="pedido_selecionado">
 					<div class="col s12 m12 l6 input-field">
+						<h:inputText id="prestador_pedido_selecionado"
+							name="prestador_pedido_selecionado" type="text" class="validate"
+							required="required" maxlength="30"
+							value="#{detalhesPedidoController.pedidoSelecionado.ofertante.pessoa.nome}">
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="nome_pedido_selecionado" value="Prestador" />
+					</div>
+					<div class="col s12 m12 l6 input-field">
 						<h:inputText id="nome_pedido_selecionado"
 							name="nome_pedido_selecionado" type="text" class="validate"
 							required="required" maxlength="30"
 							value="#{detalhesPedidoController.pedidoSelecionado.demandante.pessoa.nome}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="nome_pedido_selecionado" value="Nome" />
+						<h:outputLabel for="nome_pedido_selecionado" value="Cliente" />
 					</div>
 					<div class="col s12 m12 l6 input-field">
 						<h:outputLabel id="lbl-titulo" for="titulo" value="Título" />
@@ -134,6 +143,12 @@
 						rendered="#{(detalhesPedidoController.pedidoSelecionado.demandante.id
 					== loginController.usuario.id and detalhesPedidoController.pedidoSelecionado.statusPedido.nome eq 'Executando') ? true : false}"
 						value="Concluir Pedido" />
+
+					<h:commandButton type="submit" class="btn i-box-color"
+						action="#{loginController.acompanhamento()}"
+						rendered="#{detalhesPedidoController.pedidoSelecionado != null and 
+										detalhesPedidoController.pedidoSelecionado.id != null}"
+						value="Acompanhamento" />
 
 				</h:form>
 			</div>

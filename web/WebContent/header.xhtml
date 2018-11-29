@@ -49,11 +49,14 @@
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
-										rendered="#{loginController.usuario.id != null ? true : false}"
 										class="btn-floating waves-effect custom-background opacity-m"
+										rendered="#{detalhesPedidoController.pedidoSelecionado != null and 
+										detalhesPedidoController.pedidoSelecionado.id != null}"
 										action="#{loginController.acompanhamento()}" value="&#x1f4ac;" /></li>
-								<li><a href="#"
-									class="btn-floating mobile-fab-tip i-box-color">Acompanhamentos</a>
+								<li><h:commandLink href="#"
+										rendered="#{detalhesPedidoController.pedidoSelecionado != null and 
+										detalhesPedidoController.pedidoSelecionado.id != null}"
+										class="btn-floating mobile-fab-tip i-box-color">Acompanhamentos</h:commandLink>
 								</li>
 
 								<!-- UNICODE PLUS ICON -->
