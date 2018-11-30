@@ -5,11 +5,57 @@
  *
  * Made By Us
  */
-.hexa-icon {
-	font-weight:bolder;
-	font-size:25px;
+.speech-bubble-you {
+	position: relative;
+	background: #00aabb;
+	border-radius: .4em;
+	padding: 10px;
+	float: left;
 }
- 
+
+.speech-bubble-you:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #00aabb;
+	border-bottom: 0;
+	border-left: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
+}
+
+.speech-bubble-me {
+	position: relative;
+	background: #FFFFFF;
+	border-radius: .4em;
+	padding: 10px;
+	float: right;
+}
+
+.speech-bubble-me:after {
+	content: '';
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	width: 0;
+	height: 0;
+	border: 20px solid transparent;
+	border-top-color: #FFFFFF;
+	border-bottom: 0;
+	border-right: 0;
+	margin-left: -10px;
+	margin-bottom: -20px;
+}
+
+.hexa-icon {
+	font-weight: bolder;
+	font-size: 25px;
+}
+
 .opacity-m {
 	opacity: 0.5;
 }
@@ -116,5 +162,4 @@ footer.page-footer {
 	text-align: right;
 	border-radius: 2px;
 	width: auto;
-
 }

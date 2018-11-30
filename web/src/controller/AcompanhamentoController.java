@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,8 +35,8 @@ public class AcompanhamentoController implements Serializable {
 		this.detalhesPedidoController = detalhesPedidoController;
 		this.pedidoAcompanhado = this.detalhesPedidoController.getPedidoSelecionado();
 
-		this.montaAcompanhamento();
 		this.carregaAcompanhamentos();
+		this.montaAcompanhamento();
 	}
 
 	private void montaAcompanhamento() {
@@ -48,15 +49,20 @@ public class AcompanhamentoController implements Serializable {
 		if (this.acompanhamento.getMensagem().length() > 0) {
 			this.acompanhamentoDAO.insert(this.acompanhamento);
 			this.mensagemAviso = "";
+
+			this.carregaAcompanhamentos();
+			this.montaAcompanhamento();
 		} else {
 			this.mensagemAviso = "Favor escreva algo antes de enviar";
 		}
+		// System.out.println(this.acompanhamento.getMensagem());
 	}
 
 	private void carregaAcompanhamentos() {
 
 		List<Acompanhamento> resultList = this.acompanhamentoDAO.acompanhamentosPedido(this.pedidoAcompanhado);
 		if (resultList != null && resultList.size() > 0) {
+			Collections.reverse(resultList);
 			this.acompanhamentos = resultList;
 		} else {
 			this.acompanhamentos = new LinkedList<>();
@@ -80,17 +86,4 @@ public class AcompanhamentoController implements Serializable {
 		this.acompanhamento = acompanhamento;
 	}
 
-	private String nome = "acompanhamentoController";
-
-	public void teste() {
-		this.nome = "FOI";
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
 }
