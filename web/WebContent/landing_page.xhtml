@@ -48,12 +48,13 @@
 
 					<!--   Icon Section   -->
 					<div class="row">
-						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'}">
+						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
+						loginController.usuario.id != null and loginController.usuario.tipoUsuario.nome eq 'Demandante' ? 'select-div' : '' }">
 							<div class="icon-block">
 								<h2 class="center brown-text">
 									<i class="material-icons">settings</i>
 								</h2>
-								<h5 class="indigo-text text-darken-4 center">Demandante</h5>
+								<h5 class="indigo-text text-darken-4 center">Cliente</h5>
 
 								<p class="indigo-text text-darken-4 justificado">Realize seu
 									cadastro e inicie a resolução de suas necessidades de forma
@@ -61,12 +62,13 @@
 							</div>
 						</div>
 
-						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'}">
+						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
+						loginController.usuario.id != null and loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? 'select-div' : '' }">
 							<div class="icon-block">
 								<h2 class="center brown-text">
 									<i class="material-icons">group</i>
 								</h2>
-								<h5 class="indigo-text text-darken-4 center">Ofertante</h5>
+								<h5 class="indigo-text text-darken-4 center">Prestador</h5>
 
 								<p class="indigo-text text-darken-4 justificado">Sendo um
 									fornecedor você continua normalmente tendo acesso a suas

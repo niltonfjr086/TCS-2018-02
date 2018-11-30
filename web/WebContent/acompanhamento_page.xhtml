@@ -9,7 +9,7 @@
 <h:body>
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
-			<div class="container">
+			<div class="container" style="max-width:500px;">
 
 				<h:form class="row">
 					<div class="input-field col s8 m10 l10">
@@ -21,12 +21,12 @@
 						</h:inputText>
 					</div>
 
-					<h:commandButton type="submit" value="Enviar"
+					<h:commandButton type="submit" value="&#x021D2;"
 						class="input-field col s4 m2 l2 btn i-box-color hexa-icon"
 						actionListener="#{acompanhamentoController.salvarAcompanhamento()}" />
 
 					<fieldset class="col s12 m12 l12"
-						style="max-height: 400px; overflow-y: scroll;">
+						style="max-height: 500px; overflow-y: scroll;">
 						<legend>Lista de recados</legend>
 
 						<ui:repeat var="item"
