@@ -110,6 +110,37 @@ public class LoginController implements Serializable {
 
 	}
 
+	public String voltar() {
+
+		switch (this.paginaVigente) {
+
+		case "":
+			return "landing_page.xhtml";
+
+		case " | Dados Cadastrais":
+			return "cadastro_acesso_page.xhtml";
+
+		case " | Perfil Prestador":
+			return "perfil_ofertante_page.xhtml";
+
+		case " | Perfil Cliente":
+			return "perfil_demandante_page.xhtml";
+
+		case " | Acompanhamento":
+			return "acompanhamento_page.xhtml";
+
+		case " | Novo Orçamento":
+			return "novo_orcamento_page.xhtml";
+
+		case " | Detalhes Pedido":
+			return "detalhes_pedido_page.xhtml";
+
+		default:
+			return "landing_page.xhtml";
+		}
+
+	}
+
 	public void apagar() {
 		System.out.println("APAGADO");
 	}

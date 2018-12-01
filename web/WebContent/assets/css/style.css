@@ -5,10 +5,25 @@
  *
  * Made By Us
  */
-.select-div {
-	background: rgb(26,35,126,0.3);
+.cards-scroll {
+	max-height: 400px;
+	overflow-y: scroll;
 }
- 
+
+.text-fixer {
+	width: auto;
+	display: inline-block;
+}
+
+.fixed-text {
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.select-div {
+	background: rgb(26, 35, 126, 0.3);
+}
+
 .speech-bubble-you {
 	position: relative;
 	background: #fdd835;
@@ -41,8 +56,7 @@
 	padding: 10px;
 	float: right;
 }
-	
-	
+
 .speech-bubble-me:after {
 	content: '';
 	position: absolute;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:body>
+	<ui:composition template="layout.xhtml">
+		<ui:define name="content">
+
+			<h:form id="formulario_login" method="post" class="row center container"
+				style="max-width:1000px; padding-top: 32px; text-align: justify;">
+
+				<div class="col s12 m12 l12">
+					<h4>Favor preencha todos os dados para que a segurança das
+						negociações seja mantida e procure utilizar os botões internos do
+						sistema. Obrigado.</h4>
+				</div>
+
+				<div class="col s12 m12 l12 center">
+					<h:commandButton type="submit" class="btn box-color" action="#{loginController.voltar()}"
+						value="Voltar" />
+				</div>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

@@ -14,10 +14,15 @@
 				<div class="nav-wrapper container">
 
 					<div id="logo-container">
-
-						<h:commandLink class="brand-logo"
-							action="#{loginController.homePage()}"
-							value="SV #{loginController.paginaVigente}" />
+						<div class="brand-logo hide-on-med-and-down">
+							<h:commandLink action="#{loginController.homePage()}"
+								value="SV #{loginController.paginaVigente}" />
+						</div>
+						<div class="brand-logo hide-on-large-only text-fixer"
+							style="font-size: 18px;">
+							<h:commandLink action="#{loginController.homePage()}"
+								class="fixed-text" value="SV #{loginController.paginaVigente}" />
+						</div>
 
 						<!-- CLASSE PARA CONTROLAR VISUALIZAÇÃO DO COMPONENTE ESCONDENDO APENAS NO TAMANHO MAIOR -->
 						<!-- hide-on-large-only -->
@@ -36,7 +41,7 @@
 										action="#{loginController.perfilOfertante()}" value="&#x25B2;" /></li>
 								<li><h:commandLink href="#"
 										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
-										class="btn-floating mobile-fab-tip i-box-color">Orçamentos </h:commandLink>
+										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Orçamentos </h:commandLink>
 								</li>
 								<!-- UNICODE DOWN ICON -->
 								<li><h:commandLink
@@ -45,7 +50,7 @@
 										action="#{loginController.perfilDemandante()}"
 										value="&#x25BC;" /></li>
 								<li><a href="#"
-									class="btn-floating mobile-fab-tip box-color">Pedidos</a></li>
+									class="btn-floating mobile-fab-tip box-color hide-on-med-and-down">Pedidos</a></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
@@ -56,7 +61,7 @@
 								<li><h:commandLink href="#"
 										rendered="#{detalhesPedidoController.pedidoSelecionado != null and 
 										detalhesPedidoController.pedidoSelecionado.id != null}"
-										class="btn-floating mobile-fab-tip i-box-color">Acompanhamentos</h:commandLink>
+										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Acompanhamentos</h:commandLink>
 								</li>
 
 								<!-- UNICODE PLUS ICON -->
@@ -65,7 +70,7 @@
 										class="btn-floating waves-effect yellow opacity-m"
 										action="#{loginController.novoOrcamento()}" value="&#x2795;" /></li>
 								<li><a href="#"
-									class="btn-floating mobile-fab-tip box-color">Novo
+									class="btn-floating mobile-fab-tip box-color hide-on-med-and-down">Novo
 										Orçamento</a></li>
 							</ul>
 						</div>
