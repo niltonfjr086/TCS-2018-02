@@ -9,9 +9,16 @@
 <h:body>
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
-			<div class="container" style="max-width:500px;">
+			<div class="container" style="max-width: 500px;">
 
-				<h:form class="row">
+				<h:form class="row center">
+
+					<h:commandButton type="submit" class="row btn i-box-color"
+						style="margin-top:10px;"
+						action="#{loginController.detalhesPedido()}" value="Pedido #{(detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
+						'Ofertado' : 'Solicitado')}" />
+
+
 					<div class="input-field col s8 m10 l10">
 						<h:outputLabel for="msg-acompanhamento" value="Mensagem" />
 						<h:inputText id="msg-acompanhamento" name="msg-acompanhamento"
@@ -21,7 +28,7 @@
 						</h:inputText>
 					</div>
 
-					<h:commandButton type="submit" value="&#x021D2;"
+					<h:commandButton type="submit" value="&#xBB;"
 						class="input-field col s4 m2 l2 btn i-box-color hexa-icon"
 						actionListener="#{acompanhamentoController.salvarAcompanhamento()}" />
 
@@ -36,7 +43,7 @@
 							<div class="row" style="margin-bottom: 40px;">
 								<h:outputText
 									class="speech-bubble-#{item.emissor.id == loginController.usuario.id ? 'me' : 'you'}"
-									value="#{item.mensagem}" />
+									value="#{item.emissor.id == loginController.usuario.id ? 'Eu: ' : detalhesPedidoController.pedidoSelecionado.ofertante.pessoa.nome.concat(': ')}  #{item.mensagem}" />
 							</div>
 
 						</ui:repeat>

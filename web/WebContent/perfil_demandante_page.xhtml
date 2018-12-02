@@ -10,210 +10,269 @@
 		<ui:define name="content">
 
 			<h:form>
-				<div class="row" style="max-width: 1200px; padding-top: 32px;">
+				<div class="container row"
+					style="max-width: 900px; padding-top: 32px;">
 					<ul class="collapsible center">
 
+
 						<li>
-							<div class="collapsible-header">
-								Aguardando<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header">Aguardando&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Aguardando')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Aguardando')}">
 
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
+										<div class="col s12 m12 l12">
+											<div class="card box-color">
+												<div class="card-content">
+													<span class="card-title activator box-color">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal white-text indigo darken-4" style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandLink type="submit" value="&#x270E;"
+														class="btn box-color hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Aguardando', status.index.toString())}" />
 
-									<h:commandButton type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn box-color hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Aguardando', status.index.toString())}" />
+													<h:commandLink type="submit" value="&#x1F5D1;"
+														class="btn i-box-color hexa-icon"
+														actionListener="#{perfilDemandanteController.descartarPedido('Aguardando', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
 
-									<h:commandButton type="submit" value="&#x1F5D1;"
-										class="input-field col s2 m1 l1 btn i-box-color hexa-icon"
-										actionListener="#{perfilDemandanteController.descartarPedido('Aguardando', status.index.toString())}" />
 
-								</ui:repeat>
+
+									</ui:repeat>
+								</div>
 								<div class="collapsible-header col s12 m12 l12">
-									Recolher<i class="material-icons">arrow_drop_up</i>
-								</div>
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 
 
 						<li>
-							<div class="collapsible-header yellow darken-1">
-								Negociando<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header yellow darken-1">Negociando&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12 yellow lighten-1">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Negociando')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Negociando')}">
 
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
 
-									<h:commandButton id="btn-abre-modal_#{status.index}"
-										type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn blue-text yellow lighten-1 hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Negociando', status.index.toString())}" />
+										<div class="col s12 m12 l12">
+											<div class="card blue-text yellow lighten-1">
+												<div class="card-content">
+													<span class="card-title activator">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal blue-text yellow darken-1" style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandLink type="submit" value="&#x270E;"
+														class="btn blue-text yellow lighten-1 hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Negociando', status.index.toString())}" />
 
-									<h:commandButton type="submit" value="&#x1F5D1;"
-										class="input-field col s2 m1 l1 btn blue-text yellow darken-1 hexa-icon"
-										actionListener="#{perfilDemandanteController.descartarPedido('Negociando', status.index.toString())}" />
+													<h:commandLink type="submit" value="&#x1F5D1;"
+														class="btn blue-text yellow darken-1 hexa-icon"
+														actionListener="#{perfilDemandanteController.descartarPedido('Negociando', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
 
-								</ui:repeat>
-								<div class="collapsible-header col s12 m12 l12 yellow darken-1">
-									Recolher<i class="material-icons">arrow_drop_up</i>
+
+
+									</ui:repeat>
 								</div>
+								<div class="collapsible-header col s12 m12 l12 yellow darken-1">
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 
 
 						<li>
-							<div class="collapsible-header white-text green darken-1">
-								Executando<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header white-text green darken-1">Executando&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12 green lighten-1">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Executando')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Executando')}">
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
 
-									<h:commandButton type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn blue-text green lighten-1 hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Executando', status.index.toString())}" />
 
-									<h:commandButton type="submit" value="&#x1F5D1;"
-										class="input-field col s2 m1 l1 btn white-text green darken-1 hexa-icon"
-										actionListener="#{perfilDemandanteController.cancelarPedido('Executando', status.index.toString())}" />
+										<div class="col s12 m12 l12">
+											<div class="card white-text green lighten-1">
+												<div class="card-content">
+													<span class="card-title activator">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal white-text green darken-1" style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandLink type="submit" value="&#x270E;"
+														class="btn white-text green lighten-1 hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Executando', status.index.toString())}" />
 
-								</ui:repeat>
+													<h:commandLink type="submit" value="&#x1F5D1;"
+														class="btn white-text green darken-1 hexa-icon"
+														actionListener="#{perfilDemandanteController.cancelarPedido('Executando', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
+
+
+
+									</ui:repeat>
+								</div>
 								<div
 									class="collapsible-header col s12 m12 l12 white-text green darken-1">
-									Recolher<i class="material-icons">arrow_drop_up</i>
-								</div>
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 
 
 						<li>
-							<div class="collapsible-header white-text blue-grey darken-1">
-								Descartado<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header white-text blue-grey darken-1">Descartado&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12 blue-grey lighten-1">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Descartado')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Descartado')}">
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
 
-									<h:commandButton type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn white-text blue-grey darken-1 hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Descartado', status.index.toString())}" />
 
-								</ui:repeat>
+										<div class="col s12 m12 l12">
+											<div class="card white-text blue-grey lighten-1">
+												<div class="card-content">
+													<span class="card-title activator">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal white-text blue-grey darken-1"
+													style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandButton type="submit" value="&#x270E;"
+														class="btn white-text blue-grey darken-1 hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Descartado', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
+
+
+
+									</ui:repeat>
+								</div>
 								<div
 									class="collapsible-header col s12 m12 l12 white-text blue-grey darken-1">
-									Recolher<i class="material-icons">arrow_drop_up</i>
-								</div>
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 
 
 						<li>
-							<div class="collapsible-header white-text red darken-1">
-								Cancelado/Interrompido<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header white-text red darken-1">Cancelado/Interrompido&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12 red lighten-1">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Cancelado interrompido')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Cancelado interrompido')}">
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
 
-									<h:commandButton type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn white-text red darken-1 hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Cancelado interrompido', status.index.toString())}" />
 
-								</ui:repeat>
+										<div class="col s12 m12 l12">
+											<div class="card white-text red lighten-1">
+												<div class="card-content">
+													<span class="card-title activator">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal white-text red darken-1" style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandButton type="submit" value="&#x270E;"
+														class="btn white-text red darken-1 hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Cancelado interrompido', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
+
+
+
+									</ui:repeat>
+								</div>
 								<div
 									class="collapsible-header col s12 m12 l12 white-text red darken-1">
-									Recolher<i class="material-icons">arrow_drop_up</i>
-								</div>
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 
 
 						<li>
-							<div class="collapsible-header white-text blue darken-1">
-								Concluído<i class="material-icons">arrow_drop_down</i>
-							</div>
+							<div class="collapsible-header white-text blue darken-1">Concluído&nbsp;&nbsp;&nbsp;&#x25BC;</div>
 							<div class="collapsible-body col s12 m12 l12 blue lighten-1">
-								<ui:repeat var="item"
-									value="#{perfilDemandanteController.pedidosPorStatus.get('Concluído')}"
-									varStatus="status">
+								<div class="cards-scroll">
+									<ui:repeat var="item" varStatus="status"
+										value="#{perfilDemandanteController.pedidosPorStatus.get('Concluído')}">
 
-									<div class="input-field col s8 m10 l10">
-										<h:outputLabel for="info-pedido"
-											value="#{status.index + 1} | Título: #{item.orcamento.titulo}" />
-										<h:inputText id="info-pedido" name="info-pedido"
-											disabled="true" type="text" class="validate"
-											value="Cliente: #{item.demandante.pessoa.nome} | Descrição: #{item.descricao} ">
-											<f:ajax event="change" />
-										</h:inputText>
-									</div>
 
-									<h:commandButton type="submit" value="&#x270E;"
-										class="input-field col s2 m1 l1 btn white-text blue darken-1 hexa-icon"
-										action="#{perfilDemandanteController.verificarPedido('Concluído', status.index.toString())}" />
 
-								</ui:repeat>
+										<div class="col s12 m12 l12">
+											<div class="card white-text blue lighten-1">
+												<div class="card-content">
+													<span class="card-title activator">
+														#{item.orcamento.titulo} | Ofertante:
+														#{item.ofertante.pessoa.nome} <i class="hexa-icon right">&#x26EC;</i>
+													</span>
+												</div>
+												<div class="card-reveal white-text blue darken-1" style="">
+													<span class="card-title" style="font-weight: bolder;">Descrição<i
+														class="hexa-icon right">&#10006;</i>
+													</span>
+													<p>#{item.descricao}</p>
+												</div>
+												<div class="card-action">
+													<h:commandButton type="submit" value="&#x270E;"
+														class="btn white-text blue darken-1 hexa-icon"
+														action="#{perfilDemandanteController.verificarPedido('Concluído', status.index.toString())}" />
+												</div>
+											</div>
+										</div>
+
+
+
+									</ui:repeat>
+								</div>
 								<div
 									class="collapsible-header col s12 m12 l12 white-text blue darken-1">
-									Recolher<i class="material-icons">arrow_drop_up</i>
-								</div>
+									Recolher&nbsp;&nbsp;&nbsp;&#x25B2;</div>
 							</div>
 						</li>
 

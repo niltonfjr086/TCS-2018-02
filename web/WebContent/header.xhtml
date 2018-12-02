@@ -41,7 +41,7 @@
 										action="#{loginController.perfilOfertante()}" value="&#x25B2;" /></li>
 								<li><h:commandLink href="#"
 										rendered="#{loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
-										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Orçamentos </h:commandLink>
+										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Prestados</h:commandLink>
 								</li>
 								<!-- UNICODE DOWN ICON -->
 								<li><h:commandLink
@@ -50,7 +50,7 @@
 										action="#{loginController.perfilDemandante()}"
 										value="&#x25BC;" /></li>
 								<li><a href="#"
-									class="btn-floating mobile-fab-tip box-color hide-on-med-and-down">Pedidos</a></li>
+									class="btn-floating mobile-fab-tip box-color hide-on-med-and-down">Solicitados</a></li>
 
 								<!-- UNICODE CHAT ICON -->
 								<li><h:commandLink
@@ -61,7 +61,7 @@
 								<li><h:commandLink href="#"
 										rendered="#{detalhesPedidoController.pedidoSelecionado != null and 
 										detalhesPedidoController.pedidoSelecionado.id != null}"
-										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Acompanhamentos</h:commandLink>
+										class="btn-floating mobile-fab-tip i-box-color hide-on-med-and-down">Acompanhamento</h:commandLink>
 								</li>
 
 								<!-- UNICODE PLUS ICON -->
@@ -98,7 +98,7 @@
 					</ul>
 
 					<a href="#" data-target="nav-mobile" class="sidenav-trigger"> <i
-						class="material-icons">menu</i></a>
+						class="hexa-icon">&#x2261;</i></a>
 
 				</div>
 				</nav>

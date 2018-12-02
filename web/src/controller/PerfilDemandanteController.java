@@ -103,15 +103,6 @@ public class PerfilDemandanteController implements Serializable {
 		return this.loginController.detalhesPedido();
 	}
 
-	public void responderPedido() {
-
-		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
-		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
-
-		this.classificarPedidos();
-
-	}
-
 	public void descartarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
 		this.pedidoSelecionado = pedidosStatus.get(Integer.valueOf(index));

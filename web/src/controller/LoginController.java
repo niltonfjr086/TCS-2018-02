@@ -110,7 +110,7 @@ public class LoginController implements Serializable {
 
 	}
 
-	public String voltar() {
+	public String resgatarAtual() {
 
 		switch (this.paginaVigente) {
 

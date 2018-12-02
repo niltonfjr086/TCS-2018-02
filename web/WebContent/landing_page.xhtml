@@ -48,11 +48,12 @@
 
 					<!--   Icon Section   -->
 					<div class="row">
-						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
+						<div
+							class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
 						loginController.usuario.id != null and loginController.usuario.tipoUsuario.nome eq 'Demandante' ? 'select-div' : '' }">
 							<div class="icon-block">
 								<h2 class="center brown-text">
-									<i class="material-icons">settings</i>
+									&#x2696;
 								</h2>
 								<h5 class="indigo-text text-darken-4 center">Cliente</h5>
 
@@ -62,12 +63,11 @@
 							</div>
 						</div>
 
-						<div class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
+						<div
+							class="col s12 m#{loginController.usuario.id != null ? '4' : '6'} #{loginController.usuario != null and 
 						loginController.usuario.id != null and loginController.usuario.tipoUsuario.nome eq 'Ofertante' ? 'select-div' : '' }">
 							<div class="icon-block">
-								<h2 class="center brown-text">
-									<i class="material-icons">group</i>
-								</h2>
+								<h2 class="center brown-text">&#x2699;</h2>
 								<h5 class="indigo-text text-darken-4 center">Prestador</h5>
 
 								<p class="indigo-text text-darken-4 justificado">Sendo um
@@ -79,9 +79,7 @@
 							rendered="#{loginController.usuario.id != null ? true : false}">
 							<div class="col s12 m4">
 								<div class="icon-block">
-									<h2 class="center brown-text">
-										<i class="material-icons">add</i>
-									</h2>
+									<h2 class="center brown-text">&#x2795;</h2>
 									<h5 class="indigo-text text-darken-4 center">
 										<h:commandLink value="Novos Orçamentos"
 											action="#{loginController.novoOrcamento()}" />

@@ -29,8 +29,6 @@ public class PerfilOfertanteController implements Serializable {
 	private LoginController loginController;
 	private DetalhesPedidoController detalhesPedidoController;
 
-	private String mensagemAviso;
-
 	@Inject
 	public PerfilOfertanteController(LoginController loginController,
 			DetalhesPedidoController detalhesPedidoController) {
@@ -50,7 +48,6 @@ public class PerfilOfertanteController implements Serializable {
 
 	public void classificarPedidos() {
 		this.pedidos.clear();
-
 		List<Pedido> retornada = this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario());
 		if (retornada != null) {
 			this.pedidos.addAll(this.pedidoDAO.consultarPedidosOfertante(this.loginController.getUsuario()));
@@ -106,24 +103,6 @@ public class PerfilOfertanteController implements Serializable {
 		return this.loginController.detalhesPedido();
 	}
 
-	public void responderPedido() {
-
-		if (this.pedidoSelecionado != null && this.pedidoSelecionado.getId() != null
-				&& this.pedidoSelecionado.getStatusPedido() != null
-				&& this.pedidoSelecionado.getStatusPedido().getNome().equals("Aguardando")
-				&& this.pedidoSelecionado.getDescricao() != null && this.pedidoSelecionado.getDescricao().length() > 3
-				&& this.pedidoSelecionado.getValorTotal() != null && this.pedidoSelecionado.getValorTotal() > 0.00) {
-
-			this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
-			this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
-			
-			this.mensagemAviso = "";
-			this.classificarPedidos();
-		} else {
-			this.mensagemAviso = "Favor preencha todos os dados. Obrigado.";
-		}
-
-	}
 
 	public void descartarPedido(String status, String index) {
 		List<Pedido> pedidosStatus = pedidosPorStatus.get(status);
@@ -167,14 +146,6 @@ public class PerfilOfertanteController implements Serializable {
 
 	public void setPedidoSelecionado(Pedido pedidoSelecionado) {
 		this.pedidoSelecionado = pedidoSelecionado;
-	}
-
-	public String getMensagemAviso() {
-		return mensagemAviso;
-	}
-
-	public void setMensagemAviso(String mensagemAviso) {
-		this.mensagemAviso = mensagemAviso;
 	}
 
 }
