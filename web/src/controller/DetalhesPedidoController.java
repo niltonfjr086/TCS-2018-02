@@ -46,7 +46,7 @@ public class DetalhesPedidoController implements Serializable {
 	}
 
 	private void constroiMapaDeEstilizacaoDinamica() {
-		this.status.put("Aguardando", "");
+		this.status.put("Aguardando", "white");
 		this.status.put("Negociando", "yellow darken-1");
 		this.status.put("Executando", "white-text green darken-1");
 		this.status.put("Descartado", "white-text blue-grey darken-1");

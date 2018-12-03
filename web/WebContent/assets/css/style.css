@@ -26,8 +26,9 @@
 
 .speech-bubble-you {
 	position: relative;
-	background: #fdd835;
+	background: #c5cae9;
 	color: #1a237e;
+	text-weigth:bolder;
 	border-radius: .4em;
 	padding: 10px;
 	float: left;
@@ -41,7 +42,7 @@
 	width: 0;
 	height: 0;
 	border: 20px solid transparent;
-	border-top-color: #fdd835;
+	border-top-color: #c5cae9;
 	border-bottom: 0;
 	border-left: 0;
 	margin-left: -10px;
