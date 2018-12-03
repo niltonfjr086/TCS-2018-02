@@ -15,7 +15,8 @@
 
 					<h:commandButton type="submit" class="row btn i-box-color"
 						style="margin-top:10px;"
-						action="#{loginController.detalhesPedido()}" value="Pedido #{(detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
+						action="#{loginController.detalhesPedido()}"
+						value="Pedido #{(detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
 						'Ofertado' : 'Solicitado')}" />
 
 
@@ -43,7 +44,10 @@
 							<div class="row" style="margin-bottom: 40px;">
 								<h:outputText
 									class="speech-bubble-#{item.emissor.id == loginController.usuario.id ? 'me' : 'you'}"
-									value="#{item.emissor.id == loginController.usuario.id ? 'Eu: ' : detalhesPedidoController.pedidoSelecionado.ofertante.pessoa.nome.concat(': ')}  #{item.mensagem}" />
+									value="#{item.emissor.id == loginController.usuario.id ? 'Eu: ' : 
+									((detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id) ? 
+									detalhesPedidoController.pedidoSelecionado.demandante.pessoa.nome.concat(': ') : 
+									detalhesPedidoController.pedidoSelecionado.ofertante.pessoa.nome.concat(': '))}  #{item.mensagem}" />
 							</div>
 
 						</ui:repeat>

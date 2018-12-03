@@ -85,21 +85,32 @@ public class DetalhesPedidoController implements Serializable {
 	}
 
 	public void executarPedido() {
+		this.mensagemAviso = "";
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(3L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
+		
+		List<Pedido> pedidosOrcamento = this.pedidoDAO.consultarPedidosOrcamento(this.pedidoSelecionado.getOrcamento());
+		for (Pedido p : pedidosOrcamento) {
+			if(p.getId() != this.pedidoSelecionado.getId()) {
+				p.setStatusPedido(this.statusPedidoDAO.findById(4L));
+			}
+		}
 	}
 
 	public void descartarPedido() {
+		this.mensagemAviso = "";
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void cancelarPedido() {
+		this.mensagemAviso = "";
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(5L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void concluirPedido() {
+		this.mensagemAviso = "";
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(6L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
@@ -120,6 +131,13 @@ public class DetalhesPedidoController implements Serializable {
 		} else {
 			return false;
 		}
+	}
+
+	public String whoAreYou() {
+
+		
+		
+		return null;
 	}
 
 	public List<UnidadeMedida> getUnidadesMedida() {

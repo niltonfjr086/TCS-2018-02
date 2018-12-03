@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import model.entity.Orcamento;
 import model.entity.Pedido;
 import model.entity.Usuario;
 
@@ -46,6 +47,31 @@ public class PedidoDAO extends GenericDAO<Pedido, Long> {
 		List<Pedido> pedidos = new LinkedList<>();
 		
 		if(!params.get("demandante").equals("0L")) {
+			
+			List<Pedido> consulta = this.executeQuery(params);
+			
+			if(consulta != null && consulta.size() > 0) {
+				for(Pedido p : consulta) {
+					pedidos.add(p);
+				}
+				return pedidos;
+			}
+		}
+		
+		return null;
+	}
+	
+	public List<Pedido> consultarPedidosOrcamento(Orcamento orcamento){
+		
+		Map<String, String> params = new HashMap<>();
+		
+		Long orcamentoId = orcamento.getId();
+		
+		params.put("orcamento", orcamentoId != null ? String.valueOf(orcamentoId) : "0L");
+		
+		List<Pedido> pedidos = new LinkedList<>();
+		
+		if(!params.get("orcamento").equals("0L")) {
 			
 			List<Pedido> consulta = this.executeQuery(params);
 			

@@ -23,7 +23,8 @@
 				<h:form id="pedido_selecionado">
 
 					<h:outputText class="col s12 m12 l12 center"
-						value="#{detalhesPedidoController.mensagemAviso}" />
+						value="#{detalhesPedidoController.mensagemAviso}"
+						style="animation: 1s ease-out 0s 1 slideInFromLeft;" />
 
 					<div class="col s12 m12 l12 row container">
 
@@ -31,6 +32,7 @@
 							class="card #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}">
 							<div class="card-content">
 								<span class="card-title activator">
+									#{detalhesPedidoController.pedidoSelecionado.orcamento.nicho.nome}: 
 									#{detalhesPedidoController.pedidoSelecionado.orcamento.titulo}<br />
 									<b style="font-size: 25px;"> Cliente:
 										#{detalhesPedidoController.pedidoSelecionado.demandante.pessoa.nome}
@@ -73,7 +75,7 @@
 						</h:selectOneMenu>
 					</div>
 
-					<div class="col s12 m12 l6 input-field">
+					<div class="col s12 m6 l6 input-field">
 						<h:outputLabel id="lbl-quantidade" for="quantidade"
 							value="Quantidade" />
 						<h:inputText id="quantidade" name="quantidade"
@@ -89,7 +91,7 @@
 								render="valor-total" />
 						</h:inputText>
 					</div>
-					<div class="col s12 m12 l6 input-field">
+					<div class="col s6 m6 l6 input-field">
 						<h:outputLabel id="lbl-valor-cobrado" for="valor-cobrado"
 							value="Valor cobrado por unidade" />
 						<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
@@ -106,7 +108,7 @@
 								render="valor-total" />
 						</h:inputText>
 					</div>
-					<div class="col s12 m12 l6 input-field">
+					<div class="col s6 m6 l6 input-field">
 						<h:outputLabel id="lbl-valor-total" for="valor-total"
 							value="Valor total do orçamento" />
 						<h:inputText id="valor-total" name="valor-total" type="text"
@@ -142,7 +144,7 @@
 						detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
 						'Ofertando' : 'Solicitando')}"
 						value="#{(detalhesPedidoController.pedidoSelecionado.ofertante.id == loginController.usuario.id ? 
-						'Lista Ofertados' : 'Lista Solicitanos')}" />
+						'Lista Ofertados' : 'Lista Solicitados')}" />
 
 					<h:commandButton type="submit" class="btn box-color"
 						actionListener="#{detalhesPedidoController.descartarPedido()}"
