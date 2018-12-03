@@ -9,39 +9,39 @@
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
 
-			<h:form id="formulario_login" method="post" class="row"
+			<h:form id="formulario_login" method="post" class="row indigo lighten-4"
 				style="max-width:500px; padding-top: 32px;">
 
 				<div class="col s12 m12 l12 input-field">
-					<i class="material-icons prefix">account_circle</i>
+					<b class="prefix">&#x2696;</b>
 					<h:inputText id="apelido" name="apelido" type="text"
-						class="validate" required="required" maxlength="30"
+						class="validate indigo-text" required="required" maxlength="30"
 						value="#{loginController.usuario.login}">
 
 						<f:ajax event="change" />
 					</h:inputText>
-					<h:outputLabel for="apelido" value="Login" />
+					<h:outputLabel for="apelido" value="Login" class="indigo-text" />
 				</div>
 
 				<div class="col s12 m12 l12 input-field">
-					<i class="material-icons prefix">dialpad</i>
-					<h:inputSecret id="senha" name="senha" class="validate"
+					<b class="prefix">&#x26BF;</b>
+					<h:inputSecret id="senha" name="senha" class="validate indigo-text"
 						required="required" maxlength="30"
 						value="#{loginController.usuario.senha}">
 
 						<f:ajax event="change" />
 					</h:inputSecret>
-					<h:outputLabel for="senha" value="Senha" />
+					<h:outputLabel for="senha" value="Senha" class="indigo-text" />
 
 				</div>
 
 				<div class="col s12 m12 l12 center">
 					<h:commandButton type="submit" value="Entrar"
-						class="btn indigo white-text darken-4 waves-effect"
+						class="btn i-box-color"
 						actionListener="#{loginController.validar()}" />
 				</div>
 				<div class="col s12 m12 l12 center">
-					<a class="waves-effect box-color" href="#{loginController.carregarPerfil()}">Cadastrar</a>
+					<a class="waves-effect" href="#{loginController.carregarPerfil()}">Cadastrar</a>
 				</div>
 
 

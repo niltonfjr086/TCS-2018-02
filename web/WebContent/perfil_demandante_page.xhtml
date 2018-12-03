@@ -24,9 +24,9 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card box-color">
+											<div class="card">
 												<div class="card-content">
-													<span class="card-title activator box-color">
+													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
 														Ofertante: #{item.ofertante.pessoa.nome} <i
 														class="hexa-icon right">&#x26EC;</i>
@@ -44,7 +44,7 @@
 														action="#{perfilDemandanteController.verificarPedido('Aguardando', status.index.toString())}" />
 
 													<h:commandLink type="submit" value="&#x1F5D1;"
-														class="btn i-box-color hexa-icon"
+														class="btn box-color hexa-icon"
 														actionListener="#{perfilDemandanteController.descartarPedido('Aguardando', status.index.toString())}" />
 												</div>
 											</div>
@@ -70,7 +70,7 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card blue-text yellow lighten-1">
+											<div class="card blue-text yellow darken-1">
 												<div class="card-content">
 													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
@@ -90,7 +90,7 @@
 														action="#{perfilDemandanteController.verificarPedido('Negociando', status.index.toString())}" />
 
 													<h:commandLink type="submit" value="&#x1F5D1;"
-														class="btn blue-text yellow darken-1 hexa-icon"
+														class="btn blue-text yellow lighten-1 hexa-icon"
 														actionListener="#{perfilDemandanteController.descartarPedido('Negociando', status.index.toString())}" />
 												</div>
 											</div>
@@ -116,7 +116,7 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card white-text green lighten-1">
+											<div class="card white-text green darken-1">
 												<div class="card-content">
 													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
@@ -136,7 +136,7 @@
 														action="#{perfilDemandanteController.verificarPedido('Executando', status.index.toString())}" />
 
 													<h:commandLink type="submit" value="&#x1F5D1;"
-														class="btn white-text green darken-1 hexa-icon"
+														class="btn white-text green lighten-1 hexa-icon"
 														actionListener="#{perfilDemandanteController.cancelarPedido('Executando', status.index.toString())}" />
 												</div>
 											</div>
@@ -163,7 +163,7 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card white-text blue-grey lighten-1">
+											<div class="card white-text blue-grey darken-1">
 												<div class="card-content">
 													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
@@ -180,7 +180,7 @@
 												</div>
 												<div class="card-action">
 													<h:commandButton type="submit" value="&#x270E;"
-														class="btn white-text blue-grey darken-1 hexa-icon"
+														class="btn white-text blue-grey lighten-1 hexa-icon"
 														action="#{perfilDemandanteController.verificarPedido('Descartado', status.index.toString())}" />
 												</div>
 											</div>
@@ -207,7 +207,7 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card white-text red lighten-1">
+											<div class="card white-text red darken-1">
 												<div class="card-content">
 													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
@@ -223,7 +223,7 @@
 												</div>
 												<div class="card-action">
 													<h:commandButton type="submit" value="&#x270E;"
-														class="btn white-text red darken-1 hexa-icon"
+														class="btn white-text red lighten-1 hexa-icon"
 														action="#{perfilDemandanteController.verificarPedido('Cancelado interrompido', status.index.toString())}" />
 												</div>
 											</div>
@@ -250,7 +250,7 @@
 
 
 										<div class="col s12 m12 l12">
-											<div class="card white-text blue lighten-1">
+											<div class="card white-text blue darken-1">
 												<div class="card-content">
 													<span class="card-title activator">
 														#{item.orcamento.nicho.nome}: #{item.orcamento.titulo} |
@@ -266,7 +266,7 @@
 												</div>
 												<div class="card-action">
 													<h:commandButton type="submit" value="&#x270E;"
-														class="btn white-text blue darken-1 hexa-icon"
+														class="btn white-text blue lighten-1 hexa-icon"
 														action="#{perfilDemandanteController.verificarPedido('Concluído', status.index.toString())}" />
 												</div>
 											</div>

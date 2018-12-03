@@ -382,11 +382,6 @@ public class CadastroAcessoController implements Serializable {
 		}
 	}
 
-	public void defineOfertante() {
-		System.out.println("defineOfertante()");
-
-	}
-
 	// GETTERS E SETTER PARA A VIEW
 
 	public List<TipoPessoa> getTiposPessoa() {

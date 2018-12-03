@@ -9,12 +9,16 @@
 	<ui:composition template="layout.xhtml">
 
 		<ui:define name="content">
-			<div class="row container" style="max-width: 900px; padding-top: 32px;">
+		
+		
+		
+
+			<div class="row container indigo lighten-4" style="max-width: 900px; padding-top: 32px; margin-bottom:0;padding-bottom:0;">
 				<h:form>
 
 
 					<div class="col s5 m3 l2">
-						<label for="tipo-pessoa" class="col">Tipo de Pessoa</label>
+						<label for="tipo-pessoa" class="col indigo-text">Tipo de Pessoa</label>
 						<h:selectOneMenu id="tipo-pessoa"
 							value="#{cadastroAcessoController.idTipoPessoaPreSelecionada}"
 							required="true"
@@ -29,10 +33,10 @@
 					</div>
 
 					<div class="col s7 m9 l3 input-field">
-						<h:outputLabel id="doc_label" for="documento"
+						<h:outputLabel id="doc_label" for="documento" class="indigo-text"
 							value="#{cadastroAcessoController.tipoPessoaSelecionada.chave}" />
 						<h:inputText id="documento" name="documento" type="text"
-							disabled="#{cadastroAcessoController.logado}" class="validate"
+							disabled="#{cadastroAcessoController.logado}" class="validate indigo-text"
 							required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.documento}"
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
@@ -42,68 +46,68 @@
 					</div>
 
 					<div class="col s12 m12 l7 input-field">
-						<h:inputText id="nome" name="nome" type="text" class="validate"
-							required="required" maxlength="30"
+						<h:inputText id="nome" name="nome" type="text" class="validate indigo-text"
+							required="required" maxlength="30" 
 							onkeypress="mascara(this,capitalizer)"
 							disabled="#{cadastroAcessoController.logado}"
 							value="#{cadastroAcessoController.usuario.pessoa.nome}">
 
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="nome" value="Nome" />
+						<h:outputLabel for="nome" value="Nome" class="indigo-text" />
 
 					</div>
 
 				</h:form>
 			</div>
-
+			
+			<div class="row container indigo lighten-4" style="max-width: 900px;">
 			<h:form class="row container" style="max-width: 540px;">
 
 				<div class="col s10 m10 l10 input-field">
-					<i class="material-icons prefix">account_circle</i>
-					<h:inputText id="login" name="login" type="text" class="validate"
+					<b class="prefix">&#x2696;</b>
+					<h:inputText id="login" name="login" type="text" class="validate indigo-text"
 						required="required" maxlength="30"
 						disabled="#{cadastroAcessoController.logado}"
 						value="#{cadastroAcessoController.usuario.login}">
 
 						<f:ajax event="change" />
 					</h:inputText>
-					<h:outputLabel for="login" value="Login" />
+					<h:outputLabel for="login" value="Login" class="indigo-text" />
 
 				</div>
 
 				<div class="col s2 m2 l2">
-					<h:outputLabel>
-					Ofertante? <h:selectBooleanCheckbox type="checkbox" id="ofertante"
+					<h:outputLabel class="indigo-text">
+					Prestador? <h:selectBooleanCheckbox type="checkbox" id="ofertante"
 							disabled="#{cadastroAcessoController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
 							value="#{cadastroAcessoController.ofertante}">
-							<f:ajax event="change" render="tipo-oferta ramo nicho"
-								listener="#{cadastroAcessoController.defineOfertante()}" />
+							<f:ajax event="change" render="tipo-oferta ramo nicho" />
 						</h:selectBooleanCheckbox>
 						<span></span>
 					</h:outputLabel>
 				</div>
 
 				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">dialpad</i>
-					<h:inputSecret id="senha" name="senha" type="text" class="validate"
+					<b class="prefix">&#x26BF;</b>
+					<h:inputSecret id="senha" name="senha" type="text" class="validate indigo-text"
 						required="required" maxlength="30"
 						value="#{cadastroAcessoController.usuario.senha}">
 
 						<f:ajax event="change" />
 					</h:inputSecret>
-					<h:outputLabel for="senha" value="Senha" />
+					<h:outputLabel for="senha" value="Senha" class="indigo-text" />
 				</div>
 
 				<div class="col s12 m6 l6 input-field">
-					<i class="material-icons prefix">dialpad</i>
+					<b class="prefix">&#x26BF;</b>
 					<h:inputSecret id="conf-senha" name="conf-senha" type="text"
-						class="validate" required="required" maxlength="30"
+						class="validate indigo-text" required="required" maxlength="30"
 						value="#{cadastroAcessoController.usuario.senha}">
 
 						<f:ajax event="change" />
 					</h:inputSecret>
-					<h:outputLabel for="conf-senha" value="Confirme a Senha" />
+					<h:outputLabel for="conf-senha" value="Confirme a Senha" class="indigo-text" />
 
 				</div>
 
@@ -217,14 +221,14 @@
 					<legend>Endereço</legend>
 
 					<div class="col s8 m3 l3 input-field">
-						<h:inputText id="cep" name="cep" type="text" class="validate"
+						<h:inputText id="cep" name="cep" type="text" class="validate indigo-text"
 							required="required" maxlength="30"
 							onkeypress="return mascaraGenerica(event, this, '#####-###');"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
 
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="cep" value="CEP" />
+						<h:outputLabel for="cep" value="CEP" class="indigo-text" />
 
 					</div>
 
@@ -238,67 +242,67 @@
 
 
 					<div class="col s10 m5 l5 input-field">
-						<h:inputText id="pais" name="pais" type="text" class="validate"
+						<h:inputText id="pais" name="pais" type="text" class="validate indigo-text"
 							required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="pais" value="País" />
+						<h:outputLabel for="pais" value="País" class="indigo-text" />
 					</div>
 
 					<div class="col s2 m2 l2 input-field">
-						<h:inputText id="uf" name="uf" type="text" class="validate"
+						<h:inputText id="uf" name="uf" type="text" class="validate indigo-text"
 							required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.estado}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="uf" value="U.F." />
+						<h:outputLabel for="uf" value="U.F." class="indigo-text" />
 					</div>
 
 
 					<div class="col s12 m6 l6 input-field">
 						<h:inputText id="municipio" name="municipio" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.municipio}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="municipio" value="Município" />
+						<h:outputLabel for="municipio" value="Município" class="indigo-text" />
 					</div>
 
 					<div class="col s12 m6 l6 input-field">
 						<h:inputText id="bairro" name="bairro" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.bairro}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="bairro" value="Bairro" />
+						<h:outputLabel for="bairro" value="Bairro" class="indigo-text" />
 					</div>
 
 					<div class="col s12 m12 l12 input-field">
 						<h:inputText id="logradouro" name="logradouro" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.logradouro}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="logradouro" value="Logradouro" />
+						<h:outputLabel for="logradouro" value="Logradouro" class="indigo-text" />
 					</div>
 
 					<div class="col s9 m8 l8 input-field">
 						<h:inputText id="complemento" name="complemento" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.complemento}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="complemento" value="Complemento" />
+						<h:outputLabel for="complemento" value="Complemento" class="indigo-text" />
 					</div>
 
 					<div class="col s3 m4 l4 input-field">
 						<h:inputText id="numero" name="numero" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.endereco.numero}">
 							<f:ajax event="change" />
 						</h:inputText>
-						<h:outputLabel for="numero" value="Número" />
+						<h:outputLabel for="numero" value="Número" class="indigo-text" />
 					</div>
 
 
@@ -325,7 +329,7 @@
 					rendered="#{loginController.usuario.id != null ? true : false}" />
 
 			</h:form>
-
+			</div>
 			<!-- Modal Adição Contato -->
 			<form>
 				<div id="adiciona_contato" class="modal">
@@ -372,7 +376,6 @@
 
 				</div>
 			</form>
-
 
 		</ui:define>
 	</ui:composition>

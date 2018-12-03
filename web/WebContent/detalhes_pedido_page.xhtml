@@ -60,7 +60,7 @@
 
 
 					<div class="col s12 m6 l6">
-						<label for="ramo" class="col">Unidade de Medida</label>
+						<label for="ramo" class="#{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}">Unidade de Medida</label>
 						<h:selectOneMenu id="tipo_unidade"
 							value="#{detalhesPedidoController.unidadeMedidaSelecionada}"
 							required="true"
@@ -76,10 +76,10 @@
 					</div>
 
 					<div class="col s12 m6 l6 input-field">
-						<h:outputLabel id="lbl-quantidade" for="quantidade"
+						<h:outputLabel id="lbl-quantidade" for="quantidade" class="#{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 							value="Quantidade" />
 						<h:inputText id="quantidade" name="quantidade"
-							converter="javax.faces.Integer" class="validate"
+							converter="javax.faces.Integer" class="validate #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 							required="required" maxlength="30"
 							value="#{detalhesPedidoController.pedidoSelecionado.quantidade}"
 							disabled="#{((detalhesPedidoController.pedidoSelecionado.statusPedido.nome ne 'Aguardando' and
@@ -93,9 +93,10 @@
 					</div>
 					<div class="col s6 m6 l6 input-field">
 						<h:outputLabel id="lbl-valor-cobrado" for="valor-cobrado"
+						class="#{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 							value="Valor cobrado por unidade" />
 						<h:inputText id="valor-cobrado" name="valor-cobrado" type="text"
-							class="validate" converter="javax.faces.Double"
+							class="validate #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}" converter="javax.faces.Double"
 							value="#{detalhesPedidoController.pedidoSelecionado.valorUnidade}"
 							disabled="#{((detalhesPedidoController.pedidoSelecionado.statusPedido.nome ne 'Aguardando' and
 							detalhesPedidoController.pedidoSelecionado.statusPedido.nome ne 'Negociando') or 
@@ -110,9 +111,10 @@
 					</div>
 					<div class="col s6 m6 l6 input-field">
 						<h:outputLabel id="lbl-valor-total" for="valor-total"
+						class="#{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 							value="Valor total do orçamento" />
 						<h:inputText id="valor-total" name="valor-total" type="text"
-							class="validate" required="required" maxlength="30"
+							class="validate #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}" required="required" maxlength="30"
 							disabled="true"
 							value="#{detalhesPedidoController.pedidoSelecionado.valorTotal}">
 							<f:ajax event="change" />
@@ -121,7 +123,7 @@
 
 					<fieldset>
 						<div class="input-field col s12 m12 l12">
-							<h:inputTextarea id="descricao" class="materialize-textarea"
+							<h:inputTextarea id="descricao" class="materialize-textarea #{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}"
 								disabled="#{((detalhesPedidoController.pedidoSelecionado.statusPedido.nome ne 'Aguardando' and
 							detalhesPedidoController.pedidoSelecionado.statusPedido.nome ne 'Negociando') or 
 							(detalhesPedidoController.pedidoSelecionado.demandante.id == loginController.usuario.id)) ? true : false}"
@@ -129,7 +131,7 @@
 								value="#{detalhesPedidoController.pedidoSelecionado.descricao}">
 								<f:ajax event="change" />
 							</h:inputTextarea>
-							<h:outputLabel for="descricao">Descrição</h:outputLabel>
+							<h:outputLabel for="descricao" class="#{detalhesPedidoController.status.get(detalhesPedidoController.pedidoSelecionado.statusPedido.nome)}">Descrição</h:outputLabel>
 						</div>
 					</fieldset>
 				</h:form>
