@@ -58,7 +58,9 @@ INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Dia');
 INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Metro');
 INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Quilograma');
 INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Litro');
+INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Pessoa');
 INSERT INTO `tcs_seu_valor`.`tb_unidade_medida` (`nome`) VALUES('Outro');
+
 
 -- -----------------------------------------------------
 -- INSERTS tb_ramo
