@@ -26,30 +26,32 @@
 	<link type="text/css" rel="stylesheet" media="screen,projection"
 		href="assets/css/style.css" />
 
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css" />
 </h:head>
 
 <h:body class="custom-background">
 
-		<div id="page">
+	<div id="page">
 
-			<div id="header">
-				<ui:insert name="header">
-					<ui:include src="header.xhtml" />
-				</ui:insert>
-			</div>
-			<div id="content">
-				<ui:insert name="content">
-					<ui:include src="landing_page.xhtml" />
-				</ui:insert>
-			</div>
-
-			<div id="footer">
-				<ui:insert name="footer">
-					<ui:include src="footer.xhtml" />
-				</ui:insert>
-			</div>
-
+		<div id="header">
+			<ui:insert name="header">
+				<ui:include src="header.xhtml" />
+			</ui:insert>
 		</div>
+		<div id="content">
+			<ui:insert name="content">
+				<ui:include src="landing_page.xhtml" />
+			</ui:insert>
+		</div>
+
+		<div id="footer">
+			<ui:insert name="footer">
+				<ui:include src="footer.xhtml" />
+			</ui:insert>
+		</div>
+
+	</div>
 
 	<!--Import jQuery before materialize.js-->
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js">

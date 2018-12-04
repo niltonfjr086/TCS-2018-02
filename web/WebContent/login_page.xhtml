@@ -9,8 +9,15 @@
 	<ui:composition template="layout.xhtml">
 		<ui:define name="content">
 
-			<h:form id="formulario_login" method="post" class="row indigo lighten-4"
+			<h:form id="formulario_login" method="post"
+				class="row indigo lighten-4"
 				style="max-width:500px; padding-top: 32px;">
+
+				<div class="col s12 m12 l12 animated fadeInDown red-text center" style="font-weight: bold;" >
+					<h:outputText
+						rendered="#{(loginController.mensagemAviso != null and loginController.mensagemAviso.length() > 0) ? true : false}"
+						value="#{loginController.mensagemAviso}" />
+				</div>
 
 				<div class="col s12 m12 l12 input-field">
 					<b class="prefix">&#x2696;</b>

@@ -85,11 +85,13 @@ public class CadastroAcessoController implements Serializable {
 	private List<SelectItem> itemRamos = new LinkedList<>();
 	private Ramo ramoSelecionado = new Ramo();
 	private Long idRamoSelecionado;
-	
+
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichosVigentes = new LinkedList<>();
 	private List<SelectItem> itensNichosVigentes = new LinkedList<>();
 	private Long idNichoVigenteSelecionado;
+
+	private String mensagemAviso = "";
 
 	@Inject
 	public CadastroAcessoController(LoginController loginController) {
@@ -264,7 +266,7 @@ public class CadastroAcessoController implements Serializable {
 	public void defineNichosVigentes() {
 		System.out.println(this.idRamoSelecionado);
 		this.ramoSelecionado = this.ramoDAO.findById(this.idRamoSelecionado);
-		
+
 		List<Nicho> nichos = this.nichoDAO.procurarNichosPorRamo(this.ramoSelecionado);
 		if (nichos != null) {
 			this.nichosVigentes.clear();
@@ -574,6 +576,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setIdNichoVigenteSelecionado(Long idNichoVigenteSelecionado) {
 		this.idNichoVigenteSelecionado = idNichoVigenteSelecionado;
+	}
+
+	public String getMensagemAviso() {
+		return mensagemAviso;
+	}
+
+	public void setMensagemAviso(String mensagemAviso) {
+		this.mensagemAviso = mensagemAviso;
 	}
 
 }

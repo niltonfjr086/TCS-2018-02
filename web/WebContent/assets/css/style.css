@@ -186,3 +186,6 @@ footer.page-footer {
 	border-radius: 2px;
 	width: auto;
 }
+body, html{
+	height: 100%
+}

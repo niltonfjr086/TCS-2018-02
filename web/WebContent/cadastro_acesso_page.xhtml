@@ -9,16 +9,25 @@
 	<ui:composition template="layout.xhtml">
 
 		<ui:define name="content">
-		
-		
-		
 
-			<div class="row container indigo lighten-4" style="max-width: 900px; padding-top: 32px; margin-bottom:0;padding-bottom:0;">
+
+
+
+			<div class="row container indigo lighten-4"
+				style="max-width: 900px; padding-top: 32px; margin-bottom: 0; padding-bottom: 0;">
 				<h:form>
+
+					<div class="col s12 m12 l12 animated fadeInDown red-text center"
+						style="font-weight: bold;">
+						<h:outputText
+							rendered="#{(cadastroAcessoController.mensagemAviso != null and cadastroAcessoController.mensagemAviso.length() > 0) ? true : false}"
+							value="#{cadastroAcessoController.mensagemAviso}" />
+					</div>
 
 
 					<div class="col s5 m3 l2">
-						<label for="tipo-pessoa" class="col indigo-text">Tipo de Pessoa</label>
+						<label for="tipo-pessoa" class="col indigo-text">Tipo de
+							Pessoa</label>
 						<h:selectOneMenu id="tipo-pessoa"
 							value="#{cadastroAcessoController.idTipoPessoaPreSelecionada}"
 							required="true"
@@ -36,8 +45,8 @@
 						<h:outputLabel id="doc_label" for="documento" class="indigo-text"
 							value="#{cadastroAcessoController.tipoPessoaSelecionada.chave}" />
 						<h:inputText id="documento" name="documento" type="text"
-							disabled="#{cadastroAcessoController.logado}" class="validate indigo-text"
-							required="required" maxlength="30"
+							disabled="#{cadastroAcessoController.logado}"
+							class="validate indigo-text" required="required" maxlength="30"
 							value="#{cadastroAcessoController.usuario.pessoa.documento}"
 							onkeypress="return mascaraGenerica(event, this, '#{cadastroAcessoController.tipoPessoaSelecionada.mascara}');">
 
@@ -46,8 +55,8 @@
 					</div>
 
 					<div class="col s12 m12 l7 input-field">
-						<h:inputText id="nome" name="nome" type="text" class="validate indigo-text"
-							required="required" maxlength="30" 
+						<h:inputText id="nome" name="nome" type="text"
+							class="validate indigo-text" required="required" maxlength="30"
 							onkeypress="mascara(this,capitalizer)"
 							disabled="#{cadastroAcessoController.logado}"
 							value="#{cadastroAcessoController.usuario.pessoa.nome}">
@@ -60,275 +69,286 @@
 
 				</h:form>
 			</div>
-			
+
 			<div class="row container indigo lighten-4" style="max-width: 900px;">
-			<h:form class="row container" style="max-width: 540px;">
+				<h:form class="row container" style="max-width: 540px;">
 
-				<div class="col s10 m10 l10 input-field">
-					<b class="prefix">&#x2696;</b>
-					<h:inputText id="login" name="login" type="text" class="validate indigo-text"
-						required="required" maxlength="30"
-						disabled="#{cadastroAcessoController.logado}"
-						value="#{cadastroAcessoController.usuario.login}">
+					<div class="col s10 m10 l10 input-field">
+						<b class="prefix">&#x2696;</b>
+						<h:inputText id="login" name="login" type="text"
+							class="validate indigo-text" required="required" maxlength="30"
+							disabled="#{cadastroAcessoController.logado}"
+							value="#{cadastroAcessoController.usuario.login}">
 
-						<f:ajax event="change" />
-					</h:inputText>
-					<h:outputLabel for="login" value="Login" class="indigo-text" />
+							<f:ajax event="change" />
+						</h:inputText>
+						<h:outputLabel for="login" value="Login" class="indigo-text" />
 
-				</div>
+					</div>
 
-				<div class="col s2 m2 l2">
-					<h:outputLabel class="indigo-text">
+					<div class="col s2 m2 l2">
+						<h:outputLabel class="indigo-text">
 					Prestador? <h:selectBooleanCheckbox type="checkbox" id="ofertante"
-							disabled="#{cadastroAcessoController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
-							value="#{cadastroAcessoController.ofertante}">
-							<f:ajax event="change" render="tipo-oferta ramo nicho" />
-						</h:selectBooleanCheckbox>
-						<span></span>
-					</h:outputLabel>
-				</div>
+								disabled="#{cadastroAcessoController.usuario.tipoUsuario.nome eq 'Ofertante' ? true : false}"
+								value="#{cadastroAcessoController.ofertante}">
+								<f:ajax event="change" render="tipo-oferta ramo nicho" />
+							</h:selectBooleanCheckbox>
+							<span></span>
+						</h:outputLabel>
+					</div>
 
-				<div class="col s12 m6 l6 input-field">
-					<b class="prefix">&#x26BF;</b>
-					<h:inputSecret id="senha" name="senha" type="text" class="validate indigo-text"
-						required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.senha}">
+					<div class="col s12 m6 l6 input-field">
+						<b class="prefix">&#x26BF;</b>
+						<h:inputSecret id="senha" name="senha" type="text"
+							class="validate indigo-text" required="required" maxlength="30"
+							value="#{cadastroAcessoController.usuario.senha}">
 
-						<f:ajax event="change" />
-					</h:inputSecret>
-					<h:outputLabel for="senha" value="Senha" class="indigo-text" />
-				</div>
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="senha" value="Senha" class="indigo-text" />
+					</div>
 
-				<div class="col s12 m6 l6 input-field">
-					<b class="prefix">&#x26BF;</b>
-					<h:inputSecret id="conf-senha" name="conf-senha" type="text"
-						class="validate indigo-text" required="required" maxlength="30"
-						value="#{cadastroAcessoController.usuario.senha}">
+					<div class="col s12 m6 l6 input-field">
+						<b class="prefix">&#x26BF;</b>
+						<h:inputSecret id="conf-senha" name="conf-senha" type="text"
+							class="validate indigo-text" required="required" maxlength="30"
+							value="#{cadastroAcessoController.usuario.senha}">
 
-						<f:ajax event="change" />
-					</h:inputSecret>
-					<h:outputLabel for="conf-senha" value="Confirme a Senha" class="indigo-text" />
-
-				</div>
-
-				<div class="col s12 m12 l12">
-					<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col"
-						value="Tipo da Oferta" />
-					<h:selectOneMenu id="tipo-oferta"
-						value="#{cadastroAcessoController.idTipoOfertaSelecionada}"
-						required="true" disabled="#{!cadastroAcessoController.ofertante}"
-						class="browser-default col s12 m12 l12 box-color z-depth-1">
-						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione o tipo da oferta.." />
-						<f:selectItems
-							value="#{cadastroAcessoController.itensTiposOferta}" />
-						<f:ajax event="change"
-							listener="#{cadastroAcessoController.defineTipoOferta()}" />
-					</h:selectOneMenu>
-				</div>
-
-
-				<div class="row">
-					<div class="col s12 m6 l6">
-						<h:outputLabel id="lbl-ramo" for="ramo" class="col" value="Ramo" />
-
-						<h:selectOneMenu id="ramo"
-							value="#{cadastroAcessoController.idRamoSelecionado}"
-							required="true" disabled="#{!cadastroAcessoController.ofertante}"
-							class="browser-default col s12 m12 l12 box-color z-depth-1">
-							<f:selectItem noSelectionOption="true"
-								itemLabel="Selecione um ramo..." />
-							<f:selectItems value="#{cadastroAcessoController.itemRamos}" />
-							<f:ajax event="change" render="nicho"
-								listener="#{cadastroAcessoController.defineNichosVigentes()}" />
-						</h:selectOneMenu>
+							<f:ajax event="change" />
+						</h:inputSecret>
+						<h:outputLabel for="conf-senha" value="Confirme a Senha"
+							class="indigo-text" />
 
 					</div>
-					<div class="col s12 m6 l6">
-						<h:outputLabel id="lbl-nicho" for="nicho" class="col"
-							value="Nicho" />
-						<h:selectOneMenu id="nicho"
-							value="#{cadastroAcessoController.idNichoVigenteSelecionado}"
+
+					<div class="col s12 m12 l12">
+						<h:outputLabel id="lbl-tipo-oferta" for="tipo-oferta" class="col"
+							value="Tipo da Oferta" />
+						<h:selectOneMenu id="tipo-oferta"
+							value="#{cadastroAcessoController.idTipoOfertaSelecionada}"
 							required="true" disabled="#{!cadastroAcessoController.ofertante}"
 							class="browser-default col s12 m12 l12 box-color z-depth-1">
 							<f:selectItem noSelectionOption="true"
-								itemLabel="Selecione um nicho..." />
+								itemLabel="Selecione o tipo da oferta.." />
 							<f:selectItems
-								value="#{cadastroAcessoController.itensNichosVigentes}" />
+								value="#{cadastroAcessoController.itensTiposOferta}" />
 							<f:ajax event="change"
-								listener="#{cadastroAcessoController.defineNichoOferta()}" />
+								listener="#{cadastroAcessoController.defineTipoOferta()}" />
 						</h:selectOneMenu>
 					</div>
-				</div>
 
 
-			</h:form>
+					<div class="row">
+						<div class="col s12 m6 l6">
+							<h:outputLabel id="lbl-ramo" for="ramo" class="col" value="Ramo" />
 
-			<div id="contatos" class="row container center" style="max-width: 350px;">
+							<h:selectOneMenu id="ramo"
+								value="#{cadastroAcessoController.idRamoSelecionado}"
+								required="true"
+								disabled="#{!cadastroAcessoController.ofertante}"
+								class="browser-default col s12 m12 l12 box-color z-depth-1">
+								<f:selectItem noSelectionOption="true"
+									itemLabel="Selecione um ramo..." />
+								<f:selectItems value="#{cadastroAcessoController.itemRamos}" />
+								<f:ajax event="change" render="nicho"
+									listener="#{cadastroAcessoController.defineNichosVigentes()}" />
+							</h:selectOneMenu>
 
-				<h:form>
-					<fieldset>
-						<legend>
-							<h:commandButton type="button" class="btn box-color waves-effect"
-								onclick="abreModal('adiciona_contato');" value="Contatos +" />
-						</legend>
+						</div>
+						<div class="col s12 m6 l6">
+							<h:outputLabel id="lbl-nicho" for="nicho" class="col"
+								value="Nicho" />
+							<h:selectOneMenu id="nicho"
+								value="#{cadastroAcessoController.idNichoVigenteSelecionado}"
+								required="true"
+								disabled="#{!cadastroAcessoController.ofertante}"
+								class="browser-default col s12 m12 l12 box-color z-depth-1">
+								<f:selectItem noSelectionOption="true"
+									itemLabel="Selecione um nicho..." />
+								<f:selectItems
+									value="#{cadastroAcessoController.itensNichosVigentes}" />
+								<f:ajax event="change"
+									listener="#{cadastroAcessoController.defineNichoOferta()}" />
+							</h:selectOneMenu>
+						</div>
+					</div>
 
 
-						<ul class="collapsible center">
-							<li>
-								<div class="collapsible-header">
-									Visualizar<i class="material-icons">arrow_drop_down</i>
-								</div>
-								<div class="collapsible-body col s12 m12 l12">
+				</h:form>
 
-									<ui:repeat var="item"
-										value="#{cadastroAcessoController.usuario.pessoa.contatos}"
-										varStatus="status">
+				<div id="contatos" class="row container center"
+					style="max-width: 350px;">
 
-										<div class="input-field col s10 m10 l10">
-											<h:outputLabel for="info-contato"
-												value="#{status.index + 1} | #{item.tipoContato.nome}" />
-											<h:inputText id="info-contato" name="info-contato"
-												type="text" class="validate" required="required"
-												maxlength="30" value="#{item.informacao}">
-												<f:ajax event="change" />
-											</h:inputText>
+					<h:form>
+						<fieldset>
+							<legend>
+								<h:commandButton type="button"
+									class="btn box-color waves-effect"
+									onclick="abreModal('adiciona_contato');" value="Contatos +" />
+							</legend>
+
+
+							<ul class="collapsible center">
+								<li>
+									<div class="collapsible-header">
+										Visualizar<i class="material-icons">arrow_drop_down</i>
+									</div>
+									<div class="collapsible-body col s12 m12 l12">
+
+										<ui:repeat var="item"
+											value="#{cadastroAcessoController.usuario.pessoa.contatos}"
+											varStatus="status">
+
+											<div class="input-field col s10 m10 l10">
+												<h:outputLabel for="info-contato"
+													value="#{status.index + 1} | #{item.tipoContato.nome}" />
+												<h:inputText id="info-contato" name="info-contato"
+													type="text" class="validate" required="required"
+													maxlength="30" value="#{item.informacao}">
+													<f:ajax event="change" />
+												</h:inputText>
+											</div>
+											<h:commandButton type="submit" value="X"
+												class="input-field col s2 m2 l2"
+												actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
+										</ui:repeat>
+
+										<div class="collapsible-header col s12 m12 l12">
+											Recolher<i class="material-icons">arrow_drop_up</i>
 										</div>
-										<h:commandButton type="submit" value="X"
-											class="input-field col s2 m2 l2"
-											actionListener="#{cadastroAcessoController.apagarContato(status.index)}" />
-									</ui:repeat>
 
-									<div class="collapsible-header col s12 m12 l12">
-										Recolher<i class="material-icons">arrow_drop_up</i>
 									</div>
 
-								</div>
+								</li>
+							</ul>
 
-							</li>
-						</ul>
 
+
+						</fieldset>
+					</h:form>
+				</div>
+
+
+				<h:form id="endereco" class="row container"
+					style="max-width: 540px;">
+
+					<fieldset>
+						<legend>Endereço</legend>
+
+						<div class="col s8 m3 l3 input-field">
+							<h:inputText id="cep" name="cep" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								onkeypress="return mascaraGenerica(event, this, '#####-###');"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
+
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="cep" value="CEP" class="indigo-text" />
+
+						</div>
+
+						<div class="col s4 m2 l2 input-field center">
+
+							<h:commandButton type="submit" class="btn box-color waves-effect"
+								actionListener="#{cadastroAcessoController.carregaEndereco()}"
+								value="&#x1F50D;">
+							</h:commandButton>
+						</div>
+
+
+						<div class="col s10 m5 l5 input-field">
+							<h:inputText id="pais" name="pais" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="pais" value="País" class="indigo-text" />
+						</div>
+
+						<div class="col s2 m2 l2 input-field">
+							<h:inputText id="uf" name="uf" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.estado}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="uf" value="U.F." class="indigo-text" />
+						</div>
+
+
+						<div class="col s12 m6 l6 input-field">
+							<h:inputText id="municipio" name="municipio" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.municipio}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="municipio" value="Município"
+								class="indigo-text" />
+						</div>
+
+						<div class="col s12 m6 l6 input-field">
+							<h:inputText id="bairro" name="bairro" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.bairro}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="bairro" value="Bairro" class="indigo-text" />
+						</div>
+
+						<div class="col s12 m12 l12 input-field">
+							<h:inputText id="logradouro" name="logradouro" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.logradouro}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="logradouro" value="Logradouro"
+								class="indigo-text" />
+						</div>
+
+						<div class="col s9 m8 l8 input-field">
+							<h:inputText id="complemento" name="complemento" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.complemento}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="complemento" value="Complemento"
+								class="indigo-text" />
+						</div>
+
+						<div class="col s3 m4 l4 input-field">
+							<h:inputText id="numero" name="numero" type="text"
+								class="validate indigo-text" required="required" maxlength="30"
+								value="#{cadastroAcessoController.usuario.pessoa.endereco.numero}">
+								<f:ajax event="change" />
+							</h:inputText>
+							<h:outputLabel for="numero" value="Número" class="indigo-text" />
+						</div>
 
 
 					</fieldset>
+
+
 				</h:form>
-			</div>
-
-
-			<h:form id="endereco" class="row container" style="max-width: 540px;">
-
-				<fieldset>
-					<legend>Endereço</legend>
-
-					<div class="col s8 m3 l3 input-field">
-						<h:inputText id="cep" name="cep" type="text" class="validate indigo-text"
-							required="required" maxlength="30"
-							onkeypress="return mascaraGenerica(event, this, '#####-###');"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.cep}">
-
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="cep" value="CEP" class="indigo-text" />
-
-					</div>
-
-					<div class="col s4 m2 l2 input-field center">
-
-						<h:commandButton type="submit" class="btn box-color waves-effect"
-							actionListener="#{cadastroAcessoController.carregaEndereco()}"
-							value="&#x1F50D;">
-						</h:commandButton>
-					</div>
-
-
-					<div class="col s10 m5 l5 input-field">
-						<h:inputText id="pais" name="pais" type="text" class="validate indigo-text"
-							required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.pais}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="pais" value="País" class="indigo-text" />
-					</div>
-
-					<div class="col s2 m2 l2 input-field">
-						<h:inputText id="uf" name="uf" type="text" class="validate indigo-text"
-							required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.estado}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="uf" value="U.F." class="indigo-text" />
-					</div>
-
-
-					<div class="col s12 m6 l6 input-field">
-						<h:inputText id="municipio" name="municipio" type="text"
-							class="validate indigo-text" required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.municipio}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="municipio" value="Município" class="indigo-text" />
-					</div>
-
-					<div class="col s12 m6 l6 input-field">
-						<h:inputText id="bairro" name="bairro" type="text"
-							class="validate indigo-text" required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.bairro}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="bairro" value="Bairro" class="indigo-text" />
-					</div>
-
-					<div class="col s12 m12 l12 input-field">
-						<h:inputText id="logradouro" name="logradouro" type="text"
-							class="validate indigo-text" required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.logradouro}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="logradouro" value="Logradouro" class="indigo-text" />
-					</div>
-
-					<div class="col s9 m8 l8 input-field">
-						<h:inputText id="complemento" name="complemento" type="text"
-							class="validate indigo-text" required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.complemento}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="complemento" value="Complemento" class="indigo-text" />
-					</div>
-
-					<div class="col s3 m4 l4 input-field">
-						<h:inputText id="numero" name="numero" type="text"
-							class="validate indigo-text" required="required" maxlength="30"
-							value="#{cadastroAcessoController.usuario.pessoa.endereco.numero}">
-							<f:ajax event="change" />
-						</h:inputText>
-						<h:outputLabel for="numero" value="Número" class="indigo-text" />
-					</div>
-
-
-				</fieldset>
-
-
-			</h:form>
 
 
 
-			<h:form class="row container" style="max-width: 500px; padding-top: 32px;">
+				<h:form class="row container"
+					style="max-width: 500px; padding-top: 32px;">
 
-				<h:commandButton type="submit" class="col s12 m6 l6 btn i-box-color"
-					actionListener="#{cadastroAcessoController.adicionaUsuario()}"
-					value="Salvar" />
+					<h:commandButton type="submit"
+						class="col s12 m6 l6 btn i-box-color"
+						actionListener="#{cadastroAcessoController.adicionaUsuario()}"
+						value="Salvar" />
 
 
-				<h:commandLink action="#{loginController.login()}"
-					value="Voltar ao Login" class="col s12 m6 l6 btn box-color"
-					rendered="#{loginController.usuario.id == null ? true : false}" />
+					<h:commandLink action="#{loginController.login()}"
+						value="Voltar ao Login" class="col s12 m6 l6 btn box-color"
+						rendered="#{loginController.usuario.id == null ? true : false}" />
 
-				<h:commandLink actionListener="#{loginController.logout()}"
-					value="Sair" class="col s12 m6 l6 btn box-color waves-effect"
-					rendered="#{loginController.usuario.id != null ? true : false}" />
+					<h:commandLink actionListener="#{loginController.logout()}"
+						value="Sair" class="col s12 m6 l6 btn box-color waves-effect"
+						rendered="#{loginController.usuario.id != null ? true : false}" />
 
-			</h:form>
+				</h:form>
 			</div>
 			<!-- Modal Adição Contato -->
 			<form>
