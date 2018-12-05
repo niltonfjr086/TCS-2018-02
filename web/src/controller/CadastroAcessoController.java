@@ -61,6 +61,7 @@ public class CadastroAcessoController implements Serializable {
 	private Boolean logado;
 	private UsuarioDAO usuarioDAO;
 	private Usuario usuario;
+	private String confSenha;
 
 	private String infoContato;
 	private TipoContato tipoContatoSelecionado;
@@ -302,45 +303,87 @@ public class CadastroAcessoController implements Serializable {
 
 	}
 
-	public void adicionaUsuario() {
+	private Boolean formularioValido() {
 
-		if (this.ofertante) {
-			this.usuario.setTipoUsuario(this.tiposUsuario.get(2));
+		if (this.usuario != null && this.usuario.getLogin() != null && this.usuario.getLogin().length() > 3
+				&& this.usuario.getSenha() != null && this.usuario.getSenha().length() > 3 && this.confSenha != null
+				&& this.confSenha.equals(this.usuario.getSenha())
+
+				&& this.filtroOferta != null && this.filtroOferta.getNicho() != null
+				&& this.filtroOferta.getTipo() != null
+
+				&& this.usuario.getPessoa().getEndereco().getCep() != null
+				&& this.usuario.getPessoa().getEndereco().getCep().length() >= 8
+				&& this.usuario.getPessoa().getEndereco().getPais() != null
+				&& this.usuario.getPessoa().getEndereco().getPais().length() > 1
+				&& this.usuario.getPessoa().getEndereco().getEstado() != null
+				&& this.usuario.getPessoa().getEndereco().getEstado().length() > 1
+				&& this.usuario.getPessoa().getEndereco().getMunicipio() != null
+				&& this.usuario.getPessoa().getEndereco().getMunicipio().length() > 1
+				&& this.usuario.getPessoa().getEndereco().getNumero() != null
+
+		) {
+
+			this.mensagemAviso = "";
+			return true;
+
 		} else {
-			this.usuario.setTipoUsuario(this.tiposUsuario.get(1));
+			this.mensagemAviso = "Favor preencha todos os campos. Obrigado.";
+			return false;
+
 		}
 
-		List<Contato> contatos = this.usuario.getPessoa().getContatos();
+	}
 
-		if (this.usuario != null) {
+	public void adicionaUsuario() {
 
-			if (this.usuario.getPessoa() != null) {
+		if (this.formularioValido()) {
 
-				for (Contato contato : contatos) {
-					contato.setPessoa(this.usuario.getPessoa());
+			if (this.ofertante) {
+				this.usuario.setTipoUsuario(this.tiposUsuario.get(2));
+			} else {
+				this.usuario.setTipoUsuario(this.tiposUsuario.get(1));
+			}
+
+			List<Contato> contatos = this.usuario.getPessoa().getContatos();
+
+			if (this.usuario != null) {
+
+				if (this.usuario.getPessoa() != null) {
+
+					for (Contato contato : contatos) {
+						contato.setPessoa(this.usuario.getPessoa());
+					}
+				}
+
+				if (this.usuario.getId() == null) {
+					this.usuario = this.usuarioDAO.insert(this.usuario);
+				} else {
+					this.usuario = this.usuarioDAO.save(this.usuario);
 				}
 			}
 
-			if (this.usuario.getId() == null) {
-				this.usuario = this.usuarioDAO.insert(this.usuario);
-			} else {
-				this.usuario = this.usuarioDAO.save(this.usuario);
+			/**
+			 * USUÁRIOS NÃO OFERTANTES NÃO POSSUEM FiltroOferta - Para evitar poluir a
+			 * classe Usuario onde somente o tipo Ofertante teria esse atributo foi
+			 * realizada a lógica no controller
+			 */
+			if (this.usuario.getTipoUsuario().getNome().equalsIgnoreCase("Ofertante") && this.usuario.getId() != null) {
+				this.filtroOferta.setOfertante(this.usuario);
+
+				if (this.filtroOferta.getId() == null) {
+					this.filtroOferta = this.filtroOfertaDAO.insert(this.filtroOferta);
+
+				} else {
+					this.filtroOferta = this.filtroOfertaDAO.save(this.filtroOferta);
+				}
+
 			}
+
+			this.loginController.setUsuario(this.usuario);
+
+			this.recarregar();
 		}
-
-		/**
-		 * USUÁRIOS NÃO OFERTANTES NÃO POSSUEM FiltroOferta - Para evitar sujar a classe
-		 * Usuario onde somente o tipo Ofertante teria esse atributo foi realizada a
-		 * lógica no controller
-		 */
-		if (this.usuario.getTipoUsuario().getNome().equalsIgnoreCase("Ofertante") && this.usuario.getId() != null) {
-			this.filtroOferta.setOfertante(this.usuario);
-			this.filtroOferta = this.filtroOfertaDAO.insert(this.filtroOferta);
-		}
-
-		this.loginController.setUsuario(this.usuario);
-
-		this.recarregar();
 
 	}
 
@@ -432,6 +475,14 @@ public class CadastroAcessoController implements Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public String getConfSenha() {
+		return confSenha;
+	}
+
+	public void setConfSenha(String confSenha) {
+		this.confSenha = confSenha;
 	}
 
 	public String getInfoContato() {

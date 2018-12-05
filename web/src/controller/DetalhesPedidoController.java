@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,9 +67,7 @@ public class DetalhesPedidoController implements Serializable {
 	}
 
 	public void responderPedido() {
-		// this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(2L));
-		// this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
-
+		this.mensagemAviso = "";
 		if (this.pedidoSelecionado != null && this.pedidoSelecionado.getId() != null
 				&& this.pedidoSelecionado.getStatusPedido() != null
 				&& this.pedidoSelecionado.getStatusPedido().getNome().equals("Aguardando")
@@ -78,6 +78,9 @@ public class DetalhesPedidoController implements Serializable {
 			this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 
 			this.mensagemAviso = "";
+			System.out.println("DetalhesPedidoController.mensagemAviso");
+			System.out.println(this.mensagemAviso);
+			
 		} else {
 			this.mensagemAviso = "Favor preencha todos os dados. Obrigado.";
 		}
@@ -88,10 +91,10 @@ public class DetalhesPedidoController implements Serializable {
 		this.mensagemAviso = "";
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(3L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
-		
+
 		List<Pedido> pedidosOrcamento = this.pedidoDAO.consultarPedidosOrcamento(this.pedidoSelecionado.getOrcamento());
 		for (Pedido p : pedidosOrcamento) {
-			if(p.getId() != this.pedidoSelecionado.getId()) {
+			if (p.getId() != this.pedidoSelecionado.getId()) {
 				p.setStatusPedido(this.statusPedidoDAO.findById(4L));
 			}
 		}
@@ -99,18 +102,24 @@ public class DetalhesPedidoController implements Serializable {
 
 	public void descartarPedido() {
 		this.mensagemAviso = "";
+		Calendar fechamento = new GregorianCalendar();
+		this.pedidoSelecionado.setDtFechamento(fechamento);
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(4L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void cancelarPedido() {
 		this.mensagemAviso = "";
+		Calendar fechamento = new GregorianCalendar();
+		this.pedidoSelecionado.setDtFechamento(fechamento);
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(5L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
 
 	public void concluirPedido() {
 		this.mensagemAviso = "";
+		Calendar fechamento = new GregorianCalendar();
+		this.pedidoSelecionado.setDtFechamento(fechamento);
 		this.pedidoSelecionado.setStatusPedido(this.statusPedidoDAO.findById(6L));
 		this.pedidoSelecionado = this.pedidoDAO.save(this.pedidoSelecionado);
 	}
@@ -135,8 +144,6 @@ public class DetalhesPedidoController implements Serializable {
 
 	public String whoAreYou() {
 
-		
-		
 		return null;
 	}
 

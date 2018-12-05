@@ -57,7 +57,7 @@ public class NovoOrcamentoController implements Serializable {
 	private NichoDAO nichoDAO = new NichoDAO();
 	private List<Nicho> nichos = new LinkedList<>();
 
-	private String aviso = null;
+	private String aviso = "";
 
 	@Inject
 	public NovoOrcamentoController(LoginController loginController) {
@@ -110,6 +110,7 @@ public class NovoOrcamentoController implements Serializable {
 	}
 
 	public void defineNichoOrcamento() {
+//		this.consultaExistenciaOfertantesNicho();
 		this.orcamento.setNicho(this.nichoDAO.findById(this.idNichoVigenteSelecionado));
 	}
 
@@ -117,23 +118,62 @@ public class NovoOrcamentoController implements Serializable {
 		this.orcamento.setTipoOferta(this.tipoOfertaDAO.findById(this.idTipoOfertaOrcamento));
 	}
 
-	public String adicionaOrcamento() {
-		this.aviso = null;
-		
-		FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+//	public void consultaExistenciaOfertantesNicho() {
+//		if (this.orcamento != null && this.orcamento.getNicho() != null) {
+//			FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+//			List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
+//					this.loginController.getUsuario());
+//
+//			if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+//				this.aviso = null;
+//			} else {
+//				this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a seleção atual.";
+//			}
+//		}
+//	}
 
-		List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
-				this.loginController.getUsuario());
+	private Boolean formularioValido() {
 
-		if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+		if (this.orcamento != null && this.orcamento.getNicho() != null && this.orcamento.getTipoOferta() != null
+				&& this.orcamento.getTitulo() != null && this.orcamento.getTitulo().length() > 3
+				&& this.orcamento.getEndereco() != null && this.orcamento.getEndereco().getCep() != null
+				&& this.orcamento.getEndereco().getCep().length() >= 8 && this.orcamento.getEndereco().getPais() != null
+				&& this.orcamento.getEndereco().getPais().length() > 1
+				&& this.orcamento.getEndereco().getEstado() != null
+				&& this.orcamento.getEndereco().getEstado().length() > 1
+				&& this.orcamento.getEndereco().getMunicipio() != null
+				&& this.orcamento.getEndereco().getMunicipio().length() > 1
+				&& this.orcamento.getEndereco().getNumero() != null) {
+			this.aviso = "";
+			return true;
 
-			this.orcamento = this.orcamentoDAO.insert(this.orcamento);
-			this.enviaPedidos(this.orcamento, listaOfertantesNicho);
+		} else {
+			this.aviso = "Favor preencha todos os campos. Obrigado.";
+			return false;
 
-			return this.loginController.perfilDemandante();
 		}
 
-		this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a seleção atual.";
+	}
+
+	public String adicionaOrcamento() {
+
+		if (formularioValido()) {
+
+			FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+
+			List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
+					this.loginController.getUsuario());
+
+			if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+
+				this.orcamento = this.orcamentoDAO.insert(this.orcamento);
+				this.enviaPedidos(this.orcamento, listaOfertantesNicho);
+
+				return this.loginController.perfilDemandante();
+			}
+
+			this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a seleção atual.";
+		}
 		return "";
 	}
 
