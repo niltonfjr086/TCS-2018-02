@@ -309,9 +309,6 @@ public class CadastroAcessoController implements Serializable {
 				&& this.usuario.getSenha() != null && this.usuario.getSenha().length() > 3 && this.confSenha != null
 				&& this.confSenha.equals(this.usuario.getSenha())
 
-				&& this.filtroOferta != null && this.filtroOferta.getNicho() != null
-				&& this.filtroOferta.getTipo() != null
-
 				&& this.usuario.getPessoa().getEndereco().getCep() != null
 				&& this.usuario.getPessoa().getEndereco().getCep().length() >= 8
 				&& this.usuario.getPessoa().getEndereco().getPais() != null
@@ -324,10 +321,33 @@ public class CadastroAcessoController implements Serializable {
 
 		) {
 
+			Usuario usuarioResgatado = null;
+			if (this.usuario != null && this.usuario.getId() != null) {
+				usuarioResgatado = this.usuarioDAO.findById(this.usuario.getId());
+			}
+
+			if (usuarioResgatado != null) {
+				if (!usuarioResgatado.getSenha().equals(this.usuario.getSenha())) {
+					this.mensagemAviso = "Favor confirme sua senha.";
+					return false;
+				}
+			}
+
+			if (this.ofertante) {
+				if (this.filtroOferta == null || this.filtroOferta.getNicho() == null
+						|| this.filtroOferta.getTipo() == null) {
+
+					this.mensagemAviso = "Com a opção de Prestador você precisa preencher as 3 informações de filtro. Obrigado.";
+					return false;
+				}
+			}
+			
 			this.mensagemAviso = "";
 			return true;
 
-		} else {
+		} else
+
+		{
 			this.mensagemAviso = "Favor preencha todos os campos. Obrigado.";
 			return false;
 
