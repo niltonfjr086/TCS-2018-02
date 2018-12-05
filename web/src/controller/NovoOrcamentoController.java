@@ -110,7 +110,7 @@ public class NovoOrcamentoController implements Serializable {
 	}
 
 	public void defineNichoOrcamento() {
-//		this.consultaExistenciaOfertantesNicho();
+		// this.consultaExistenciaOfertantesNicho();
 		this.orcamento.setNicho(this.nichoDAO.findById(this.idNichoVigenteSelecionado));
 	}
 
@@ -118,19 +118,21 @@ public class NovoOrcamentoController implements Serializable {
 		this.orcamento.setTipoOferta(this.tipoOfertaDAO.findById(this.idTipoOfertaOrcamento));
 	}
 
-//	public void consultaExistenciaOfertantesNicho() {
-//		if (this.orcamento != null && this.orcamento.getNicho() != null) {
-//			FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
-//			List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
-//					this.loginController.getUsuario());
-//
-//			if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
-//				this.aviso = null;
-//			} else {
-//				this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a seleção atual.";
-//			}
-//		}
-//	}
+	// public void consultaExistenciaOfertantesNicho() {
+	// if (this.orcamento != null && this.orcamento.getNicho() != null) {
+	// FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
+	// List<Usuario> listaOfertantesNicho =
+	// filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
+	// this.loginController.getUsuario());
+	//
+	// if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
+	// this.aviso = null;
+	// } else {
+	// this.aviso = "Favor escolha outro nicho. Ainda sem fornecedores para a
+	// seleção atual.";
+	// }
+	// }
+	// }
 
 	private Boolean formularioValido() {
 
@@ -162,7 +164,7 @@ public class NovoOrcamentoController implements Serializable {
 			FiltroOfertaDAO filtroOfertaDAO = new FiltroOfertaDAO();
 
 			List<Usuario> listaOfertantesNicho = filtroOfertaDAO.consultarOfertantesNicho(this.orcamento.getNicho(),
-					this.loginController.getUsuario());
+					this.orcamento.getTipoOferta(), this.loginController.getUsuario());
 
 			if (listaOfertantesNicho != null && listaOfertantesNicho.size() > 0) {
 

@@ -7,23 +7,27 @@ import java.util.Map;
 
 import model.entity.FiltroOferta;
 import model.entity.Nicho;
+import model.entity.TipoOferta;
 import model.entity.Usuario;
 
 public class FiltroOfertaDAO extends GenericDAO<FiltroOferta, Long> {
 
-	public List<Usuario> consultarOfertantesNicho(Nicho nicho, Usuario logado) {
+	public List<Usuario> consultarOfertantesNicho(Nicho nicho, TipoOferta tipoOferta, Usuario logado) {
 
 		Map<String, String> params = new HashMap<>();
 
 		Long nichoId = nicho.getId();
+		Long tipoOfertaId = tipoOferta.getId();
 		Long usuarioLogadoId = logado.getId();
 
 		params.put("nicho", nichoId != null ? String.valueOf(nichoId) : "0L");
+		params.put("tipo", nichoId != null ? String.valueOf(tipoOfertaId) : "0L");
 		params.put("ofertante NOT", usuarioLogadoId != null ? String.valueOf(usuarioLogadoId) : "0L");
 
 		List<Usuario> ofertantes = new LinkedList<>();
 
-		if (!params.get("nicho").equals("0L") && !params.get("ofertante NOT").equals("0L")) {
+		if (!params.get("nicho").equals("0L") && !params.get("tipo").equals("0L")
+				&& !params.get("ofertante NOT").equals("0L")) {
 
 			List<FiltroOferta> consulta = this.executeQuery(params);
 
