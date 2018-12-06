@@ -307,7 +307,6 @@ public class CadastroAcessoController implements Serializable {
 
 		if (this.usuario != null && this.usuario.getLogin() != null && this.usuario.getLogin().length() > 3
 				&& this.usuario.getSenha() != null && this.usuario.getSenha().length() > 3 && this.confSenha != null
-				&& this.confSenha.equals(this.usuario.getSenha())
 
 				&& this.usuario.getPessoa().getEndereco().getCep() != null
 				&& this.usuario.getPessoa().getEndereco().getCep().length() >= 8
@@ -331,6 +330,11 @@ public class CadastroAcessoController implements Serializable {
 					this.mensagemAviso = "Favor confirme sua senha.";
 					return false;
 				}
+			} else {
+				if (!this.usuario.getSenha().equals(this.confSenha)) {
+					this.mensagemAviso = "Favor confirme sua senha.";
+					return false;
+				}
 			}
 
 			if (this.ofertante) {
@@ -341,7 +345,7 @@ public class CadastroAcessoController implements Serializable {
 					return false;
 				}
 			}
-			
+
 			this.mensagemAviso = "";
 			return true;
 
